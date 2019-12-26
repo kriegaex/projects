@@ -1,0 +1,132 @@
+Senior Python Developer
+location:   Bermondsey, London, England
+company:   ECS Digital
+Description:   Python Developer ECS is looking for experienced Python developers to join a project which will deliver telephony based on Amazon’s Connect platform. We are building the next generation of contact centre based on AWS...
+Read More >>> http://pythonjobs.github.io//jobs/ecs_python_developer_london.html
+
+Senior DevOps Engineer
+location:   Bermondsey, London, England
+company:   ECS Digital
+Description:   Senior DevOps Consultant ECS Digital is looking for a senior DevOps Engineer to join our fast growing team. As we look to continually expand, we are looking for additional senior members that have the capability to...
+Read More >>> http://pythonjobs.github.io//jobs/ecs_senior_devops_consultant_london.html
+
+Python engineer and data scientist at edtech startup
+location:   London, UK (Piccadilly Circus)
+company:   Edtech startup
+Description:   Overview Job type: Full-time Role: Python data scientist Experience-level: Mid-level Industry: Enterprise learning and development Compensation: £40-50K per annum plus equity We are an early-stage startup with highly...
+Read More >>> http://pythonjobs.github.io//jobs/Edtech_Python_data_scientist.html
+
+Telephony developer
+location:   Remote
+company:   Speak Clearly, LLC
+Description:   Description 100% remote opportunity to help develop, monitor, measure, and maintain a Twilio telephony and web application front end using Python, Microsoft Windows SAPI5 speech recognition, WebRTC microphone audio...
+Read More >>> http://pythonjobs.github.io//jobs/speak-clearly-llc-python-telephony-developer.html
+
+Full-stack developer for alternative data startup
+location:   London/England
+company:   Neudata
+Description:   The company We are Neudata, a small but established start-up working in the alternative data space. We help our clients (generally sophisticated investment managers) to find new data sources that can provide unique,...
+Read More >>> http://pythonjobs.github.io//jobs/neudata-full-stack-developer-for-alternative-data-startup.html
+
+Python / Django Engineer
+location:   Sydney, Australia
+company:   Octopus Energy
+Description:   We are a tech-focused energy supplier and we’re looking for diligent software engineers to join us. There’s a great opportunity for disruption in the energy market at the moment. The big suppliers still dominate, but...
+Read More >>> http://pythonjobs.github.io//jobs/octopus-energy-python-django-engineer.html
+
+Junior Python Developer
+location:   London, United Kingdom
+company:   Lambert Labs
+Description:   Python-focused development agency Lambert Labs is looking for an enthusiastic Junior Python Developer for an initial 6-month contract, starting ASAP. There is a strong chance that the contract will become a full...
+Read More >>> http://pythonjobs.github.io//jobs/lambert-labs-junior-python-developer.html
+
+Python Software Engineer (Clean Energy Job) (Remote OK)
+location:   Oakland, CA, United States
+company:   UtilityAPI
+Description:   Company Description UtilityAPI is a mission-driven company that is fighting climate change by helping solar, storage, energy efficiency, and energy management companies access the utility bill and usage data they...
+Read More >>> http://pythonjobs.github.io//jobs/utilityapi_software_engineer.html
+
+Python / Flask engineer
+location:   London, UK
+company:   Valsys
+Description:   ABOUT We’re Valsys: a machine learning platform for company valuation. For too long, spreadsheets have been the weapon of choice in financial modelling - manual data entry, human error, bad stats and hidden biases...
+Read More >>> http://pythonjobs.github.io//jobs/valsys-python-flask-developer.html
+
+Python Developer
+location:   London, England
+company:   OANDA
+Description:   Job Description We are looking for a Python developer with excellent knowledge of CSS and the Heroku platform to join our Acquisitions team and work across a variety of digital projects, the largest and most exciting...
+Read More >>> http://pythonjobs.github.io//jobs/oanda-python-developer.html
+
+Senior Python/Django Backend Engineer
+location:   Anywhere
+company:   Ro
+Description:   Senior Python/Django Backend Engineer Things you’ll do as a Backend Engineer Leading the design and development of backend features and components Collaborating with other engineers in API design and development...
+Read More >>> http://pythonjobs.github.io//jobs/ro-senior-pythondjango-backend-engineer.html
+
+Python and Django mid-to-senior software developer at a fintech company
+location:   London, UK
+company:   Eligible
+Description:   Hello, I’m Pablo, CTO at Eligible and we are looking to hire developers. We are currently focusing on a Python and Django backend developer as that’s what we need the most right now. We are currently building the...
+Read More >>> http://pythonjobs.github.io//jobs/eligible-python-and-django-mid-to-senior-software-developer-at-a-fintech-company.html
+
+Strats Python Developer
+location:   London, UK
+company:   HBK Europe Management LLP
+Description:   Overview HBK is looking to add a software developer to join our Front Office-facing team. Our developers are organized into small teams with independent prioritization and release schedules. A very flat...
+Read More >>> http://pythonjobs.github.io//jobs/hbk-strats-developer.html
+
+Junior Django Developer wanted for Software Startup
+location:   Vauxhall, London, SW8 2LX
+company:   TutorCruncher
+Description:   TutorCruncher’s looking for a new full time developer to join our small team in London. Who we are TutorCruncher is a SaaS Startup which has quickly become the market leader in its niche. We offer specialised...
+Read More >>> http://pythonjobs.github.io//jobs/TutorCruncher-python-django-dev.html
+
+Backend Developer
+location:   London, UK
+company:   Unmortgage
+Description:   At Unmortgage we want to enable everyone to live in the home they want. We are opening up home ownership by co-investing with people who haven’t been able to buy yet. Over the next 18 months we will help 2,000...
+Read More >>> http://pythonjobs.github.io//jobs/umortgage_backend_developer_20181115.html
+
+Data Engineer
+location:   London, UK
+company:   Unmortgage
+Description:   At Unmortgage we enable everyone to live in the home they want. We are opening up home ownership by co-investing with people who haven’t been able to buy yet. Over the next 18 months we will help 2,000 customers find...
+Read More >>> http://pythonjobs.github.io//jobs/umortgage_data_engineer_20181115.html
+
+Senior Software Developer
+location:   Storrs, Connecticut, USA
+company:   University of Connecticut
+Description:   Overview Student Affairs Information Technology is seeking an experienced Software Developer (Senior Computer Programmer/Analyst, UCP 9). This is an opportunity to build new business software products for UConn...
+Read More >>> http://pythonjobs.github.io//jobs/university-of-connecticut-senior-software-developer-2018.html
+
+Python Developer
+location:   Hyderabad, India
+company:   Tau Films
+Description:   Overview We’re looking for a well-rounded, experienced Python developer to join our engineering team that is responsible for building and connecting CG production subsystems. Your responsibilities include planning,...
+Read More >>> http://pythonjobs.github.io//jobs/tau-films-python-developer.html
+
+Data Engineer
+location:   Islington, London, United Kingdom
+company:   Tracr
+Description:   Tracr is a rapidly growing Blockchain company supported by De Beers (one of the world’s largest diamond producers). As part of our expansion we are seeking world class individuals to join our expanding team and be...
+Read More >>> http://pythonjobs.github.io//jobs/tracr_data_engineer.html
+
+Senior Python & Go Developer
+location:   London, Canary Wharf
+company:   MachineMax
+Description:   MachineMax - Senior Python & Go Developer Are you an experienced engineer, fluent in Python with an interest in learning Go. Are you looking for the opportunity to work in a small and growing start-up? MachineMax is...
+Read More >>> http://pythonjobs.github.io//jobs/machinemax_london_python_go.html
+
+Backend Engineer - Python - Austin
+location:   Austin, TX - Downtown (9th and Lavaca)
+company:   Shipwell
+Description:   Backend Engineer - Full time – Austin, TX About Shipwell The mission of Shipwell is to build a connected freight platform that is the backbone of how shippers and freight movers connect, communicate, transact, track...
+Read More >>> http://pythonjobs.github.io//jobs/shipwell_backend_engineer.html
+
+Python developer for part time candidate screening
+location:   remote
+company:   Peerspective
+Description:   Python developers We’re currently building a platform like hired.com except developers get tested by senior developers before being put in front of companies. We are looking for Python developers to help test this...
+Read More >>> http://pythonjobs.github.io//jobs/peerspective-python-developer-for-part-time-candidate-screening.html
+

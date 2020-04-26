@@ -3,17 +3,21 @@ package gui.panel;
  * Main panel, contains the toolbar and nothing else
  */
 
+import gui.listener.ToolBarListener;
+import gui.util.CentralPanel;
 import gui.util.GUIUtil;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MainPanel extends JPanel {
-    static {
-        GUIUtil.setSkin();
-    }
 
-    public static MainPanel instance = new MainPanel();
+    // The currently displaying panel
+    private CentralPanel displayPanel = null;
+
+    private static MainPanel instance = new MainPanel();
+    public static MainPanel getInstance() { return instance; }
+
     public JToolBar topBar = new JToolBar();
     public JButton bSpend = new JButton();
     public JButton bRecord = new JButton();
@@ -29,7 +33,7 @@ public class MainPanel extends JPanel {
         GUIUtil.setImageIcon(bRecord, "img/record.png", "RECORD");
         GUIUtil.setImageIcon(bCategory, "img/category2.png", "CATEGORY");
         GUIUtil.setImageIcon(bReport, "img/report.png", "MONTH REPORT");
-        GUIUtil.setImageIcon(bConfig, "img/config.png", "CONGIG");
+        GUIUtil.setImageIcon(bConfig, "img/config.png", "CONFIG");
         GUIUtil.setImageIcon(bBackup, "img/backup.png", "BACKUP");
         GUIUtil.setImageIcon(bRecover, "img/restore.png", "RESTORE");
 
@@ -42,11 +46,24 @@ public class MainPanel extends JPanel {
         topBar.add(bRecover);
         topBar.setFloatable(false); // true for the user to move the tool bar.
 
+        displayPanel = new CentralPanel(0.8);
         setLayout(new BorderLayout());
         add(topBar, BorderLayout.NORTH);
+        add(displayPanel, BorderLayout.CENTER);
+        addListener();
     }
 
-    public static void main(String[] args) {
-        GUIUtil.showPanel(MainPanel.instance, 1);
+    private void addListener(){
+        ToolBarListener listener = new ToolBarListener();
+
+        bSpend.addActionListener(listener);
+        bRecord.addActionListener(listener);
+        bCategory.addActionListener(listener);
+        bReport.addActionListener(listener);
+        bConfig.addActionListener(listener);
+        bBackup.addActionListener(listener);
+        bRecover.addActionListener(listener);
     }
+
+    public CentralPanel getPanel(){ return displayPanel; }
 }

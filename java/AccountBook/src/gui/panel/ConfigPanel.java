@@ -1,4 +1,7 @@
-package gui.util;
+package gui.panel;
+
+import gui.util.ColourUtil;
+import gui.util.GUIUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +11,8 @@ public class ConfigPanel extends JPanel{
         GUIUtil.setSkin();
     }
 
-    public static ConfigPanel instance = new ConfigPanel();
+    private static ConfigPanel instance = new ConfigPanel();
+    public static ConfigPanel getInstance() { return instance; }
 
     JLabel lBudget = new JLabel("BUDGET of this MONTH ($)");
     public JTextField tfBudget = new JTextField("0");

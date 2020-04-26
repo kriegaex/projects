@@ -98,11 +98,11 @@ public class GUIUtil {
         setSkin();
         JFrame frame = new JFrame();
         frame.setSize(500, 500);
-        CentralPanel cp = new CentralPanel(panel, streching);
+        CentralPanel cp = new CentralPanel(streching);
         frame.setContentPane(cp);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        cp.dispaly();
+        cp.display(panel);
     }
 
     public static void showPanel(JPanel p) {

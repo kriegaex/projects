@@ -3,21 +3,23 @@ package gui.util;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Centering the JComponent
+ */
 public class CentralPanel extends JPanel {
-    private double rate; // rate is the (component size / container size)
+    private double rate;       // rate is the (component size / container size)
     private JComponent component;
     private boolean streaching;
 
-    public CentralPanel(JComponent component, double rate, boolean streaching){
+    public CentralPanel(double rate, boolean streaching){
         this.setLayout(null);  //null layout means absolute positioning - you have to do all the work in your code.
-        this.component = component;
         this.rate = rate;
         this.streaching = streaching;
     }
 
-    public CentralPanel(JComponent component, double rate){
+    public CentralPanel(double rate){
         // streaching is set to true as default
-        this(component, rate, true);
+        this(rate, true);
     }
 
     public void repaint(){
@@ -37,13 +39,13 @@ public class CentralPanel extends JPanel {
         super.repaint();
     }
 
-    public void dispaly(){
+    public void display(JComponent component){
+        this.component = component;
         Component[] components = getComponents();
         for(Component c : components){
             this.remove(c);
         }
         this.add(component);
-
         this.updateUI();
     }
 
@@ -52,12 +54,12 @@ public class CentralPanel extends JPanel {
 
         JFrame frame = new JFrame();
         frame.setSize(500, 500);
-        CentralPanel c = new CentralPanel(testButton, 0.5);
+        CentralPanel c = new CentralPanel(0.5);
         frame.setLocationRelativeTo(null);
-//        frame.add(c);  has the same functionality here as setContentPane()
+        //frame.add(c);  // has the same functionality here as setContentPane()
         frame.setContentPane(c);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        c.dispaly();
+        c.display(testButton);
     }
 }

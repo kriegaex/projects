@@ -5,14 +5,16 @@ import gui.panel.MainPanel;
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    public static MainFrame instance = new MainFrame();
+    private static MainFrame instance = new MainFrame();
 
-    private MainFrame(){
-        this.setSize(500,450);
+    public static MainFrame getInstance() { return instance; }
+
+    public MainFrame(){
+        this.setSize(500,600);
         this.setTitle("Account Book");
-        this.setContentPane(MainPanel.instance);
+        this.setContentPane(MainPanel.getInstance());
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

@@ -11,22 +11,20 @@ public class AnalysisPanel extends JPanel {
         GUIUtil.setSkin();
     }
 
-    public static AnalysisPanel instance = new AnalysisPanel();
+    private static AnalysisPanel instance = new AnalysisPanel();
+    public static AnalysisPanel getInstance() { return instance; }
 
-    public JLabel l = new JLabel();
+    public JLabel label = new JLabel();
 
     public AnalysisPanel() {
         this.setLayout(new BorderLayout());
         ChartUtil chart = new ChartUtil("AnalysisPanel");
-        Image i = chart.getImage();
-        ImageIcon icon= new ImageIcon(i);
-        l.setIcon(icon);
-        this.add(l);
+        Image i = chart.getImage(400, 400);
+        ImageIcon icon = new ImageIcon(i);
+        label.setIcon(icon);
+        this.add(label);
     }
 
-    public static void main(String[] args) {
-        GUIUtil.showPanel(AnalysisPanel.instance);
-    }
 
 }
 

@@ -3,23 +3,23 @@ package bean;
 import java.util.Date;
 
 public class Record {
-    public int spend;
-    public int id;
-    public int cid;
-    public String comment;
-    public Date date;
+    private int id;
+    private int spend;
+    private int categoryID;
+    private Date date;
+    private String comment;
 
-    public int getId() {
+    public int getID() {
         return id;
     }
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
-    public int getCid() {
-        return cid;
+    public int getCategoryID() {
+        return categoryID;
     }
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
     public String getComment() {
         return comment;

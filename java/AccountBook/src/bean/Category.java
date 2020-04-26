@@ -4,10 +4,10 @@ package bean;
  * Correspond to table Category
  */
 public class Category {
-    public int id;
-    public String name;
+    private int id;
+    private String name;
 
-    public int recordNumber;
+    private int recordNumber;
 
     /**
      * RecordNumber can be obtained by the number of record, so it does not need to be
@@ -21,10 +21,10 @@ public class Category {
     public void setRecordNumber(int recordNumber) {
         this.recordNumber = recordNumber;
     }
-    public int getId() {
+    public int getID() {
         return id;
     }
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
     public String getName() {

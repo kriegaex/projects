@@ -53,8 +53,8 @@ public class ChartUtil {
         return result;
     }
 
-    public Image getImage(){
-        Image image = lineChart.createBufferedImage(400, 300);
+    public Image getImage(int wid, int hei){
+        Image image = lineChart.createBufferedImage(wid, hei);
         return image;
     }
 
@@ -62,7 +62,7 @@ public class ChartUtil {
         JPanel p = new JPanel();
         JLabel l = new JLabel();
         ChartUtil chart = new ChartUtil("TEST");
-        Image img = chart.getImage();
+        Image img = chart.getImage(300, 300);
         Icon icon = new ImageIcon(img);
         l.setIcon(icon);
         p.add(l);

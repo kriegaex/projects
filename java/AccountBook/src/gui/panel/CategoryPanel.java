@@ -15,7 +15,7 @@ public class CategoryPanel extends JPanel{
 
     private static CategoryPanel panel = new CategoryPanel();
 
-    private static CategoryPanel getInstance() { return panel; }
+    public static CategoryPanel getInstance() { return panel; }
 
     private CategoryTableModel model = new CategoryTableModel(
             new ArrayList<>(Arrays.asList("FOOD&DINING", "RENT includes BILLS", "CLOTHING",
@@ -41,8 +41,5 @@ public class CategoryPanel extends JPanel{
         c.gridx = 2;
         buttonPanel.add(bDelete, c);
         this.add(buttonPanel, BorderLayout.SOUTH);
-    }
-    public static void main(String[] args) {
-        GUIUtil.showPanel(CategoryPanel.getInstance());
     }
 }

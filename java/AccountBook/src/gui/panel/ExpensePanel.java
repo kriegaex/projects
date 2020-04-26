@@ -58,7 +58,7 @@ public class ExpensePanel extends JPanel {
 
     public static ExpensePanel getInstance(){ return panel; }
 
-    public static ExpensePanel instance = new ExpensePanel();
+    private static ExpensePanel instance = new ExpensePanel();
 
     CircleProgressBar bar;
 

@@ -1,7 +1,6 @@
 package startup;
 
 import gui.MainFrame;
-import gui.panel.AnalysisPanel;
 import gui.panel.ExpensePanel;
 import gui.panel.MainPanel;
 import gui.util.GUIUtil;

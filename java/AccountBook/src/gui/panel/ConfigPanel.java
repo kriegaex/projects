@@ -1,5 +1,7 @@
 package gui.panel;
 
+import gui.listener.Config.ConfigBrowseListener;
+import gui.listener.Config.ConfigSubmitListener;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
 
@@ -14,19 +16,23 @@ public class ConfigPanel extends JPanel{
     private static ConfigPanel instance = new ConfigPanel();
     public static ConfigPanel getInstance() { return instance; }
 
-    JLabel lBudget = new JLabel("BUDGET of this MONTH ($)");
-    public JTextField tfBudget = new JTextField("0");
+    private JLabel lBudget = new JLabel("BUDGET of this MONTH ($)");
+    private JTextField tfBudget = new JTextField("0");
+    public JTextField getBudget(){ return tfBudget; }
 
-    JLabel lMysql = new JLabel("DIRECTORY of INSTALLATION");
-    public JTextField tfMysqlPath = new JTextField("");
-    JButton bBrowse = new JButton("BROWSE");
+    private JLabel lMysql = new JLabel("DIRECTORY of INSTALLATION");
+    private JTextField tfMysqlPath = new JTextField("");
+    public JTextField getPath() {return tfMysqlPath; }
+    public void setPath(String path){ tfMysqlPath.setText(path); }
 
-    JButton bSubmit = new JButton("SUBMIT");
+    private JButton bBrowse = new JButton("BROWSE");
+
+    private JButton bSubmit = new JButton("SUBMIT");
 
     public ConfigPanel() {
         GUIUtil.setColour(ColourUtil.grayColor, lBudget,lMysql);
         GUIUtil.setColour(ColourUtil.blueColor, bSubmit);
-
+        addListener();
         JPanel pInput = new JPanel(new GridBagLayout());
         JPanel pSubmit = new JPanel();
         GridBagConstraints c = new GridBagConstraints();
@@ -56,6 +62,10 @@ public class ConfigPanel extends JPanel{
         this.add(pSubmit,BorderLayout.SOUTH);
     }
 
+    private void addListener(){
+        bBrowse.addActionListener(new ConfigBrowseListener());
+        bSubmit.addActionListener(new ConfigSubmitListener());
+    }
     public static void main(String[] args) {
         GUIUtil.showPanel(ConfigPanel.instance);
     }

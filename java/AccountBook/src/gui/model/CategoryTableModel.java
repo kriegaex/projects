@@ -1,22 +1,27 @@
 package gui.model;
 
+import bean.Category;
+import gui.listener.Category.CategoryService;
+
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
-import java.util.ArrayList;
+import java.util.List;
 
 public class CategoryTableModel implements TableModel {
-    String[] columnNames = new String[] {"CATEGORIES", "TIMES"};
-    ArrayList<String> categories = new ArrayList<>();
+    private String[] columnNames = new String[] {"CATEGORIES", "TIMES"};
+    private List<Category> categoryList = new CategoryService().list();
 
-    public CategoryTableModel(ArrayList<String> categories){
-        for (String category : categories){
-            this.categories.add(category);
-        }
+    public List<Category> getList(){
+        return categoryList;
+    }
+
+    public void setList(List<Category> newList){
+        categoryList = newList;
     }
 
     @Override
     public int getRowCount() {
-        return categories.size();
+        return categoryList.size();
     }
 
     @Override
@@ -42,18 +47,16 @@ public class CategoryTableModel implements TableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (columnIndex == 0){
-            return categories.get(rowIndex);
+            return categoryList.get(rowIndex).getName();
         }
-        if (columnIndex == 1){
-         // TODO: RETURN count of expense
-         return 0;
+        else if (columnIndex == 1){
+            return categoryList.get(rowIndex).getRecordNumber();
         }
         return null;
     }
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//        this.categories.set(rowIndex, (String)aValue);
     }
 
     @Override

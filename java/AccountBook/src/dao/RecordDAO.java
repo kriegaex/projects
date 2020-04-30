@@ -181,6 +181,28 @@ public class RecordDAO {
         return  records;
     }
 
+    public List<Record> list(int cid){
+        List<Record> records = new ArrayList<>();
+        String sql = "select * from record where cid = ?";
+        try(Connection connection = DBUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, cid);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Record record = new Record();
+                record.setID(rs.getInt(1));
+                record.setSpend(rs.getInt(2));
+                record.setCategoryID(rs.getInt(3));
+                record.setDate(rs.getDate(4));
+                record.setComment(rs.getString(5));
+                records.add(record);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return records;
+    }
+
     /**
      * List all the records happen in this month
      * @return

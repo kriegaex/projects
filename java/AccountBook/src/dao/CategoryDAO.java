@@ -24,7 +24,7 @@ public class CategoryDAO {
     }
 
     public void add(Category category){
-        String sql = "insert into categiry values(null, ?)";
+        String sql = "insert into category values(null, ?)";
         try(Connection connection = DBUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, category.getName());
@@ -51,10 +51,10 @@ public class CategoryDAO {
         }
     }
 
-    public void delete(Category category) {
+    public void delete(int id) {
         try (Connection connection = DBUtil.getConnection();
              Statement statement = connection.createStatement()) {
-            String sql = "delete from category where id = " + category.getID();
+            String sql = "delete from category where id = " + id;
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,5 +110,5 @@ public class CategoryDAO {
         }
         return categories;
     }
-
 }
+

@@ -110,5 +110,24 @@ public class CategoryDAO {
         }
         return categories;
     }
+
+    public Category getByName(String name){
+        String sql = "select * from category where name = ? ";
+        try (Connection connection = DBUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            ResultSet rs = statement.executeQuery();
+            if(rs.next()){
+                Category category = new Category();
+                category.setID(rs.getInt(1));
+                category.setName(rs.getString(2));
+                return category;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
 

@@ -1,5 +1,7 @@
 package gui.panel;
 
+import gui.listener.Category.CategoryService;
+import gui.listener.record.RecordListener;
 import gui.model.RecordComboBoxModel;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
@@ -9,8 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
-public class RecordPanel extends JPanel {
+public class RecordPanel extends WorkingPanel {
     static{
         GUIUtil.setSkin();
     }
@@ -20,14 +23,16 @@ public class RecordPanel extends JPanel {
     public static RecordPanel getInstance() { return panel; }
 
     // The code below describes the jcomponents on the upper panel
-    private JLabel lExpense = new JLabel("EXPENSE");
+    private JLabel lExpense = new JLabel("EXPENSE($)");
     private JTextField tExpense = new JTextField();
+    public JTextField getExpense() { return tExpense; }
 
     private JLabel lCategory = new JLabel("CATEGORY");
-    private RecordComboBoxModel catergoryModel =
-            new RecordComboBoxModel(new ArrayList<> (Arrays.asList("FOOD&DINING", "RENT includes BILLS", "CLOTHING",
-                    "HEALTH&INSURANCE", "AUTO&TRANSPORT", "EDUCATION", "OTHERS")));
-    private JComboBox<String> boxes = new JComboBox<>(catergoryModel);
+//    private RecordComboBoxModel catergoryModel =
+//            new RecordComboBoxModel(new ArrayList<> (Arrays.asList("FOOD&DINING", "RENT includes BILLS", "CLOTHING",
+//                    "HEALTH&INSURANCE", "AUTO&TRANSPORT", "EDUCATION", "OTHERS")));
+    private RecordComboBoxModel catergoryModel = new RecordComboBoxModel();
+    private JComboBox<String> categoryBoxes = new JComboBox<>(catergoryModel);
 
     private JLabel lPayment = new JLabel("PAYMENT");
     private RecordComboBoxModel paymentModel =
@@ -37,18 +42,25 @@ public class RecordPanel extends JPanel {
     private JLabel lDescription = new JLabel("DESCRIPTION");
     private JTextArea description = new JTextArea();
     private JScrollPane des = new JScrollPane(description);
+    public JTextArea getDescription() { return description; }
 
     private JLabel lDate = new JLabel("DATE");
     private JXDatePicker date = new JXDatePicker();
+    public JXDatePicker getDate() { return date; }
 
+    private JButton bSubmit = new JButton("SUBMIT");
 
     public RecordPanel(){
+        if (new CategoryService().list().size() == 0){
+            JOptionPane.showMessageDialog(null, "NO category is recorded, set category first");
+        }
         this.setLayout(new BorderLayout());
         this.add(centerPanel(), BorderLayout.CENTER);
         this.add(southPanel(), BorderLayout.SOUTH);
     }
 
     private JPanel centerPanel(){
+        addListener();
         JPanel nPanel = new JPanel();
         nPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -70,7 +82,7 @@ public class RecordPanel extends JPanel {
         nPanel.add(lCategory, c);
         c.gridx = 1;
         c.gridy = 5;
-        nPanel.add(boxes, c);
+        nPanel.add(categoryBoxes, c);
 
         c.gridx = 0;
         c.gridy = 10;
@@ -98,15 +110,44 @@ public class RecordPanel extends JPanel {
     }
 
     private JPanel southPanel(){
-        JButton submitButton = new JButton("SUBMIT");
-        GUIUtil.setColour(ColourUtil.blueColor, submitButton);
+        GUIUtil.setColour(ColourUtil.blueColor, bSubmit);
         JPanel cPanel = new JPanel();
         cPanel.setLayout(new BorderLayout());
-        cPanel.add(submitButton, BorderLayout.SOUTH);
+        cPanel.add(bSubmit, BorderLayout.SOUTH);
         return cPanel;
     }
 
     public static void main(String[] args) {
         GUIUtil.showPanel(RecordPanel.getInstance());
+    }
+
+    public String getSelectedItem (int index ) {
+        if (index == 0){
+            return (String)catergoryModel.getSelectedItem();
+        }
+        else if (index == 1){
+            return (String)paymentModel.getSelectedItem();
+        }
+        return null;
+    }
+
+    @Override
+    public void addListener() {
+        bSubmit.addActionListener(new RecordListener());
+    }
+
+    @Override
+    public void updatePanel() {
+        catergoryModel.resetComboBoxes();
+        // categoryBoxes.updateUI();
+        resetAll(this);
+        tExpense.grabFocus();
+        updateUI();
+    }
+
+    public void resetAll(JPanel panel){
+        tExpense.setText("");
+        description.setText("");
+        date.setDate(new Date());
     }
 }

@@ -1,5 +1,7 @@
 package gui.util;
 
+import gui.panel.WorkingPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -46,6 +48,10 @@ public class CentralPanel extends JPanel {
             this.remove(c);
         }
         this.add(component);
+
+        if (component instanceof WorkingPanel){
+            ((WorkingPanel) component).updatePanel();
+        }
         this.updateUI();
     }
 

@@ -25,13 +25,14 @@ public class RecordDAO {
     }
 
     public void add(Record record){
-        String sql = "insert into record values(null, ?, ?, ?, ?)";
+        String sql = "insert into record values(null, ?, ?, ?, ?, ?)";
         try(Connection connection = DBUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, record.getSpend());
             statement.setInt(2, record.getCategoryID());
             statement.setDate(3, DateUtil.util2sql(record.getDate()));
             statement.setString(4, record.getComment());
+            statement.setString(5, record.getPayment());
             statement.execute();
             ResultSet rs = statement.getGeneratedKeys();
             if (rs.next()){
@@ -44,13 +45,15 @@ public class RecordDAO {
     }
 
     public void update(Record record){
-        String sql = "update record set spend = ?, cid = ?, date = ?, comment = ? where id = ?";
+        String sql = "update record set spend = ?, cid = ?, date = ?, comment = ?, payment = ? where id = ?";
         try(Connection connection = DBUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, record.getSpend());
             statement.setInt(2, record.getCategoryID());
             statement.setDate(3, DateUtil.util2sql(record.getDate()));
             statement.setString(4, record.getComment());
+            statement.setString(5, record.getPayment());
+            statement.setInt(6, record.getID());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,6 +64,16 @@ public class RecordDAO {
         try (Connection connection = DBUtil.getConnection();
              Statement statement = connection.createStatement()) {
             String sql = "delete from record where id = " + record.getID();
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int cid){
+        try (Connection connection = DBUtil.getConnection();
+             Statement statement = connection.createStatement()) {
+            String sql = "delete from record where cid = " + cid;
             statement.execute(sql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,6 +98,7 @@ public class RecordDAO {
                 record.setCategoryID(rs.getInt(3));
                 record.setDate(rs.getDate(4));
                 record.setComment(rs.getString(5));
+                record.setPayment(rs.getString(6));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,6 +129,7 @@ public class RecordDAO {
                 record.setCategoryID(rs.getInt(3));
                 record.setDate(rs.getDate(4));
                 record.setComment(rs.getString(5));
+                record.setPayment(rs.getString(6));
                 records.add(record);
             }
         } catch (SQLException e) {
@@ -144,6 +159,7 @@ public class RecordDAO {
                 record.setCategoryID(rs.getInt(3));
                 record.setDate(rs.getDate(4));
                 record.setComment(rs.getString(5));
+                record.setPayment(rs.getString(6));
                 records.add(record);
             }
         } catch (SQLException e) {
@@ -173,6 +189,7 @@ public class RecordDAO {
                 record.setCategoryID(rs.getInt(3));
                 record.setDate(rs.getDate(4));
                 record.setComment(rs.getString(5));
+                record.setPayment(rs.getString(6));
                 records.add(record);
             }
         } catch (SQLException e) {
@@ -195,6 +212,7 @@ public class RecordDAO {
                 record.setCategoryID(rs.getInt(3));
                 record.setDate(rs.getDate(4));
                 record.setComment(rs.getString(5));
+                record.setPayment(rs.getString(6));
                 records.add(record);
             }
         } catch (SQLException e) {

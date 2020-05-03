@@ -6,6 +6,7 @@ public class Record {
     private int id;
     private int spend;
     private int categoryID;
+    private String payment;
     private Date date;
     private String comment;
 
@@ -21,6 +22,8 @@ public class Record {
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
+    public void setPayment(String payment) { this.payment = payment; }
+    public String getPayment() { return payment; }
     public String getComment() {
         return comment;
     }

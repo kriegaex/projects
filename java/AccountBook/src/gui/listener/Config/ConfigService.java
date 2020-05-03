@@ -45,4 +45,8 @@ public class ConfigService {
     }
 
     public int getBudget(){ return Integer.parseInt(getValue(budget)); }
+
+    public String get(String key){
+        return dao.getByKey(key).getValue();
+    }
 }

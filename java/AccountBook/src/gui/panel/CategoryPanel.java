@@ -8,10 +8,8 @@ import gui.util.GUIUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-public class CategoryPanel extends JPanel{
+public class CategoryPanel extends WorkingPanel {
     static{
         GUIUtil.setSkin();
     }
@@ -26,11 +24,14 @@ public class CategoryPanel extends JPanel{
     private  CategoryTableModel model = new CategoryTableModel();
     private JTable table = new JTable(model);
     private JButton bAdd = new JButton("ADD");
-    public JButton getAddButton() { return bAdd; }
     private JButton bDelete = new JButton("DELETE");
-    public JButton getDeleteButton() { return bDelete; }
     private JButton bEdit = new JButton("EDIT");
+    private JButton bClear = new JButton("CLEAR");
+
+    public JButton getAddButton() { return bAdd; }
+    public JButton getDeleteButton() { return bDelete; }
     public JButton getEditButton() { return bEdit; }
+    public JButton getClearButton() { return bClear; }
 
     public CategoryPanel(){
         this.setLayout(new BorderLayout());
@@ -47,6 +48,8 @@ public class CategoryPanel extends JPanel{
         buttonPanel.add(bEdit, c);
         c.gridx = 2;
         buttonPanel.add(bDelete, c);
+        c.gridx = 3;
+        buttonPanel.add(bClear, c);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
         this.addListener();
@@ -56,8 +59,17 @@ public class CategoryPanel extends JPanel{
         int index = table.getSelectedRow();
         return model.getList().get(index);
     }
+    @Override
+    public void addListener(){
+        CategoryListener categoryListener = new CategoryListener();
+        bAdd.addActionListener(categoryListener);
+        bEdit.addActionListener(categoryListener);
+        bDelete.addActionListener(categoryListener);
+        bClear.addActionListener(categoryListener);
+    }
 
-    public void updateData(){
+    @Override
+    public void updatePanel() {
         model.setList(new CategoryService().list());
         table.updateUI();
         table.getSelectionModel().setSelectionInterval(0, 0);
@@ -70,12 +82,5 @@ public class CategoryPanel extends JPanel{
             bEdit.setEnabled(true);
             bDelete.setEnabled(true);
         }
-    }
-
-    private void addListener(){
-        bAdd.addActionListener(new CategoryListener());
-        bEdit.addActionListener(new CategoryListener());
-        bDelete.addActionListener(new CategoryListener());
-
     }
 }

@@ -35,4 +35,8 @@ public class CategoryService {
 
     public void delete(int id){ categoryDAO.delete(id); }
 
+    public void deleteAll(Category category){
+        new RecordDAO().delete(category.getID());
+    }
+
 }

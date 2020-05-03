@@ -1,6 +1,7 @@
 package gui.panel;
 
 import gui.listener.Config.ConfigBrowseListener;
+import gui.listener.Config.ConfigService;
 import gui.listener.Config.ConfigSubmitListener;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
@@ -8,17 +9,18 @@ import gui.util.GUIUtil;
 import javax.swing.*;
 import java.awt.*;
 
-public class ConfigPanel extends JPanel{
+public class ConfigPanel extends WorkingPanel {
     static{
         GUIUtil.setSkin();
     }
-
+    // singleton
     private static ConfigPanel instance = new ConfigPanel();
     public static ConfigPanel getInstance() { return instance; }
 
     private JLabel lBudget = new JLabel("BUDGET of this MONTH ($)");
     private JTextField tfBudget = new JTextField("0");
     public JTextField getBudget(){ return tfBudget; }
+    public void setBudget(String budget) { tfBudget.setText(budget);}
 
     private JLabel lMysql = new JLabel("DIRECTORY of INSTALLATION");
     private JTextField tfMysqlPath = new JTextField("");
@@ -55,17 +57,29 @@ public class ConfigPanel extends JPanel{
         c.ipadx = 300;
         c.gridy = 4;
         pInput.add(tfMysqlPath, c);
+
         this.setLayout(new BorderLayout());
         this.add(pInput,BorderLayout.CENTER);
 
         pSubmit.add(bSubmit);
         this.add(pSubmit,BorderLayout.SOUTH);
+
+        this.updatePanel();
     }
 
-    private void addListener(){
+    public void addListener(){
         bBrowse.addActionListener(new ConfigBrowseListener());
         bSubmit.addActionListener(new ConfigSubmitListener());
     }
+
+    @Override
+    public void updatePanel() {
+        String budget = new ConfigService().get(ConfigService.budget);
+        String directory = new ConfigService().get(ConfigService.mysqlPath);
+        this.setPath(directory);
+        this.setBudget(budget);
+    }
+
     public static void main(String[] args) {
         GUIUtil.showPanel(ConfigPanel.instance);
     }

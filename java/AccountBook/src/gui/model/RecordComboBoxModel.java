@@ -4,19 +4,39 @@ package gui.model;
  * This class works as the data model for the combobox in recordPanel
  */
 
+import bean.Category;
+import gui.listener.Category.CategoryService;
+
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecordComboBoxModel implements ComboBoxModel<String> {
-    private ArrayList<String> comboBoxes = new ArrayList<>();
-    private String displaying;
-    public RecordComboBoxModel(ArrayList<String> categories){
-        for (String category : categories){
-            comboBoxes.add(category);
-        }
+    private List<String> comboBoxes = new ArrayList<>();
 
+    private String displaying;
+
+    public RecordComboBoxModel(){
+        for (Category category : new CategoryService().list()){
+            comboBoxes.add(category.getName());
+        }
+        if (comboBoxes.size() != 0) {
+            displaying = comboBoxes.get(0);
+        }
+    }
+
+
+    public RecordComboBoxModel(List<String> list){
+        comboBoxes = list;
         displaying = comboBoxes.get(0);
+    }
+
+    public void resetComboBoxes(){
+        comboBoxes.clear();
+        for (Category category : new CategoryService().list()){
+            comboBoxes.add(category.getName());
+        }
     }
 
     @Override

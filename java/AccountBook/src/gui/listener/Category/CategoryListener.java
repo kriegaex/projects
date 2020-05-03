@@ -21,26 +21,20 @@ public class CategoryListener implements ActionListener {
             else{
                 new CategoryService().add(name);
             }
-
         }
 
         else if (button == categoryPanel.getDeleteButton()){
             Category selectedCategory = categoryPanel.getSelectedCategory();
             if (selectedCategory.getRecordNumber() != 0){
-                int reply = JOptionPane.showConfirmDialog(categoryPanel,
-                        "Expense record under this category, still delete?",
-                        "Delete a record",
-                        JOptionPane.YES_NO_OPTION);
-                if (reply == JOptionPane.YES_OPTION){
-                    new CategoryService().delete(selectedCategory.getID());
-                }
+                JOptionPane.showMessageDialog(categoryPanel,
+                        "Expense record under this category, deletion is not permitted");
             }
             else {
                 new CategoryService().delete(selectedCategory.getID());
             }
         }
 
-        else {
+        else if (button == categoryPanel.getEditButton()){
             Category selectedCategory = categoryPanel.getSelectedCategory();
             String name = JOptionPane.showInputDialog("NAME of NEW CATEGORY");
             if (name.length() == 0){
@@ -49,6 +43,15 @@ public class CategoryListener implements ActionListener {
             }
             new CategoryService().update(selectedCategory.getID(), name);
         }
-        categoryPanel.updateData();
+
+        else if (button == categoryPanel.getClearButton()){
+            Category selectedCategory = categoryPanel.getSelectedCategory();
+            int answer = JOptionPane.showConfirmDialog(null,
+                    "clear all record under this category?");
+            if (answer == JOptionPane.YES_OPTION){
+                new CategoryService().deleteAll(selectedCategory);
+            }
+        }
+        categoryPanel.updatePanel();
     }
 }

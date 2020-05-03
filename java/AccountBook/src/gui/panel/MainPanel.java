@@ -65,5 +65,5 @@ public class MainPanel extends JPanel {
         bRecover.addActionListener(listener);
     }
 
-    public CentralPanel getPanel(){ return displayPanel; }
+    public CentralPanel getPanel() { return displayPanel; }
 }

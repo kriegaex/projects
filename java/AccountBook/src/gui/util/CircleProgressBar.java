@@ -96,4 +96,9 @@ public class CircleProgressBar extends JPanel {
         this.foregroundColor = foregroundColor;
         this.repaint();
     }
+
+//    @Override
+//    public Dimension getPreferredSize(){
+//
+//    }
 }

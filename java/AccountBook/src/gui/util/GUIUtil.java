@@ -1,14 +1,13 @@
 package gui.util;
 
 /**
- * This class contains some tool methods.
+ * GUIUtil contains tool methods either used for testing or later work.
  */
 
 import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
 
 public class GUIUtil {
     public static boolean isEmptyTextField(JTextField tf, String input){
@@ -93,7 +92,7 @@ public class GUIUtil {
     }
 
     /**
-     * Display a panel, used in testing panel
+     * Display a panel, used for testing panel
      * @param panel
      * @param streching
      */
@@ -112,31 +111,4 @@ public class GUIUtil {
         showPanel(p,0.85);
     }
 
-    /**
-     * EMPTY all the content in given JComponent lists
-     * @param  panel
-     */
-    public static void removeAll(JPanel panel){
-        for (Component component : panel.getComponents()){
-            if(component instanceof JTextField)
-            {
-                JTextField ctrl = (JTextField) component;
-                ctrl.setText("");
-            }
-            else if (component instanceof JComboBox)
-            {
-                JComboBox ctr = (JComboBox) component;
-                ctr.setSelectedIndex(-1);
-            }
-            else if (component instanceof JTextArea){
-                JTextArea ctrl = (JTextArea) component;
-                ctrl.setText("");
-            }
-
-            else if (component instanceof JXDatePicker){
-                JXDatePicker datePicker = (JXDatePicker) component;
-                datePicker.setDate(new Date());
-            }
-        }
-    }
 }

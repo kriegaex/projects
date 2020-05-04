@@ -145,7 +145,7 @@ public class RecordPanel extends WorkingPanel {
         updateUI();
     }
 
-    public void resetAll(JPanel panel){
+    private void resetAll(JPanel panel){
         tExpense.setText("");
         description.setText("");
         date.setDate(new Date());

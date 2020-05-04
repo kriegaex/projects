@@ -1,9 +1,10 @@
 package gui.panel;
 
 /**
- * This class constitutes the expense panel
+ * ExpensePanel displays the analytical data according to the expense of this month
  */
 
+import gui.listener.ExpenseService;
 import gui.util.CircleProgressBar;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
@@ -11,48 +12,23 @@ import gui.util.GUIUtil;
 import javax.swing.*;
 import java.awt.*;
 
-public class ExpensePanel extends JPanel {
-    static{
-        GUIUtil.setSkin();
-    }
+public class ExpensePanel extends WorkingPanel {
 
     private JLabel lMonthSpend = new JLabel("Month Spend");
     private JLabel lTodaySpend = new JLabel("Daily Spend");
     private JLabel lAvgSpend = new JLabel("Average Spend");
-    private JLabel lMonthLeft = new JLabel("Money Available in this Month");
-    private JLabel lDayLeft = new JLabel("Money Available today");
-    private JLabel lTimeLeft = new JLabel("Days Left of this Month");
+    private JLabel lMonthLeft = new JLabel("Montly Budget");
+    private JLabel lDayLeft = new JLabel("Daily Budget");
+    private JLabel lTimeLeft = new JLabel("Days Left");
+    private JLabel lTotalSpend = new JLabel("Total Spend");
 
-    private JLabel vMonthSpend = new JLabel("$2300");
-    private JLabel vTodaySpend = new JLabel("$25");
-    private JLabel vAvgSpendPerDay = new JLabel("$120");
-    private JLabel vMonthAvailable = new JLabel("$2084");
-    private JLabel vDayAvgAvailable = new JLabel("$389");
-    private JLabel vTimeLeft = new JLabel("15 Days");
-
-    public void setvMonthSpend(String content) {
-        this.vMonthSpend.setText(content);
-    }
-
-    public void setvTodaySpend(String content) {
-        this.vTodaySpend.setText(content);;
-    }
-
-    public void setvAvgSpendPerDay(String content) {
-        this.vAvgSpendPerDay.setText(content);;
-    }
-
-    public void setvMonthAvailable(String content) {
-        this.vMonthAvailable.setText(content);;
-    }
-
-    public void setvDayAvgAvailable(String content) {
-        this.vDayAvgAvailable.setText(content);;
-    }
-
-    public void setvMonthLeftDay(String content) {
-        this.vTimeLeft.setText(content);;
-    }
+    private JLabel vMonthSpend = new JLabel();
+    private JLabel vTodaySpend = new JLabel();
+    private JLabel vAvgSpendPerDay = new JLabel();
+    private JLabel vMonthAvailable = new JLabel();
+    private JLabel vDayAvgAvailable = new JLabel();
+    private JLabel vTimeLeft = new JLabel();
+    private JLabel vTotalSpend = new JLabel();
 
     private static ExpensePanel panel = new ExpensePanel();
 
@@ -65,29 +41,45 @@ public class ExpensePanel extends JPanel {
     public ExpensePanel() {
         this.setLayout(new BorderLayout());
         bar = new CircleProgressBar();
-        bar.setBackgroundColor(ColourUtil.blueColor);
 
         GUIUtil.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 16), lMonthSpend, lTodaySpend,
                 lAvgSpend, lMonthLeft, lDayLeft, lTimeLeft, vAvgSpendPerDay, vMonthAvailable,
-                vDayAvgAvailable, vTimeLeft);
-        GUIUtil.setFont(new Font("Impact", Font.BOLD, 23), vMonthSpend, vTodaySpend);
+                vDayAvgAvailable, vTimeLeft, lTotalSpend);
+        GUIUtil.setFont(new Font("Impact", Font.BOLD, 23), vMonthSpend, vTodaySpend, vTotalSpend);
 
         this.add(center(), BorderLayout.CENTER);
         this.add(south(), BorderLayout.SOUTH);
-
     }
 
+    private JPanel north(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 1));
+        panel.add(lTotalSpend);
+        panel.add(vTotalSpend);
+        System.out.println(vTotalSpend.getText());
+        return panel;
+    }
     private JPanel center() {
         JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
-        p.add(west(), BorderLayout.WEST);
-        p.add(center2(),BorderLayout.CENTER);
+        p.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridheight = 1;
+        c.gridx = 0;
+        c.gridy = 0;
+        p.add(north(), c);
 
+        c.gridx = 0;
+        c.gridy = 1;
+        p.add(west(), c);
+
+
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        c.gridx = 1;
+        c.gridy = 1;
+        p.add(bar, c);
         return p;
-    }
-
-    private Component center2() {
-        return bar;
     }
 
     private Component west() {
@@ -119,4 +111,27 @@ public class ExpensePanel extends JPanel {
     public static void main(String[] args) {
         GUIUtil.showPanel(ExpensePanel.instance);
     }
+
+    @Override
+    public void addListener() {}
+
+    @Override
+    public void updatePanel() {
+        ExpenseService service = new ExpenseService();
+        vMonthSpend.setText(Integer.toString(service.getMonthSpend()));
+        vTodaySpend.setText(Integer.toString(service.getTodaySpend()));
+        vAvgSpendPerDay.setText(Double.toString(service.getAvgSpendPerDay()));
+        vTimeLeft.setText(Integer.toString(service.getTimeLeft()));
+        vDayAvgAvailable.setText(Double.toString(service.getDayAvgAvailable()));
+        vMonthAvailable.setText(Integer.toString(service.getMonthAvailable()));
+        vTotalSpend.setText(Integer.toString(service.getTotalSpend()));
+        int progress = service.getUsagepecentage();
+
+        if (service.overBudget()){ bar.setBackgroundColor(ColourUtil.warningColor); }
+        else{ bar.setBackgroundColor(ColourUtil.blueColor); }
+        bar.setProgress(progress);
+        bar.setForegroundColor(ColourUtil.getByPercentage(progress));
+        updateUI();
+    }
+
 }

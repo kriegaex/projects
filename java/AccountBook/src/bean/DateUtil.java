@@ -1,8 +1,9 @@
 package bean;
 
+/**
+ * DateUtil stores the method used for
+ */
 
-
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -58,16 +59,26 @@ public class DateUtil {
         cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.add(Calendar.MONTH, 1);
         cal.add(Calendar.DATE, -1);
-        System.out.println(cal.getTime());
         return cal.getTime();
     }
-    /**
-     *
-     */
+
     public static int daysLeftInMonth(){
         long lastDay = monthEnd().getTime();
         long today = today().getTime();
         return (int)((lastDay - today) / millisecondOfADay) + 1;
+    }
+
+    public static int daysPassInMonth(){
+        long firstDay = monthBegin().getTime();
+        long today = today().getTime();
+
+        return (int)((today - firstDay) / millisecondOfADay) + 1;
+    }
+
+    public static int daysInMonth(){
+        long lastDay = monthEnd().getTime();
+        long firstDay = monthBegin().getTime();
+        return (int)((lastDay - firstDay) / millisecondOfADay) + 1;
     }
 
 }

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * This class is responsible for the connection with MySql DataBase
+ * DBUtil is responsible for the connection with MySql DataBase, configuration is stored here
  */
 public class DBUtil {
     static String ip = "127.0.0.1";

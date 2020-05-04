@@ -1,9 +1,8 @@
-package gui.listener;
+package gui.service;
 
 import bean.DateUtil;
 import bean.Record;
 import dao.RecordDAO;
-import gui.listener.Config.ConfigService;
 
 import java.util.Date;
 import java.util.List;

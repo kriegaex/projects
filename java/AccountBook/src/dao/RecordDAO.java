@@ -148,16 +148,17 @@ public class RecordDAO {
 
     public List<Record> list(java.util.Date date){
         List<Record> records = new ArrayList<>();
+        String sql = "select * from record where date = ?";
         try(Connection connection = DBUtil.getConnection();
-            Statement statement = connection.createStatement()) {
-            String sql = "select * from record where date = " + DateUtil.util2sql(date);
-            ResultSet rs =statement.executeQuery(sql);
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setDate(1, DateUtil.util2sql(date));
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Record record = new Record();
                 record.setID(rs.getInt(1));
                 record.setSpend(rs.getInt(2));
                 record.setCategoryID(rs.getInt(3));
-                record.setDate(rs.getDate(4));
+                record.setDate(date);
                 record.setComment(rs.getString(5));
                 record.setPayment(rs.getString(6));
                 records.add(record);

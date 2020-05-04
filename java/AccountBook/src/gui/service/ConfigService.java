@@ -1,4 +1,4 @@
-package gui.listener.Config;
+package gui.service;
 
 import bean.Config;
 import dao.ConfigDAO;

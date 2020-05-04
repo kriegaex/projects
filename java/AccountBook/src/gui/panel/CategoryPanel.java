@@ -1,8 +1,8 @@
 package gui.panel;
 
 import bean.Category;
-import gui.listener.Category.CategoryListener;
-import gui.listener.Category.CategoryService;
+import gui.listener.CategoryListener;
+import gui.service.CategoryService;
 import gui.model.CategoryTableModel;
 import gui.util.GUIUtil;
 

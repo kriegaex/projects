@@ -1,4 +1,4 @@
-package gui.listener.Category;
+package gui.service;
 
 import bean.Category;
 import bean.Record;

@@ -1,7 +1,7 @@
 package gui.panel;
 
-import gui.listener.Category.CategoryService;
-import gui.listener.record.RecordListener;
+import gui.service.CategoryService;
+import gui.listener.RecordListener;
 import gui.model.RecordComboBoxModel;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;

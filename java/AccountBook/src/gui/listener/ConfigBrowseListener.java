@@ -1,4 +1,4 @@
-package gui.listener.Config;
+package gui.listener;
 
 import gui.MainFrame;
 import gui.panel.ConfigPanel;

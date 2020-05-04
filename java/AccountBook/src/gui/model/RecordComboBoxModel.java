@@ -5,7 +5,7 @@ package gui.model;
  */
 
 import bean.Category;
-import gui.listener.Category.CategoryService;
+import gui.service.CategoryService;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;

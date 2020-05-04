@@ -1,9 +1,10 @@
 package gui.util;
 /**
- * This class is a tool class used to draw a line chart
+ * ChartUtil is a tool class used to draw a line chart using JFreeChart
  * The method getImage() returns the image of the line chart
  */
 
+import gui.service.AnalysisService;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
@@ -19,9 +20,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ChartUtil {
-    JFreeChart lineChart;
+    private JFreeChart lineChart;
     public ChartUtil(String title) {
-        double[] data = sampleValues();
+        double[] data = new AnalysisService().listSpendThisMonth();
         lineChart = ChartFactory.createXYLineChart(title, "DATE", "EXPENSE",
                 getDataset(data), PlotOrientation.VERTICAL, true, true, false);
 

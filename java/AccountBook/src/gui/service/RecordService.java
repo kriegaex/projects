@@ -1,12 +1,10 @@
-package gui.listener.record;
+package gui.service;
 
 import bean.Category;
 import bean.Record;
 import dao.CategoryDAO;
 import dao.RecordDAO;
-import gui.listener.Category.CategoryService;
 
-import javax.swing.*;
 import java.util.Date;
 
 public class RecordService {

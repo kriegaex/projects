@@ -1,8 +1,8 @@
 package gui.panel;
 
-import gui.listener.Config.ConfigBrowseListener;
-import gui.listener.Config.ConfigService;
-import gui.listener.Config.ConfigSubmitListener;
+import gui.listener.ConfigBrowseListener;
+import gui.service.ConfigService;
+import gui.listener.ConfigSubmitListener;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
 

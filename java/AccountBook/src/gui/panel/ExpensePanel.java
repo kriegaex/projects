@@ -4,7 +4,7 @@ package gui.panel;
  * ExpensePanel displays the analytical data according to the expense of this month
  */
 
-import gui.service.ExpenseService;
+import service.ExpenseService;
 import gui.util.CircleProgressBar;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;

@@ -2,7 +2,7 @@ package gui.listener;
 
 import bean.Category;
 import gui.panel.CategoryPanel;
-import gui.service.CategoryService;
+import service.CategoryService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

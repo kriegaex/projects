@@ -1,6 +1,6 @@
 package gui.panel;
 
-import gui.service.CategoryService;
+import service.CategoryService;
 import gui.listener.RecordListener;
 import gui.model.RecordComboBoxModel;
 import gui.util.ColourUtil;

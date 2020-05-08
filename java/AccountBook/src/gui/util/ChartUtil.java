@@ -4,7 +4,7 @@ package gui.util;
  * The method getImage() returns the image of the line chart
  */
 
-import gui.service.AnalysisService;
+import service.AnalysisService;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;

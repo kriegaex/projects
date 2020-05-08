@@ -1,13 +1,9 @@
-package gui.service;
+package service;
 
 import bean.DateUtil;
 import bean.Record;
 import dao.RecordDAO;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +15,10 @@ public class AnalysisService {
 
     public double[] listSpendThisMonth(){
         RecordDAO recordDAO = new RecordDAO();
-        List<Record> monthRecordList = recordDAO.listThisMont();
         Calendar date = Calendar.getInstance();
         Date monthBegin = DateUtil.monthBegin();
         date.setTime(monthBegin);
         int daysInMonth = DateUtil.daysInMonth();
-
         double[] spendList = new double[daysInMonth];
 
         for (int i = 0; i < daysInMonth; i++) {
@@ -39,9 +33,5 @@ public class AnalysisService {
             spendList[i] = dailyExpend;
         }
         return spendList;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(new AnalysisService().listSpendThisMonth()));
     }
 }

@@ -15,7 +15,7 @@ public class ConfigDAO {
      * GET the total number of record in the table
      * @return
      */
-    public int getTotal(){
+    public int getTotal() {
         int total = 0;
         try(Connection connection = DBUtil.getConnection();
             Statement statement = connection.createStatement()){
@@ -133,7 +133,7 @@ public class ConfigDAO {
         String sql =  "select * from config where key_ = ? ";
         try (Connection connection = DBUtil.getConnection();
 //             Statement statement = connection.createStatement()
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             // String sql = "select * from config where key_ = " + key;
             // ResultSet rs = statement.executeQuery(sql);
             preparedStatement.setString(1, key);

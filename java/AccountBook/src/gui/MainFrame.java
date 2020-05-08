@@ -1,7 +1,5 @@
 package gui;
 
-import gui.panel.MainPanel;
-
 import javax.swing.*;
 
 public class MainFrame extends JFrame {

@@ -1,11 +1,11 @@
 package gui.listener;
 
-import gui.service.CategoryService;
+import service.CategoryService;
 import gui.panel.CategoryPanel;
 import gui.panel.ExpensePanel;
-import gui.panel.MainPanel;
+import gui.MainPanel;
 import gui.panel.RecordPanel;
-import gui.service.RecordService;
+import service.RecordService;
 import gui.util.GUIUtil;
 
 import javax.swing.*;

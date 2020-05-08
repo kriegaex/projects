@@ -1,5 +1,6 @@
 package gui.listener;
 
+import gui.MainPanel;
 import gui.panel.*;
 import gui.panel.ConfigPanel;
 
@@ -23,8 +24,8 @@ public class ToolBarListener implements ActionListener {
             mainPanel.getPanel().display(RecordPanel.getInstance());
         if (button == mainPanel.bConfig)
             mainPanel.getPanel().display(ConfigPanel.getInstance());
-//        if (button == mainPanel.bBackup)
-//            mainPanel.getPanel().display(.instance);
+        if (button == mainPanel.bConnection)
+            mainPanel.getPanel().display(ConnectionPanel.getInstance());
 //        if (button == mainPanel.bRecover)
 //            mainPanel.getPanel().display(RecoverPanel.instance);
 

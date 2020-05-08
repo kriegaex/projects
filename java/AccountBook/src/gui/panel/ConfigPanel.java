@@ -1,7 +1,7 @@
 package gui.panel;
 
 import gui.listener.ConfigBrowseListener;
-import gui.service.ConfigService;
+import service.ConfigService;
 import gui.listener.ConfigSubmitListener;
 import gui.util.ColourUtil;
 import gui.util.GUIUtil;
@@ -64,10 +64,9 @@ public class ConfigPanel extends WorkingPanel {
         pSubmit.add(bSubmit);
         this.add(pSubmit,BorderLayout.SOUTH);
 
-        this.updatePanel();
     }
 
-    public void addListener(){
+    public void addListener() {
         bBrowse.addActionListener(new ConfigBrowseListener());
         bSubmit.addActionListener(new ConfigSubmitListener());
     }

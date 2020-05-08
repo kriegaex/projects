@@ -5,7 +5,7 @@ package gui.model;
  */
 
 import bean.Category;
-import gui.service.CategoryService;
+import service.CategoryService;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
@@ -36,6 +36,12 @@ public class RecordComboBoxModel implements ComboBoxModel<String> {
         comboBoxes.clear();
         for (Category category : new CategoryService().list()){
             comboBoxes.add(category.getName());
+        }
+        if (comboBoxes.size() != 0){
+            displaying = comboBoxes.get(0);
+        }
+        else {
+            displaying = "";
         }
     }
 

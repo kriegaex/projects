@@ -1,7 +1,7 @@
 package gui.model;
 
 import bean.Category;
-import gui.service.CategoryService;
+import service.CategoryService;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;

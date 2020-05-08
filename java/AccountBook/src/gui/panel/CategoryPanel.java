@@ -2,7 +2,7 @@ package gui.panel;
 
 import bean.Category;
 import gui.listener.CategoryListener;
-import gui.service.CategoryService;
+import service.CategoryService;
 import gui.model.CategoryTableModel;
 import gui.util.GUIUtil;
 

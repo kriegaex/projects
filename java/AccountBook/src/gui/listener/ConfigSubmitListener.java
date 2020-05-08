@@ -1,6 +1,6 @@
 package gui.listener;
 
-import gui.service.ConfigService;
+import service.ConfigService;
 import gui.panel.ConfigPanel;
 import gui.util.GUIUtil;
 

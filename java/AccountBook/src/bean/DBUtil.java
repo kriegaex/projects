@@ -42,10 +42,6 @@ public class DBUtil {
     }
 
     public static Connection getConnection() throws SQLException {
-//        if (!ConnectionService.isConnected()){
-//            JOptionPane.showMessageDialog(null, "Set connection configuration first");
-//            MainPanel.getInstance().getPanel().display(ConnectionPanel.getInstance());
-//        }
         String url = String.format("jdbc:mysql://%s:%d/%s?characterEncoding=%s", ip, port, schema, encoding);
         return DriverManager.getConnection(url, loginName, password);
     }

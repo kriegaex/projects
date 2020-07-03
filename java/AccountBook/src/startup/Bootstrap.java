@@ -17,11 +17,11 @@ public class Bootstrap {
             @Override
             public void run() {
                 MainFrame.getInstance().setVisible(true);
-                if (!ConnectionService.isConnected()){
-                    JOptionPane.showMessageDialog(null, "Set the configuration of database first");
-                    MainPanel.getInstance().getPanel().display(ConnectionPanel.getInstance());
-                }
-                else { MainPanel.getInstance().getPanel().display(ExpensePanel.getInstance()); }
+//                if (!ConnectionService.isConnected()){
+//                    JOptionPane.showMessageDialog(null, "Set the configuration of database first");
+//                    MainPanel.getInstance().getPanel().display(ConnectionPanel.getInstance());
+//                }
+                 MainPanel.getInstance().getPanel().display(ExpensePanel.getInstance());
             }
         });
     }

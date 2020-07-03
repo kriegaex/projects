@@ -1,7 +1,7 @@
-package main.java.main.bean;
+package uk.ac.ucl.bean;
 
-import uk.ac.ucl.main.util.MiniBrowser;
-import main.java.main.util.core.StrTool;
+import uk.ac.ucl.util.MiniBrowser;
+import uk.ac.ucl.util.core.StrTool;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package main.java.main.bean;
+package uk.ac.ucl.bean;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

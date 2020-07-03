@@ -1,4 +1,4 @@
-package main.java.main.util.core;
+package uk.ac.ucl.util.core;
 
 import java.io.IOException;
 import java.net.*;

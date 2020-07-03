@@ -1,10 +1,11 @@
-package main.java.main;
+package uk.ac.ucl;
 
-import main.java.main.bean.Response;
-import main.java.main.util.core.WebTool;
-import main.java.main.bean.Request;
-import main.java.main.util.core.StrTool;
-import main.java.main.util.Constant;
+
+import uk.ac.ucl.bean.Request;
+import uk.ac.ucl.bean.Response;
+import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.core.StrTool;
+import uk.ac.ucl.util.core.WebTool;
 
 import java.io.File;
 import java.io.IOException;

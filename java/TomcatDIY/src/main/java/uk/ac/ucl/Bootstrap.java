@@ -3,6 +3,7 @@ package uk.ac.ucl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import uk.ac.ucl.bean.Context;
 import uk.ac.ucl.bean.Request;
 import uk.ac.ucl.bean.Response;
 import uk.ac.ucl.util.Constant;
@@ -15,15 +16,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 
 public class Bootstrap {
+    public static Map<String, Context> contextMap = new HashMap<>();
+
     public static void main(String[] args) {
         logJVM();
         int port = 18080;
+        scanContextRootFolder();
 
         try {
             System.out.println("Successfully established a server");
@@ -44,6 +49,7 @@ public class Bootstrap {
                             if (uri == null) {
                                 return;
                             }
+                            Context context = request.getContext();
                             Response response = new Response();
                             // If the folder directory is the root directory
                             if (uri.equals("/")) {
@@ -51,7 +57,9 @@ public class Bootstrap {
                                 response.getPrintWriter().write(html);
                             } else {
                                 String fileName = uri.replace("/", "");
-                                File file = new File(Constant.rootFolder, fileName);
+                                //File file = new File(Constant.rootFolder, fileName);
+                                File file = new File(context.getDocBase(), fileName);
+
                                 if (file.exists()) {
                                     String content = Parsing.getBody(file);
                                     response.getPrintWriter().write(content);
@@ -59,6 +67,9 @@ public class Bootstrap {
                                     if (fileName.equals("sleep.html")) {
                                         Thread.sleep(1000);
                                     }
+                                }
+                                else{
+                                    response.getPrintWriter().write("404");
                                 }
                             }
                             handle200(socket, response);
@@ -94,6 +105,22 @@ public class Bootstrap {
         Logger logger = LogManager.getLogger(Bootstrap.class.getName());
         for (String key : keys) {
             logger.info(key+":\t\t" + infos.get(key));
+        }
+    }
+
+    private static void scanContextRootFolder() {
+        File[] files = Constant.rootFolder.listFiles();
+        // Adding the context of the root folder to the context map
+        String rootPath = "/";
+        String rootDocBase = "/";
+        contextMap.put(rootPath, new Context(rootPath, rootDocBase));
+        // Adding contexts of all directories under root folder to the context map
+        for (File file : files){
+            String path = "/" + file.getName();
+
+            String docBase = file.getAbsolutePath();
+            Context context = new Context(path, docBase);
+            contextMap.put(context.getPath(), context);
         }
     }
 

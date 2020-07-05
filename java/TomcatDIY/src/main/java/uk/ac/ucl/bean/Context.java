@@ -4,11 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.ucl.util.core.TimeUtil;
 
+/**
+ * path means the path to access in url
+ * docBase means its absolute path in the project
+ */
 public class Context {
     private String path;
     private String docBase;
 
-    public Context(String patj, String docBase){
+    public Context(String path, String docBase){
         Logger logger = LogManager.getLogger();
         TimeUtil clock = new TimeUtil();
         this.path = path;

@@ -52,6 +52,15 @@ public class StrUtil {
         return "";
     }
 
+    public static String subAfter(String str, String after){
+        if (str == null ) { return null; }
+        int indexAfter = str.indexOf(after);
+        if (indexAfter != INDEX_NOT_FOUND){
+            return str.substring(indexAfter + after.length(), str.length());
+        }
+        return "";
+    }
+
     /**
      * Replace the placeholder("{}") by the given argument list
      * format("hello {}", "hello"} returns "hello world"
@@ -59,7 +68,6 @@ public class StrUtil {
      * @param argArray
      * @return
      */
-
     public static String format(final String pattern, final Object... argArray){
         if (argArray.length == 0) { return pattern; }
 
@@ -80,8 +88,19 @@ public class StrUtil {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        String test = StrUtil.format("hello {}, this is format", "world");
-        System.out.println(test);
+    /**
+     * Check if the given url is in root folder
+     * @param url
+     * @return
+     */
+    public static boolean isRootFolder(String url){
+        int count = 0;
+        int dealedIndex = url.indexOf("/");;
+        while (dealedIndex != INDEX_NOT_FOUND){
+            count += 1;
+            dealedIndex += 1;
+            dealedIndex = url.indexOf("/", dealedIndex);
+        }
+        return count <= 1;
     }
 }

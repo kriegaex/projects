@@ -1,7 +1,7 @@
 package uk.ac.ucl.bean;
 
 import uk.ac.ucl.util.MiniBrowser;
-import uk.ac.ucl.util.core.StrTool;
+import uk.ac.ucl.util.core.StrUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +24,7 @@ public class Request {
     public Request(Socket socket) throws IOException {
         this.socket = socket;
         parseHttpRequest();
-        if (StrTool.isEmpty(requestString)){
+        if (StrUtil.isEmpty(requestString)){
             return;
         }
         parseUri();
@@ -38,9 +38,9 @@ public class Request {
 
     private void parseUri(){
         String temp;
-        temp = StrTool.subBetween(requestString, " ");
+        temp = StrUtil.subBetween(requestString, " ");
         if (!temp.contains("?")){
-            StrTool.subBefore(temp, "?");
+            StrUtil.subBefore(temp, "?");
         }
         uri = temp;
     }

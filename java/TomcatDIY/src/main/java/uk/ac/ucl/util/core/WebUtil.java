@@ -6,7 +6,7 @@ import java.net.*;
 /**
  * Including methods used for web connection
  */
-public class WebTool {
+public class WebUtil {
     /**
      * Test if the port is used locally via TCP protocol
      * @param port
@@ -15,7 +15,7 @@ public class WebTool {
     static public boolean isPortUsable(int port){
         try(ServerSocket ss = new ServerSocket(port);
         ) {
-            // The reason to used this method is here:
+            // The reason to use setReuseAddress() is here:
             // https://stackoverflow.com/questions/23123395/what-is-the-purpose-of-setreuseaddress-in-serversocket
             ss.setReuseAddress(true);
             return false;

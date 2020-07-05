@@ -1,7 +1,7 @@
 package uk.ac.ucl.util.core;
 
 
-public class StrTool {
+public class StrUtil {
     private static final int INDEX_NOT_FOUND = -1;
     private static final String PLACE_HOLDER = "{}";
 
@@ -81,7 +81,7 @@ public class StrTool {
     }
 
     public static void main(String[] args) {
-        String test = StrTool.format("hello {}, this is format", "world");
+        String test = StrUtil.format("hello {}, this is format", "world");
         System.out.println(test);
     }
 }

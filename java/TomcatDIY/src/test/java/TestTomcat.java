@@ -68,8 +68,8 @@ public class TestTomcat {
 
     @Test
     public void testaIndex() {
-        String html = getContentString("/a/index.html");
-        Assert.assertEquals("This is /webapp/a/index.html", html);
+        String html = getContentString("/b/index.html");
+        Assert.assertEquals("This is /webapp/b/index.html", html);
     }
 
 }

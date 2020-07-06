@@ -3,6 +3,7 @@ package uk.ac.ucl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.bean.Host;
 import uk.ac.ucl.bean.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
@@ -24,9 +25,9 @@ public class Bootstrap {
 
     public static void main(String[] args) {
         logJVM();
+        // Configured by server.xml
+        Host host = new Host();
         int port = 18080;
-        scanContextRootFolder();
-        scanServerXml();
 
         try {
             LogManager.getLogger().info("Successfully established a server");
@@ -41,7 +42,7 @@ public class Bootstrap {
                     public void run() {
                         try {
                             // Read message from browser
-                            Request request = new Request(socket);
+                            Request request = new Request(socket, host);
                             System.out.println("Header is ---> " + request.getRequestString());
                             String uri = request.getUri();
                             // If the port is occupied, the returning uri could be null

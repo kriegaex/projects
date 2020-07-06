@@ -14,9 +14,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
+    private Host host;
 
-    public Request(Socket socket) throws IOException {
+    public Request(Socket socket, Host host) throws IOException {
         this.socket = socket;
+        this.host = host;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)){ return; }
         parseUri();
@@ -39,7 +41,6 @@ public class Request {
             StrUtil.subBefore(temp, "?");
         }
         uri = temp;
-        System.out.println("URI In REQUEST " + uri);
     }
 
     public String getRequestString() { return requestString; }
@@ -53,8 +54,8 @@ public class Request {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
-        System.out.println("PATH: " + path);
-        context = Bootstrap.contextMap.get(path);
+
+        context = host.getContext(path);
         if (context == null){
             context = Bootstrap.contextMap.get("/");
         }

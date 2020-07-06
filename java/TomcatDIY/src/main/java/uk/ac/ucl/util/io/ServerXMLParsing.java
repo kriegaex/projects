@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerXMLParsing {
+
     public static List<Context> getContexts(){
         List<Context> list = new ArrayList<>();
         try {
@@ -28,6 +29,18 @@ public class ServerXMLParsing {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static String getHost(){
+        String hostName = null;
+        try {
+            Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
+            Element host = document.select("host").first();
+            hostName = host.attr("name");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return hostName;
     }
 }
 

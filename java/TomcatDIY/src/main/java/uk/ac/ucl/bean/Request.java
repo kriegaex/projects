@@ -22,7 +22,7 @@ public class Request {
         parseUri();
         parseContext();
         if (!"/".equals(context.getPath())){
-            uri = uri.substring(context.getPath().length());
+            uri.substring(context.getPath().length());
         }
     }
 
@@ -39,6 +39,7 @@ public class Request {
             StrUtil.subBefore(temp, "?");
         }
         uri = temp;
+        System.out.println("URI In REQUEST " + uri);
     }
 
     public String getRequestString() { return requestString; }
@@ -48,14 +49,11 @@ public class Request {
     public Context getContext() { return context; }
 
     private void parseContext() {
-        String path = uri;
-        if (StrUtil.isRootFolder(uri)){
-             path = StrUtil.subAfter(uri, "/");
-        }
-        else {
-            path = StrUtil.subBetween(uri, "/");
-        }
+        String path;
+
+        path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
+        System.out.println("PATH: " + path);
         context = Bootstrap.contextMap.get(path);
         if (context == null){
             context = Bootstrap.contextMap.get("/");

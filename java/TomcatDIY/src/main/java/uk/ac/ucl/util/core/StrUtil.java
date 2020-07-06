@@ -52,13 +52,42 @@ public class StrUtil {
         return "";
     }
 
+    /**
+     * Substring behind first 'after' will be returned.
+     * @param str
+     * @param after
+     * @return
+     */
     public static String subAfter(String str, String after){
         if (str == null ) { return null; }
         int indexAfter = str.indexOf(after);
         if (indexAfter != INDEX_NOT_FOUND){
-            return str.substring(indexAfter + after.length(), str.length());
+            return str.substring(indexAfter + after.length());
         }
         return "";
+    }
+
+    /**
+     * Find the substring behind the delimiter 'after', 'last'
+     * indicates weather the substring behind the last delimiter
+     * or behind the first delimiter is returned.
+     * @param str
+     * @param after
+     * @param last
+     * @return
+     */
+    public static String subAfter(String str, String after, boolean last){
+        if (!last) { return subAfter(str, after); }
+        int indexAfter = str.indexOf(after);
+        while (str.indexOf(after, indexAfter + after.length()) != INDEX_NOT_FOUND){
+            indexAfter = str.indexOf(after, indexAfter + after.length());
+        }
+        if (indexAfter != INDEX_NOT_FOUND){
+            return str.substring(indexAfter + after.length());
+        }
+        else{
+            return "";
+        }
     }
 
     /**

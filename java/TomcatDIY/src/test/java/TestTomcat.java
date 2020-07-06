@@ -66,4 +66,10 @@ public class TestTomcat {
         Assert.assertTrue(duration < 3000);
     }
 
+    @Test
+    public void testaIndex() {
+        String html = getContentString("/a/index.html");
+        Assert.assertEquals("This is /webapp/a/index.html", html);
+    }
+
 }

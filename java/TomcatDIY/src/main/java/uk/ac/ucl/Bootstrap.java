@@ -1,25 +1,22 @@
 package uk.ac.ucl;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.ac.ucl.bean.Context;
-import uk.ac.ucl.bean.Request;
 import uk.ac.ucl.bean.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.ThreadUtil;
-import uk.ac.ucl.util.io.Parsing;
+import uk.ac.ucl.util.io.HTMLParsing;
+import uk.ac.ucl.bean.Request;
+import uk.ac.ucl.util.io.ServerXMLParsing;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class Bootstrap {
@@ -29,10 +26,12 @@ public class Bootstrap {
         logJVM();
         int port = 18080;
         scanContextRootFolder();
+        scanServerXml();
 
         try {
-            System.out.println("Successfully established a server");
+            LogManager.getLogger().info("Successfully established a server");
             ServerSocket ss = new ServerSocket(port);
+            // Start waiting for requests
             while (true) {
                 // Listens for a connection to be made to this socket and accepts it.
                 Socket socket = ss.accept();
@@ -56,12 +55,15 @@ public class Bootstrap {
                                 String html = "Hello Tomcat from Chaozy";
                                 response.getPrintWriter().write(html);
                             } else {
-                                String fileName = uri.replace("/", "");
+                                String fileName = StrUtil.subAfter(uri, "/", true);
+
                                 //File file = new File(Constant.rootFolder, fileName);
                                 File file = new File(context.getDocBase(), fileName);
-
+                                LogManager.getLogger().info("docBase: " + context.getDocBase());
+                                LogManager.getLogger().info("path: " + context.getPath());
+                                LogManager.getLogger().info("fileName: " + fileName);
                                 if (file.exists()) {
-                                    String content = Parsing.getBody(file);
+                                    String content = HTMLParsing.getBody(file);
                                     response.getPrintWriter().write(content);
                                     // To test multithreading
                                     if (fileName.equals("sleep.html")) {
@@ -108,18 +110,38 @@ public class Bootstrap {
         }
     }
 
+    /**
+     * Scan all of the files and directories under /webapp, creating context for each of them
+     * and then put them into a map
+     */
     private static void scanContextRootFolder() {
         File[] files = Constant.rootFolder.listFiles();
         // Adding the context of the root folder to the context map
         String rootPath = "/";
-        String rootDocBase = "/";
+        String rootDocBase = Constant.rootFolder.getAbsolutePath();
         contextMap.put(rootPath, new Context(rootPath, rootDocBase));
         // Adding contexts of all directories under root folder to the context map
         for (File file : files){
             String path = "/" + file.getName();
-
-            String docBase = file.getAbsolutePath();
+            String docBase;
+            if (file.isDirectory()){
+                docBase = file.getAbsolutePath();
+            }
+            else{
+                docBase = file.getParentFile().getAbsolutePath();
+            }
             Context context = new Context(path, docBase);
+            contextMap.put(context.getPath(), context);
+        }
+    }
+
+    /**
+     * Scan the /conf/server.xml to find all contexts nodes and put corresponding Context
+     * into context map
+     */
+    private static void scanServerXml() {
+        List<Context> contextList = ServerXMLParsing.getContexts();
+        for (Context context : contextList){
             contextMap.put(context.getPath(), context);
         }
     }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server>
+    <Context path="/a/index.html"
+             docBase="/Users/chaozy/Desktop/CS/projects/java/TomcatDIY/src/main/webapp/a/" />
+</Server>

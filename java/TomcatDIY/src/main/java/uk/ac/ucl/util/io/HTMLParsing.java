@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Parsing files
  */
-public class Parsing {
+public class HTMLParsing {
     public static String getHead(File file) throws IOException {
         Document document = Jsoup.parse(file, "utf-8");
         Element head = document.head();

@@ -6,6 +6,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.bean.Engine;
+import uk.ac.ucl.bean.Host;
 import uk.ac.ucl.util.Constant;
 
 import java.io.IOException;
@@ -31,7 +33,20 @@ public class ServerXMLParsing {
         return list;
     }
 
-    public static String getHost(){
+    public static String getEngineDefaultHostName(){
+        String hostName = null;
+        try {
+            Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
+            Element host = document.select("Engine").first();
+            hostName = host.attr("defaultHost");
+            LogManager.getLogger().info("HOSTNAME: " + hostName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return hostName;
+    }
+
+    public static String getHostName(){
         String hostName = null;
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
@@ -41,6 +56,21 @@ public class ServerXMLParsing {
             e.printStackTrace();
         }
         return hostName;
+    }
+
+    public static List<Host> getHosts(Engine engine){
+        List<Host> hosts = new ArrayList<>();
+        try {
+            Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
+            Elements elements = document.select("Host");
+            for (Element element : elements){
+                Host host = new Host(element.attr("name"), engine);
+                hosts.add(host);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return hosts;
     }
 }
 

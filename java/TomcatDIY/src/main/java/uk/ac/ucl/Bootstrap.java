@@ -2,15 +2,11 @@ package uk.ac.ucl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.ucl.bean.Context;
-import uk.ac.ucl.bean.Host;
-import uk.ac.ucl.bean.Response;
+import uk.ac.ucl.bean.*;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.ThreadUtil;
 import uk.ac.ucl.util.io.HTMLParsing;
-import uk.ac.ucl.bean.Request;
-import uk.ac.ucl.util.io.ServerXMLParsing;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +22,7 @@ public class Bootstrap {
     public static void main(String[] args) {
         logJVM();
         // Configured by server.xml
-        Host host = new Host();
+        Engine engine = new Engine();
         int port = 18080;
 
         try {
@@ -42,7 +38,7 @@ public class Bootstrap {
                     public void run() {
                         try {
                             // Read message from browser
-                            Request request = new Request(socket, host);
+                            Request request = new Request(socket, engine);
                             System.out.println("Header is ---> " + request.getRequestString());
                             String uri = request.getUri();
                             // If the port is occupied, the returning uri could be null
@@ -108,42 +104,6 @@ public class Bootstrap {
         Logger logger = LogManager.getLogger(Bootstrap.class.getName());
         for (String key : keys) {
             logger.info(key+":\t\t" + infos.get(key));
-        }
-    }
-
-    /**
-     * Scan all of the files and directories under /webapp, creating context for each of them
-     * and then put them into a map
-     */
-    private static void scanContextRootFolder() {
-        File[] files = Constant.rootFolder.listFiles();
-        // Adding the context of the root folder to the context map
-        String rootPath = "/";
-        String rootDocBase = Constant.rootFolder.getAbsolutePath();
-        contextMap.put(rootPath, new Context(rootPath, rootDocBase));
-        // Adding contexts of all directories under root folder to the context map
-        for (File file : files){
-            String path = "/" + file.getName();
-            String docBase;
-            if (file.isDirectory()){
-                docBase = file.getAbsolutePath();
-            }
-            else{
-                docBase = file.getParentFile().getAbsolutePath();
-            }
-            Context context = new Context(path, docBase);
-            contextMap.put(context.getPath(), context);
-        }
-    }
-
-    /**
-     * Scan the /conf/server.xml to find all contexts nodes and put corresponding Context
-     * into context map
-     */
-    private static void scanServerXml() {
-        List<Context> contextList = ServerXMLParsing.getContexts();
-        for (Context context : contextList){
-            contextMap.put(context.getPath(), context);
         }
     }
 

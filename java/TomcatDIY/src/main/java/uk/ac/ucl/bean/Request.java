@@ -14,11 +14,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Host host;
+    private Engine engine;
 
-    public Request(Socket socket, Host host) throws IOException {
+    public Request(Socket socket, Engine engine) throws IOException {
         this.socket = socket;
-        this.host = host;
+        this.engine = engine;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)){ return; }
         parseUri();
@@ -54,10 +54,10 @@ public class Request {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
-
-        context = host.getContext(path);
+        System.out.println(engine.getDefaultHost());
+        context = engine.getDefaultHost().getContext(path);
         if (context == null){
-            context = Bootstrap.contextMap.get("/");
+            context = engine.getDefaultHost().getContext("/");
         }
     }
 

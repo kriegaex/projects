@@ -61,11 +61,13 @@ public class Server {
                             } else {
                                 String fileName = StrUtil.subAfter(uri, "/", true);
 
-                                //File file = new File(Constant.rootFolder, fileName);
                                 File file = new File(context.getDocBase(), fileName);
-                                LogManager.getLogger().info("docBase: " + context.getDocBase());
-                                LogManager.getLogger().info("path: " + context.getPath());
-                                LogManager.getLogger().info("fileName: " + fileName);
+//                                LogManager.getLogger().info("docBase: " + context.getDocBase());
+//                                LogManager.getLogger().info("path: " + context.getPath());
+//                                LogManager.getLogger().info("fileName: " + fileName);
+                                if (fileName.equals("500.html")){
+                                    throw new RuntimeException("this is a deliberately created exception");
+                                }
                                 if (file.exists()) {
                                     String content = HTMLParsing.getBody(file);
                                     response.getPrintWriter().write(content);
@@ -75,12 +77,23 @@ public class Server {
                                     }
                                 }
                                 else{
-                                    response.getPrintWriter().write("404");
+                                    handle404(socket, uri);
+                                    return ;
                                 }
                             }
                             handle200(socket, response);
-                        } catch (IOException | InterruptedException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
+                            handle500(socket, e);
+                        }
+                        finally {
+                            if (!socket.isClosed()){
+                                try {
+                                    socket.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     }
                 };
@@ -134,9 +147,47 @@ public class Server {
         OutputStream os = socket.getOutputStream();
         os.write(responseByte);
         os.close();
-        socket.close();
+    }
+
+    private void handle404(Socket s, String uri){
+        try {
+            OutputStream outputStream = s.getOutputStream();
+            String responseText = Constant.response_head_404 +
+                    StrUtil.format(Constant.textFormat_404, uri, uri);
+            outputStream.write(responseText.getBytes());
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
+    private void handle500(Socket s, Exception e){
+        StackTraceElement traceElement[] = e.getStackTrace();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(e.toString());
+        buffer.append("\r\n");
+        for (StackTraceElement element : traceElement){
+            buffer.append("\t");
+            buffer.append(element.toString());
+            buffer.append("\r\n");
+        }
+        // If there is over 20 messages, only displays the previous 20 lines
+        String msg = e.getMessage();
+        if (msg != null && msg.length() > 20){
+            msg.substring(0, 19);
+        }
+        String text = StrUtil.format(Constant.textFormat_500,
+                e.toString(), buffer.toString());
+        text = Constant.response_head_500 + text;
+        try {
+            OutputStream outputStream = s.getOutputStream();
+            outputStream.write(text.getBytes());
+            outputStream.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
 }
 

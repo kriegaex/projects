@@ -132,4 +132,8 @@ public class StrUtil {
         }
         return count <= 1;
     }
+
+    public static boolean containsAny(String father, String son){
+        return father.contains(son);
+    }
 }

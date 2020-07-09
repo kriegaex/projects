@@ -1,7 +1,6 @@
 package uk.ac.ucl.bean;
 
 import org.apache.logging.log4j.LogManager;
-import uk.ac.ucl.Bootstrap;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 
@@ -14,11 +13,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Engine engine;
+    private Service service;
 
-    public Request(Socket socket, Engine engine) throws IOException {
+    public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
-        this.engine = engine;
+        this.service = service;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)){ return; }
         parseUri();
@@ -54,10 +53,10 @@ public class Request {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
-        System.out.println(engine.getDefaultHost());
-        context = engine.getDefaultHost().getContext(path);
+        context = service.getEngine().getDefaultHost().getContext(path);
+
         if (context == null){
-            context = engine.getDefaultHost().getContext("/");
+            context = service.getEngine().getDefaultHost().getContext(path);
         }
     }
 

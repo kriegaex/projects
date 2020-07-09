@@ -39,23 +39,22 @@ public class ServerXMLParsing {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
             Element host = document.select("Engine").first();
             hostName = host.attr("defaultHost");
-            LogManager.getLogger().info("HOSTNAME: " + hostName);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return hostName;
     }
 
-    public static String getHostName(){
-        String hostName = null;
+    public static String getServiceName(){
+        String serviceName = null;
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Element host = document.select("host").first();
-            hostName = host.attr("name");
+            Element host = document.select("Service").first();
+            serviceName = host.attr("name");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return hostName;
+        return serviceName;
     }
 
     public static List<Host> getHosts(Engine engine){
@@ -72,5 +71,7 @@ public class ServerXMLParsing {
         }
         return hosts;
     }
+
+
 }
 

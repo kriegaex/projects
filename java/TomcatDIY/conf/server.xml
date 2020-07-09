@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Server>
-    <Engine defaultHost="localhost">
-        <Host name="localhost">
-            <Context path="/a/index.html"
-                     docBase="/Users/chaozy/Desktop/CS/projects/java/TomcatDIY/src/main/webapp/a/" />
-        </Host>
-    </Engine>
+    <Service name="Catalina">
+        <Engine defaultHost="localhost">
+            <Host name="localhost">
+                <Context path="/a/index.html"
+                         docBase="/Users/chaozy/Desktop/CS/projects/java/TomcatDIY/src/main/webapp/a/" />
+            </Host>
+        </Engine>
+    </Service>
 </Server>

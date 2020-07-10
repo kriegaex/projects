@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean;
+package uk.ac.ucl.bean.conf;
 
 import uk.ac.ucl.util.io.ServerXMLParsing;
 

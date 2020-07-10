@@ -1,6 +1,7 @@
 package uk.ac.ucl.bean;
 
-import org.apache.logging.log4j.LogManager;
+import uk.ac.ucl.bean.conf.Context;
+import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 
@@ -22,13 +23,14 @@ public class Request {
         if (StrUtil.isEmpty(requestString)){ return; }
         parseUri();
         parseContext();
+//        System.out.println("uri: " + uri);
+//        System.out.println("context.getpath: " + context.getPath());
         if (!"/".equals(context.getPath())){
+
             uri.substring(context.getPath().length());
             if (uri.equals("")){ uri = "/"; }
         }
-        else{
-            uri = "/";
-        }
+
     }
 
     private void parseHttpRequest() throws IOException {

@@ -1,7 +1,6 @@
 package uk.ac.ucl;
 
-
-import uk.ac.ucl.bean.*;
+import uk.ac.ucl.bean.conf.Server;
 
 
 public class Bootstrap {

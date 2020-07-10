@@ -23,4 +23,6 @@ public class Response {
         byte[] body = content.getBytes("utf-8");
         return body;
     }
+
+    public void setContentType(String contentType){ this.contentType = contentType; }
 }

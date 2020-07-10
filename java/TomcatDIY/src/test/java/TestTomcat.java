@@ -95,4 +95,10 @@ public class TestTomcat {
         String html = getContentString("/b/");
         Assert.assertEquals(html,"This is /webapp/b/index.html");
     }
+
+    @Test
+    public void testMimeType(){
+        String response = getHttpString("/a.txt");
+        Assert.assertTrue(response.contains("content-type"));
+    }
 }

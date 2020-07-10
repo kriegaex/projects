@@ -127,13 +127,12 @@ public class MiniBrowser {
         byte buffer[] = new byte[buffer_size];
         while(true) {
             int length = is.read(buffer);
-            if(-1==length)
-                break;
+            if(-1 == length) { break; }
+
             baos.write(buffer, 0, length);
-            if(length!=buffer_size)
-                break;
+            if(length != buffer_size){ break; }
         }
-        byte[] result =baos.toByteArray();
+        byte[] result = baos.toByteArray();
         return result;
     }
 }

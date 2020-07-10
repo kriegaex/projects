@@ -1,8 +1,10 @@
-package uk.ac.ucl.bean;
+package uk.ac.ucl.bean.conf;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.ac.ucl.Bootstrap;
+import org.apache.logging.log4j.core.util.FileUtils;
+import uk.ac.ucl.bean.Request;
+import uk.ac.ucl.bean.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.ThreadUtil;
@@ -55,7 +57,7 @@ public class Server {
                             }
                             Context context = request.getContext();
                             Response response = new Response();
-                            System.out.println("URI: " + uri);
+
                             // If the folder directory is the root directory
                             if (uri.equals("/")) {
                                 uri = WebXMLParsing.getWelcomeFileName(request.getContext());
@@ -69,6 +71,11 @@ public class Server {
                                 throw new RuntimeException("this is a deliberately created exception");
                             }
                             if (file.exists()) {
+                                String extension = FileUtils.getFileExtension(file);
+                                String mimeType = WebXMLParsing.getMimeType(extension);
+                                response.setContentType(mimeType);
+                                System.out.println("extension: " + extension);
+                                System.out.println("mimeType: " + mimeType);
                                 String content = HTMLParsing.getBody(file);
                                 response.getPrintWriter().write(content);
                                 // To test multithreading
@@ -82,6 +89,7 @@ public class Server {
                             }
 
                             handle200(socket, response);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             handle500(socket, e);

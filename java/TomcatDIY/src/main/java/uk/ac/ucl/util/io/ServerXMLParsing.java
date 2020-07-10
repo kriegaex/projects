@@ -1,13 +1,12 @@
 package uk.ac.ucl.util.io;
 
-import org.apache.logging.log4j.LogManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import uk.ac.ucl.bean.Context;
-import uk.ac.ucl.bean.Engine;
-import uk.ac.ucl.bean.Host;
+import uk.ac.ucl.bean.conf.Context;
+import uk.ac.ucl.bean.conf.Engine;
+import uk.ac.ucl.bean.conf.Host;
 import uk.ac.ucl.util.Constant;
 
 import java.io.IOException;

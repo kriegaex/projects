@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean;
+package uk.ac.ucl.bean.conf;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

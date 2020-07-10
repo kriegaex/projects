@@ -68,8 +68,8 @@ public class TestTomcat {
 
     @Test
     public void testaIndex() {
-        String html = getContentString("/b/index.html");
-        Assert.assertEquals("This is /webapp/b/index.html", html);
+        String html = getContentString("/a");
+        Assert.assertEquals(html,"This is /webapp/a/index.html");
     }
 
     @Test
@@ -88,5 +88,11 @@ public class TestTomcat {
         String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
         String http = MiniBrowser.getHttpString(url);
         return http;
+    }
+
+    @Test
+    public void testbIndex() {
+        String html = getContentString("/b/");
+        Assert.assertEquals(html,"This is /webapp/b/index.html");
     }
 }

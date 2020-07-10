@@ -86,7 +86,7 @@ public class StrUtil {
             return str.substring(indexAfter + after.length());
         }
         else{
-            return "";
+            return str;
         }
     }
 

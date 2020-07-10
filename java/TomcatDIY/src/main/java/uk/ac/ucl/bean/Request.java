@@ -24,6 +24,10 @@ public class Request {
         parseContext();
         if (!"/".equals(context.getPath())){
             uri.substring(context.getPath().length());
+            if (uri.equals("")){ uri = "/"; }
+        }
+        else{
+            uri = "/";
         }
     }
 
@@ -56,7 +60,7 @@ public class Request {
         context = service.getEngine().getDefaultHost().getContext(path);
 
         if (context == null){
-            context = service.getEngine().getDefaultHost().getContext(path);
+            return;
         }
     }
 

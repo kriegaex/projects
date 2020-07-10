@@ -10,8 +10,14 @@ public class Constant {
     public final static File rootFolder =
             new File(System.getProperty("user.dir"), "src/main/webapp");
 
+    public final static File confFolder =
+            new File (System.getProperty("user.dir"), "conf");
+
     public final static File confServerXML =
-            new File(System.getProperty("user.dir"), "conf/server.xml");
+            new File(confFolder, "server.xml");
+
+    public final static File webXMLFile =
+            new File(confFolder, "web.xml");
 
     // TODO: Unix system uses "/" as line separator in directory while Windows uses "\"
     // TODO: https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html

@@ -7,6 +7,7 @@ import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.ThreadUtil;
 import uk.ac.ucl.util.io.HTMLParsing;
+import uk.ac.ucl.util.io.WebXMLParsing;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,33 +55,32 @@ public class Server {
                             }
                             Context context = request.getContext();
                             Response response = new Response();
+                            System.out.println("URI: " + uri);
                             // If the folder directory is the root directory
                             if (uri.equals("/")) {
-                                String html = "Hello Tomcat from Chaozy";
-                                response.getPrintWriter().write(html);
-                            } else {
-                                String fileName = StrUtil.subAfter(uri, "/", true);
-
-                                File file = new File(context.getDocBase(), fileName);
+                                uri = WebXMLParsing.getWelcomeFileName(request.getContext());
+                            }
+                            String fileName = StrUtil.subAfter(uri, "/", true);
+                            File file = new File(context.getDocBase(), fileName);
 //                                LogManager.getLogger().info("docBase: " + context.getDocBase());
 //                                LogManager.getLogger().info("path: " + context.getPath());
 //                                LogManager.getLogger().info("fileName: " + fileName);
-                                if (fileName.equals("500.html")){
-                                    throw new RuntimeException("this is a deliberately created exception");
-                                }
-                                if (file.exists()) {
-                                    String content = HTMLParsing.getBody(file);
-                                    response.getPrintWriter().write(content);
-                                    // To test multithreading
-                                    if (fileName.equals("sleep.html")) {
-                                        Thread.sleep(1000);
-                                    }
-                                }
-                                else{
-                                    handle404(socket, uri);
-                                    return ;
+                            if (fileName.equals("500.html")){
+                                throw new RuntimeException("this is a deliberately created exception");
+                            }
+                            if (file.exists()) {
+                                String content = HTMLParsing.getBody(file);
+                                response.getPrintWriter().write(content);
+                                // To test multithreading
+                                if (fileName.equals("sleep.html")) {
+                                    Thread.sleep(1000);
                                 }
                             }
+                            else{
+                                handle404(socket, uri);
+                                return ;
+                            }
+
                             handle200(socket, response);
                         } catch (Exception e) {
                             e.printStackTrace();

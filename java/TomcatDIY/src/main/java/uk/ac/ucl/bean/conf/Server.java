@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -74,8 +76,8 @@ public class Server {
                                 String extension = FileUtils.getFileExtension(file);
                                 String mimeType = WebXMLParsing.getMimeType(extension);
                                 response.setContentType(mimeType);
-                                System.out.println("extension: " + extension);
-                                System.out.println("mimeType: " + mimeType);
+
+                                response.setBody(Files.readAllBytes(file.toPath()));
                                 String content = HTMLParsing.getBody(file);
                                 response.getPrintWriter().write(content);
                                 // To test multithreading

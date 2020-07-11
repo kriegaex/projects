@@ -14,6 +14,7 @@ import java.util.Set;
 
 /**
  * MiniBrowser will simulate the basic http request
+ * Used in unit testing
  */
 public class MiniBrowser {
 
@@ -73,7 +74,7 @@ public class MiniBrowser {
             URL u = new URL(url);
             Socket client = new Socket();
             int port = u.getPort();
-            if(-1==port)
+            if(-1 == port)
                 port = 80;
             InetSocketAddress inetSocketAddress = new InetSocketAddress(u.getHost(), port);
             client.connect(inetSocketAddress, 1000);
@@ -105,7 +106,7 @@ public class MiniBrowser {
             pWriter.println(httpRequestString);
             InputStream is = client.getInputStream();
 
-            result = readBytes(is);
+            result = readBytes(is, true);
             client.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,19 +121,28 @@ public class MiniBrowser {
 
     }
 
-    public static byte[] readBytes(InputStream is) throws IOException {
+    /**
+     * Converting an InputStream to bytes
+     * @param is
+     * @param fully : read all inputStream
+     * @return
+     * @throws IOException
+     */
+    public static byte[] readBytes(InputStream is, boolean fully) throws IOException {
         int buffer_size = 1024;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte buffer[] = new byte[buffer_size];
+        byte[] buffer = new byte[buffer_size];
         while(true) {
             int length = is.read(buffer);
-            if(-1 == length) { break; }
+            // If no byte is available because the stream is at the end of the file,
+            // the value -1 is returned
+            if(length == -1) { break; }
 
             baos.write(buffer, 0, length);
-            if(length != buffer_size){ break; }
+
+            if(!fully && length != buffer_size) { break; }
         }
-        byte[] result = baos.toByteArray();
-        return result;
+        return baos.toByteArray();
     }
 }

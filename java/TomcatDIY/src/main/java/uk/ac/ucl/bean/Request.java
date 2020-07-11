@@ -35,7 +35,10 @@ public class Request {
 
     private void parseHttpRequest() throws IOException {
         InputStream inputStream = socket.getInputStream();
-        byte[] bytes = MiniBrowser.readBytes(inputStream);
+        // Browser will send keep-alive connection,
+        // So unless browser terminates the connection by itself,
+        // the server will not receive the terminate signal (-1)
+        byte[] bytes = MiniBrowser.readBytes(inputStream, false);
         requestString = new String(bytes, "utf-8");
     }
 

@@ -90,6 +90,15 @@ public class TestTomcat {
         return http;
     }
 
+    private byte[] getContentBytes(String uri) {
+        return getContentBytes(uri,false);
+    }
+
+    private byte[] getContentBytes(String uri, boolean gzip) {
+        String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
+        return MiniBrowser.getContentBytes(url,false);
+    }
+
     @Test
     public void testbIndex() {
         String html = getContentString("/b/");
@@ -100,5 +109,12 @@ public class TestTomcat {
     public void testMimeType(){
         String response = getHttpString("/a.txt");
         Assert.assertTrue(response.contains("content-type"));
+    }
+
+    @Test
+    public void testPNG() {
+        byte[] bytes = getContentBytes("/logo.png");
+        int expectedLength = 1672;
+        Assert.assertEquals(expectedLength, bytes.length);
     }
 }

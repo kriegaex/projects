@@ -15,14 +15,18 @@ import java.util.Map;
 public class WebXMLParsing {
     private static Map<String, String> mimeTypeMapping = new HashMap<>();
 
-    private static void initMimeType(){
+    /**
+     * Initialising the mime-type map
+     * Since there is multi-threading in the server, to prevent the map being initialised
+     * several times at the same time, this method has to add synchronized
+     */
+    private static synchronized void initMimeType(){
         try {
             Document document = Jsoup.parse(Constant.webXMLFile, "utf-8");
             Elements elements = document.select("mime-mapping");
             for (Element element : elements){
                 String extension = element.select("extension ").first().text();
                 String mimeType = element.select("mime-type").first().text();
-                System.out.println(extension + " !!! " + mimeType);
                 mimeTypeMapping.put(extension, mimeType);
             }
         } catch (IOException e) {

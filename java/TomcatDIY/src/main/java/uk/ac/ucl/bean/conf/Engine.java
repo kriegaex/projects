@@ -12,7 +12,6 @@ public class Engine {
     public Engine(Service service){
         this.defaultHost = ServerXMLParsing.getEngineDefaultHostName();
         this.service = service;
-        System.out.println(defaultHost);
         this.hosts = ServerXMLParsing.getHosts(this);
     }
 

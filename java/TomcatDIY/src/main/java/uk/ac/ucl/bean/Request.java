@@ -35,6 +35,7 @@ public class Request {
 
     private void parseHttpRequest() throws IOException {
         InputStream inputStream = socket.getInputStream();
+
         // Browser will send keep-alive connection,
         // So unless browser terminates the connection by itself,
         // the server will not receive the terminate signal (-1)

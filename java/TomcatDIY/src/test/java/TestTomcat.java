@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class TestTomcat {
-    private static int port = 18080;
+    private static int port = 18081;
     private static String ip = "127.0.0.1";
     @BeforeClass
     public static void beforeClass() {
@@ -30,13 +30,6 @@ public class TestTomcat {
     public void testHelloTomcat() {
         String html = getContentString("/");
         Assert.assertEquals(html,"Hello Tomcat from Chaozy");
-    }
-
-    @Test
-    public void testaHtml() {
-        String html = getContentString("/hello.html");
-
-        Assert.assertEquals(html,"This is my first HTML file in DIY tomcat.");
     }
 
     private String getContentString(String uri) {
@@ -68,7 +61,7 @@ public class TestTomcat {
 
     @Test
     public void testaIndex() {
-        String html = getContentString("/a");
+        String html = getContentString("/a/index.html");
         Assert.assertEquals(html,"This is /webapp/a/index.html");
     }
 
@@ -101,15 +94,10 @@ public class TestTomcat {
 
     @Test
     public void testbIndex() {
-        String html = getContentString("/b/");
+        String html = getContentString("/b/index.html");
         Assert.assertEquals(html,"This is /webapp/b/index.html");
     }
 
-    @Test
-    public void testMimeType(){
-        String response = getHttpString("/a.txt");
-        Assert.assertTrue(response.contains("content-type"));
-    }
 
     @Test
     public void testPNG() {

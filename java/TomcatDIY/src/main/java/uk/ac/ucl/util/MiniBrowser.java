@@ -28,7 +28,7 @@ public class MiniBrowser {
 
     public static String getContentString(String url, boolean gzip) {
         byte[] result = getContentBytes(url, gzip);
-        if(null==result)
+        if(null == result)
             return null;
         try {
             return new String(result,"utf-8").trim();

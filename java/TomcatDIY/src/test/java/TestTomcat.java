@@ -105,4 +105,10 @@ public class TestTomcat {
         int expectedLength = 1672;
         Assert.assertEquals(expectedLength, bytes.length);
     }
+
+    @Test
+    public void testServlet() {
+        String html = getContentString("/hello");
+        Assert.assertEquals("This is my first servlet", html);
+    }
 }

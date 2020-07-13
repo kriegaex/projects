@@ -5,6 +5,7 @@ import org.apache.logging.log4j.core.util.FileUtils;
 import uk.ac.ucl.bean.Request;
 import uk.ac.ucl.bean.Response;
 import uk.ac.ucl.bean.conf.Context;
+import uk.ac.ucl.servlet.HelloServlet;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.HTMLParsing;
@@ -21,44 +22,46 @@ public class HttpProcessor {
         try {
             String uri = request.getUri();
             // If the port is occupied, the returning uri could be null
-            if (uri == null) {
-                return;
-            }
+            if (uri == null) { return; }
             Context context = request.getContext();
 
-            // If the folder directory is the root directory
-            if (uri.equals("/")) {
-                uri = WebXMLParsing.getWelcomeFileName(request.getContext());
+            if (uri.equals("/500.html")) {
+                throw new RuntimeException("this is a deliberately created exception");
             }
-            String fileName = StrUtil.subAfter(uri, "/", true);
-            File file = new File(context.getDocBase(), fileName);
+            if (uri.equals("/hello")) {
+                HelloServlet helloServlet = new HelloServlet();
+                helloServlet.doGet(request, response);
+            }
+            else {
+                // If the folder directory is the root directory
+                if (uri.equals("/")) {
+                    uri = WebXMLParsing.getWelcomeFileName(request.getContext());
+                }
+                String fileName = StrUtil.subAfter(uri, "/", true);
+                File file = new File(context.getDocBase(), fileName);
 //                                LogManager.getLogger().info("docBase: " + context.getDocBase());
 //                                LogManager.getLogger().info("path: " + context.getPath());
 //                                LogManager.getLogger().info("fileName: " + fileName);
-            if (fileName.equals("500.html")) {
-                throw new RuntimeException("this is a deliberately created exception");
-            }
-            if (file.exists()) {
-                String extension = FileUtils.getFileExtension(file);
-                String mimeType = WebXMLParsing.getMimeType(extension);
-                response.setContentType(mimeType);
 
-                response.setBody(Files.readAllBytes(file.toPath()));
-                String content = HTMLParsing.getBody(file);
-                response.getPrintWriter().write(content);
-                // To test multithreading
-                if (fileName.equals("sleep.html")) {
-                    Thread.sleep(1000);
+                if (file.exists()) {
+                    String extension = FileUtils.getFileExtension(file);
+                    String mimeType = WebXMLParsing.getMimeType(extension);
+                    response.setContentType(mimeType);
+
+                    response.setBody(Files.readAllBytes(file.toPath()));
+//                    String content = HTMLParsing.getBody(file);
+//                    response.getWriter().write(content);
+                    // To test multithreading
+                    if (fileName.equals("sleep.html")) { Thread.sleep(1000); }
+                } else {
+                    handle404(socket, uri);
+                    return;
                 }
-            } else {
-                handle404(socket, uri);
-                return;
             }
-
             handle200(socket, response);
-
         } catch (Exception e) {
             LogManager.getLogger().error(e);
+            e.printStackTrace();
             handle500(socket, e);
         } finally {
             if (!socket.isClosed()) {

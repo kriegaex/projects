@@ -29,7 +29,7 @@ public class TestTomcat {
     @Test
     public void testHelloTomcat() {
         String html = getContentString("/");
-        Assert.assertEquals(html,"Hello Tomcat from Chaozy");
+        Assert.assertTrue(html.contains("This is my first HTML file in DIY tomcat."));
     }
 
     private String getContentString(String uri) {
@@ -62,7 +62,7 @@ public class TestTomcat {
     @Test
     public void testaIndex() {
         String html = getContentString("/a/index.html");
-        Assert.assertEquals(html,"This is /webapp/a/index.html");
+        Assert.assertTrue(html.contains("This is /webapp/a/index.html"));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class TestTomcat {
     @Test
     public void testbIndex() {
         String html = getContentString("/b/index.html");
-        Assert.assertEquals(html,"This is /webapp/b/index.html");
+        Assert.assertTrue(html.contains("This is /webapp/b/index.html"));
     }
 
 
@@ -109,6 +109,7 @@ public class TestTomcat {
     @Test
     public void testServlet() {
         String html = getContentString("/hello");
-        Assert.assertEquals("This is my first servlet", html);
+        Assert.assertEquals("Hello world, " +
+                "this is the first servlet on this Tomcat", html);
     }
 }

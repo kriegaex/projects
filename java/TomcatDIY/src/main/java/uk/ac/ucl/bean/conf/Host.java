@@ -1,5 +1,6 @@
 package uk.ac.ucl.bean.conf;
 
+import uk.ac.ucl.bean.Context;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.io.ServerXMLParsing;
 

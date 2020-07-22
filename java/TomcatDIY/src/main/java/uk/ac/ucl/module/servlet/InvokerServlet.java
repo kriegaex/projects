@@ -1,0 +1,34 @@
+package uk.ac.ucl.module.servlet;
+
+import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.bean.request.Request;
+import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.util.core.ReflectUtil;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class InvokerServlet extends HttpServlet {
+    private static InvokerServlet instance = new InvokerServlet();
+
+    public static synchronized InvokerServlet getInstance() {return instance; }
+
+    public void service(HttpServletRequest httpServletRequest,
+                        HttpServletResponse httpServletResponse) {
+        Request request = (Request)httpServletRequest;
+        Response response = (Response)httpServletResponse;
+        String uri = request.getUri();
+        Context context = request.getContext();
+        String servletClassName = context.getServletClassName(uri);
+        // No need to check if servletObject is null, this is checked in ReflectUtil
+        Object servletObject = ReflectUtil.getInstance(servletClassName);
+
+        // The types of arguments of service() is ServletRequest and ServletResponse
+        // They have to be casted to these two types to match corresponding invoke method
+        ReflectUtil.invoke(servletObject,
+                "service", (ServletRequest) request, (ServletResponse) response);
+    }
+}

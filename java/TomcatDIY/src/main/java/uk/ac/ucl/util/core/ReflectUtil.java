@@ -1,5 +1,7 @@
 package uk.ac.ucl.util.core;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Constructor;
@@ -18,7 +20,7 @@ public class ReflectUtil {
      * @return
      */
     public static Object getInstance(String className) {
-        Class<?> servletObject = null;
+        Class<?> servletObject;
         try {
             servletObject = Class.forName(className);
             Constructor<?> constructor = servletObject.getConstructor();
@@ -40,14 +42,35 @@ public class ReflectUtil {
      */
     public static void invoke(Object object, String method,
                               HttpServletRequest request, HttpServletResponse response) {
-        Method doGet = null;
+        Method doGet;
         try {
             doGet = object.getClass().getMethod(method,
                     HttpServletRequest.class, HttpServletResponse.class);
+
             doGet.invoke(object, request, response);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * This method does the same job as the previous one,
+     * it was designed specialised for service() in servlet
+     * @param object
+     * @param method : method name
+     * @param request
+     * @param response
+     */
+    public static void invoke(Object object, String method,
+                              ServletRequest request, ServletResponse response){
+        Method doGet;
+        try {
+            doGet = object.getClass().getMethod(method,
+                    ServletRequest.class, ServletResponse.class);
+
+            doGet.invoke(object, request, response);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

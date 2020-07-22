@@ -5,6 +5,7 @@ import org.apache.logging.log4j.core.util.FileUtils;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.module.servlet.InvokerServlet;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.ReflectUtil;
 import uk.ac.ucl.util.core.StrUtil;
@@ -27,13 +28,9 @@ public class HttpProcessor {
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
             if (servletClassName != null) {
-                // No need to check if servletObject is null, this is checked inReflectUtil
-                Object servletObject = ReflectUtil.getInstance(servletClassName);
-                ReflectUtil.invoke(servletObject,
-                        "doGet", request, response);
+                InvokerServlet.getInstance().service(request, response);
             }
             else {
-
                 if (uri.equals("/500.html")) {
                     throw new RuntimeException("this is a deliberately created exception");
                 } else {

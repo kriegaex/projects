@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class Request extends BasicRequest {
     private String requestString;
     private String uri;
+    private String method;
     private Socket socket;
     private Context context;
     private Service service;
@@ -24,6 +25,7 @@ public class Request extends BasicRequest {
         if (StrUtil.isEmpty(requestString)) { return; }
         parseUri();
         parseContext();
+        parseMethod();
 
         if (!"/".equals(context.getPath())) {
 
@@ -33,6 +35,10 @@ public class Request extends BasicRequest {
             }
         }
 
+    }
+
+    private void parseMethod() {
+        method = StrUtil.subBefore(requestString, " ");
     }
 
     private void parseHttpRequest() throws IOException {
@@ -63,6 +69,10 @@ public class Request extends BasicRequest {
         context = service.getEngine().getDefaultHost().getContext(path);
 
     }
+
+    @Override
+    public String getMethod() {
+        return method; }
 
     public String getRequestString() { return requestString; }
 

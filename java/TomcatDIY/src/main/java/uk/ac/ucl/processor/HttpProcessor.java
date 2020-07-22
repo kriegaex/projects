@@ -5,9 +5,9 @@ import org.apache.logging.log4j.core.util.FileUtils;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.bean.Context;
-import uk.ac.ucl.module.servlet.InvokerServlet;
+import uk.ac.ucl.module.DefaultServlet;
+import uk.ac.ucl.module.InvokerServlet;
 import uk.ac.ucl.util.Constant;
-import uk.ac.ucl.util.core.ReflectUtil;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.WebXMLParsing;
 
@@ -31,38 +31,16 @@ public class HttpProcessor {
                 InvokerServlet.getInstance().service(request, response);
             }
             else {
-                if (uri.equals("/500.html")) {
-                    throw new RuntimeException("this is a deliberately created exception");
-                } else {
-                    // If the folder directory is the root directory
-                    if (uri.equals("/")) {
-                        uri = WebXMLParsing.getWelcomeFileName(request.getContext());
-                    }
-                    String fileName = StrUtil.subAfter(uri, "/", true);
-                    File file = new File(context.getDocBase(), fileName);
-//                                LogManager.getLogger().info("docBase: " + context.getDocBase());
-//                                LogManager.getLogger().info("path: " + context.getPath());
-//                                LogManager.getLogger().info("fileName: " + fileName);
-
-                    if (file.exists()) {
-                        String extension = FileUtils.getFileExtension(file);
-                        String mimeType = WebXMLParsing.getMimeType(extension);
-                        response.setContentType(mimeType);
-
-                        response.setBody(Files.readAllBytes(file.toPath()));
-//                    String content = HTMLParsing.getBody(file);
-//                    response.getWriter().write(content);
-                        // To test multithreading
-                        if (fileName.equals("sleep.html")) {
-                            Thread.sleep(1000);
-                        }
-                    } else {
-                        handle404(socket, uri);
-                        return;
-                    }
-                }
+                DefaultServlet.getInstance().service(request, response);
             }
-            handle200(socket, response);
+            int status = response.getStatus();
+            if (status == Constant.code_200) {
+                handle200(socket, response);
+            }
+            else if (status == Constant.code_404) {
+                handle404(socket, uri);
+                return;
+            }
         } catch (Exception e) {
             LogManager.getLogger().error(e);
             e.printStackTrace();

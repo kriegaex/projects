@@ -1,8 +1,9 @@
-package uk.ac.ucl.module.servlet;
+package uk.ac.ucl.module;
 
 import uk.ac.ucl.bean.Context;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.ReflectUtil;
 
 import javax.servlet.ServletRequest;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InvokerServlet extends HttpServlet {
     private static InvokerServlet instance = new InvokerServlet();
 
-    public static synchronized InvokerServlet getInstance() {return instance; }
+    public static InvokerServlet getInstance() {return instance; }
 
     public void service(HttpServletRequest httpServletRequest,
                         HttpServletResponse httpServletResponse) {
@@ -30,5 +31,7 @@ public class InvokerServlet extends HttpServlet {
         // They have to be casted to these two types to match corresponding invoke method
         ReflectUtil.invoke(servletObject,
                 "service", (ServletRequest) request, (ServletResponse) response);
+
+        response.setStatus(Constant.code_200);
     }
 }

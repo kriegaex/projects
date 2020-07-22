@@ -16,6 +16,7 @@ public class Response extends BasicResponse {
     private PrintWriter printWriter;
     private String contentType;
     private byte[] body;
+    private int status;
 
     public Response(){
         // default content-type
@@ -43,5 +44,11 @@ public class Response extends BasicResponse {
 
     @Override
     public PrintWriter getWriter() { return printWriter; }
+
+    @Override
+    public int getStatus() { return status; }
+
+    @Override
+    public void setStatus(int status) { this.status = status; }
 
 }

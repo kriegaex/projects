@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * DefaultServlet aims to handle static web resources
+ */
 public class DefaultServlet extends HttpServlet {
     private static DefaultServlet defaultServlet = new DefaultServlet();
 

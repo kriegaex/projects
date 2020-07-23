@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/DefaultServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/classLoader/CommonClassLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/servlet/InvokerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/InvokerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/DefaultServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/DefaultServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,13 +85,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Bootstrap">
+  <component name="RunManager" selected="JUnit.TestTomcat">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="uk.ac.ucl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CustomizedClassLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.classLoader.CustomizedClassLoader" />
+      <module name="TomcatDIY" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ucl.classLoader.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CustomizedURLClassLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.classLoader.CustomizedURLClassLoader" />
+      <module name="TomcatDIY" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ucl.classLoader.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -109,16 +134,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestTomcat.testMimeType" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TomcatDIY" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestTomcat" />
-      <option name="METHOD_NAME" value="testMimeType" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TestTomcat.testPNG" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
@@ -129,23 +144,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestTomcat.testaIndex" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TomcatDIY" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestTomcat" />
-      <option name="METHOD_NAME" value="testaIndex" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="Application.Bootstrap" />
+        <item itemvalue="Application.CustomizedURLClassLoader" />
+        <item itemvalue="Application.CustomizedClassLoader" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
-        <item itemvalue="JUnit.TestTomcat.testMimeType" />
-        <item itemvalue="JUnit.TestTomcat.testaIndex" />
       </list>
     </recent_temporary>
   </component>
@@ -161,7 +166,7 @@
       <updated>1593769456987</updated>
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
-      <workItem from="1593959881867" duration="57092000" />
+      <workItem from="1593959881867" duration="63127000" />
     </task>
     <servers />
   </component>

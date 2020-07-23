@@ -1,7 +1,6 @@
 package uk.ac.ucl.processor;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.util.FileUtils;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.bean.Context;
@@ -9,15 +8,12 @@ import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
-import uk.ac.ucl.util.io.WebXMLParsing;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import java.net.Socket;
-import java.nio.file.Files;
 
 public class HttpProcessor {
     public void execute(Socket socket, Request request, Response response) {
@@ -45,14 +41,6 @@ public class HttpProcessor {
             LogManager.getLogger().error(e);
             e.printStackTrace();
             handle500(socket, e);
-        } finally {
-            if (!socket.isClosed()) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 

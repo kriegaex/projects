@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.startup.sh.swp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bootstrap 2.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bootstrap.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/startup.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.startup.sh.swp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap 2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap.jar" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.jar" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +174,7 @@
       <updated>1593769456987</updated>
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
-      <workItem from="1593959881867" duration="68158000" />
+      <workItem from="1593959881867" duration="68493000" />
     </task>
     <servers />
   </component>

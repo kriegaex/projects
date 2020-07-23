@@ -1,5 +1,7 @@
 ## ClassLoader ##
 
+
+
 ### INRO ###
 
 The **Java ClassLoader** is a part of the [**Java Runtime Environment**](https://www.geeksforgeeks.org/differences-jdk-jre-jvm/) that dynamically loads Java classes into the [**Java Virtual Machine**](https://www.geeksforgeeks.org/jvm-works-jvm-architecture/). The Java run time system does not need to know about files and file systems because of classloaders.
@@ -31,3 +33,20 @@ JSP class loader is responsible to load classes from java files which are transl
 
 
 There are another two class loaders : Catalina class loader & Share class loader, which should load classes and jars from `%tomcat_home%/catalina/` & `%tomcat_home%/share`. Both them haven't be implemented.
+
+
+
+### CLASS LOADERS in Tomcat ###
+
+![](/Users/chaozy/Library/Application Support/typora-user-images/image-20200723231748430.png)		
+
+
+
+[READMORE about the class loaders in Tomcat](https://tomcat.apache.org/tomcat-8.0-doc/class-loader-howto.html)
+
+
+
+### TRACE class loading ###
+
+INTELLIJ : Edit Configurations --> Bootstrap --> VM options --> `-Xlog:class+load=info`
+

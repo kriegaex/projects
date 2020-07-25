@@ -22,7 +22,11 @@ public class HttpProcessor {
             // If the port is occupied, the returning uri could be null
             if (uri == null) { return; }
             Context context = request.getContext();
+            System.out.println("docBase: " + context.getDocBase());
             String servletClassName = context.getServletClassName(uri);
+            System.out.println("uri: " + uri);
+            System.out.println("servletClassName: " + servletClassName);
+            System.out.println("");
             if (servletClassName != null) {
                 InvokerServlet.getInstance().service(request, response);
             }

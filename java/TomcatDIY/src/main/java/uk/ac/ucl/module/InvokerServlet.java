@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * InvokerServlet provides service to servlet mapping
+ */
 public class InvokerServlet extends HttpServlet {
     private static InvokerServlet instance = new InvokerServlet();
 
@@ -19,19 +22,28 @@ public class InvokerServlet extends HttpServlet {
 
     public void service(HttpServletRequest httpServletRequest,
                         HttpServletResponse httpServletResponse) {
-        Request request = (Request)httpServletRequest;
-        Response response = (Response)httpServletResponse;
+        Request request = (Request) httpServletRequest;
+        Response response = (Response) httpServletResponse;
         String uri = request.getUri();
         Context context = request.getContext();
         String servletClassName = context.getServletClassName(uri);
-        // No need to check if servletObject is null, this is checked in ReflectUtil
-        Object servletObject = ReflectUtil.getInstance(servletClassName);
+        System.out.println("servletClassName: " + servletClassName);
+        try {
+            Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
+            // No need to check if servletObject is null, this is checked in ReflectUtil
+            Object servletObject = ReflectUtil.getInstance(servletClassName);
+            System.out.println("servletObject: " + servletObject);
+            System.out.println("servletClass: " + servletClass);
+            System.out.println("servletClass's classLoader:" + servletClass.getClassLoader());
 
-        // The types of arguments of service() is ServletRequest and ServletResponse
-        // They have to be casted to these two types to match corresponding invoke method
-        ReflectUtil.invoke(servletObject,
-                "service", (ServletRequest) request, (ServletResponse) response);
+            // The types of arguments of service() is ServletRequest and ServletResponse
+            // They have to be casted to these two types to match corresponding invoke method
+            ReflectUtil.invoke(servletObject,
+                    "service", (ServletRequest) request, (ServletResponse) response);
 
-        response.setStatus(Constant.code_200);
+            response.setStatus(Constant.code_200);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

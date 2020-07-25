@@ -32,6 +32,19 @@ public class ReflectUtil {
         return null;
     }
 
+    public static Object getInstance(Class classObject){
+        Class<?> servletObject;
+        try {
+            servletObject = Class.forName(classObject.getName());
+            Constructor<?> constructor = servletObject.getConstructor();
+            Object object = constructor.newInstance();
+            return object;
+        } catch (Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * This methods invokes given method name in the given instance.
      * Same as the previous method, it does not check the number and type of parameters
@@ -57,18 +70,19 @@ public class ReflectUtil {
      * This method does the same job as the previous one,
      * it was designed specialised for service() in servlet
      * @param object
-     * @param method : method name
+     * @param methodName : method name
      * @param request
      * @param response
      */
-    public static void invoke(Object object, String method,
+    public static void invoke(Object object, String methodName,
                               ServletRequest request, ServletResponse response){
-        Method doGet;
+        Method method;
         try {
-            doGet = object.getClass().getMethod(method,
+            method = object.getClass().
+                    getMethod(methodName,
                     ServletRequest.class, ServletResponse.class);
 
-            doGet.invoke(object, request, response);
+            method.invoke(object, request, response);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

@@ -16,10 +16,12 @@ public class Bootstrap {
 //        Server server = new Server();
 //        server.start();
 
-        // SECOND: Using reflection to start the server while loading all jars in /lib
+        // SECOND: Loading the Server class through CommonClassLoader,
+        // then call the method through reflection
         CommonClassLoader commonClassLoader = new CommonClassLoader();
         // TODO : EXPLAIN this line of code
         Thread.currentThread().setContextClassLoader(commonClassLoader);
+
         String serverClassName = "uk.ac.ucl.bean.conf.Server";
         Class<?> serverClass = commonClassLoader.loadClass(serverClassName);
         //Object serverObject = ReflectUtil.getInstance(serverClassName);

@@ -37,6 +37,7 @@ public class Host {
         for (File file : files){
             String path = "/" + file.getName();
             String docBase;
+            System.out.println("PATH in Host: " + path);
             if (file.isDirectory()){
                 docBase = file.getAbsolutePath();
             }

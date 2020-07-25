@@ -25,6 +25,7 @@ public class ServerXMLParsing {
             Elements elements = document.select("Context");
             for (Element element : elements){
                 String path = element.attr("path");
+                System.out.println("PATH in ServerXMLParsing: " + path);
                 String docBase = element.attr("docBase");
                 Context context = new Context(path, docBase);
                 list.add(context);

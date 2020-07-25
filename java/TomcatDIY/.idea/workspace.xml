@@ -2,10 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.startup.sh.swp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/classLoader/WebappClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/FileUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.startup.sh.swp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap 2.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.jar" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/server.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/Context.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/conf/Host.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/conf/Host.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/InvokerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/InvokerServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ReflectUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ReflectUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startup.sh" beforeDir="false" afterPath="$PROJECT_DIR$/startup.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -86,26 +97,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestTomcat">
+  <component name="RunManager" selected="Application.Bootstrap">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="uk.ac.ucl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CustomizedClassLoader" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.classLoader.CustomizedClassLoader" />
-      <module name="TomcatDIY" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="uk.ac.ucl.classLoader.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -145,20 +143,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestTomcat.testServlet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TomcatDIY" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestTomcat" />
+      <option name="METHOD_NAME" value="testServlet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Bootstrap" />
-      <item itemvalue="Application.CustomizedClassLoader" />
       <item itemvalue="Application.CustomizedURLClassLoader" />
       <item itemvalue="JUnit.TestTomcat" />
       <item itemvalue="JUnit.TestTomcat.testPNG" />
+      <item itemvalue="JUnit.TestTomcat.testServlet" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="Application.Bootstrap" />
-        <item itemvalue="Application.CustomizedURLClassLoader" />
-        <item itemvalue="Application.CustomizedClassLoader" />
+        <item itemvalue="JUnit.TestTomcat" />
+        <item itemvalue="JUnit.TestTomcat.testServlet" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
+        <item itemvalue="Application.CustomizedURLClassLoader" />
       </list>
     </recent_temporary>
   </component>
@@ -174,7 +182,7 @@
       <updated>1593769456987</updated>
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
-      <workItem from="1593959881867" duration="68493000" />
+      <workItem from="1593959881867" duration="93499000" />
     </task>
     <servers />
   </component>

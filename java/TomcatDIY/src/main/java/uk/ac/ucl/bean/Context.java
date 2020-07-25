@@ -5,6 +5,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import uk.ac.ucl.classLoader.CommonClassLoader;
+import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.TimeUtil;
@@ -17,26 +19,36 @@ import java.util.*;
 /**
  * path means the path to access in url
  * docBase means its absolute path in the project
+ *
+ * Each web app has its own WebappClassLoader
+ *
+ * Also, url, servlet name and servlet class name map to each other
  */
 public class Context {
     private String path;
     private String docBase;
     private File webXMLFile;
+    private WebappClassLoader webappClassLoader;
     private Map<String, String> url_servletClassName;
     private Map<String, String> url_servletName;
     private Map<String, String> servletClassName_servletName;
     private Map<String, String> servletName_servletClassName;
 
     public Context(String path, String docBase){
-
         this.path = path;
         this.docBase = docBase;
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        this.webappClassLoader = new WebappClassLoader(docBase, classLoader);
+
         this.webXMLFile = new File(docBase, ContextXMLUtil.getWatchedResources());
+
         this.url_servletClassName = new HashMap<>();
         this.url_servletName = new HashMap<>();
         this.servletClassName_servletName = new HashMap<>();
         this.servletName_servletClassName = new HashMap<>();
         deploy();
+
 
     }
 
@@ -80,6 +92,7 @@ public class Context {
         Elements urlElements = document.select("servlet-mapping url-pattern");
         for (Element urlElement : urlElements){
             String urlPattern = urlElement.text();
+            System.out.println("urlPattern: " + urlPattern);
             String servletName =
                     urlElement.parent().select("servlet-name").first().text();
             url_servletName.put(urlPattern, servletName);
@@ -92,6 +105,7 @@ public class Context {
             String servletClassName
                     = servletName_servletClassName.get(servletName);
             url_servletClassName.put(url, servletClassName);
+            System.out.println("HERE: " + url + " " + servletClassName);
         }
     }
 
@@ -124,7 +138,13 @@ public class Context {
         }
     }
 
+    public WebappClassLoader getWebappClassLoader() { return webappClassLoader; }
+
     public String getServletClassName(String url){
+        Set<String> urls = url_servletClassName.keySet();
+        for (String s : urls){
+            System.out.println(s);
+        }
         return url_servletClassName.get(url);
     }
 

@@ -22,6 +22,7 @@ public class ReflectUtil {
     public static Object getInstance(String className) {
         Class<?> servletObject;
         try {
+            System.out.println(Thread.currentThread().getContextClassLoader());
             servletObject = Class.forName(className);
             Constructor<?> constructor = servletObject.getConstructor();
             Object object = constructor.newInstance();
@@ -35,8 +36,7 @@ public class ReflectUtil {
     public static Object getInstance(Class classObject){
         Class<?> servletObject;
         try {
-            servletObject = Class.forName(classObject.getName());
-            Constructor<?> constructor = servletObject.getConstructor();
+            Constructor<?> constructor = classObject.getConstructor();
             Object object = constructor.newInstance();
             return object;
         } catch (Exception e ) {

@@ -31,7 +31,7 @@ public class InvokerServlet extends HttpServlet {
         try {
             Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
             // No need to check if servletObject is null, this is checked in ReflectUtil
-            Object servletObject = ReflectUtil.getInstance(servletClassName);
+            Object servletObject = ReflectUtil.getInstance(servletClass);
             System.out.println("servletObject: " + servletObject);
             System.out.println("servletClass: " + servletClass);
             System.out.println("servletClass's classLoader:" + servletClass.getClassLoader());

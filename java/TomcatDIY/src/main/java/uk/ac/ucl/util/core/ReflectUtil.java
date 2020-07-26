@@ -34,7 +34,6 @@ public class ReflectUtil {
     }
 
     public static Object getInstance(Class classObject){
-        Class<?> servletObject;
         try {
             Constructor<?> constructor = classObject.getConstructor();
             Object object = constructor.newInstance();

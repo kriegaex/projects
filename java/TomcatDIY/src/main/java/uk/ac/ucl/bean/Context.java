@@ -5,10 +5,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import uk.ac.ucl.classLoader.CommonClassLoader;
 import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
 import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.TimeUtil;
 import uk.ac.ucl.util.io.ContextXMLUtil;
 
@@ -92,7 +92,6 @@ public class Context {
         Elements urlElements = document.select("servlet-mapping url-pattern");
         for (Element urlElement : urlElements){
             String urlPattern = urlElement.text();
-            System.out.println("urlPattern: " + urlPattern);
             String servletName =
                     urlElement.parent().select("servlet-name").first().text();
             url_servletName.put(urlPattern, servletName);
@@ -105,7 +104,6 @@ public class Context {
             String servletClassName
                     = servletName_servletClassName.get(servletName);
             url_servletClassName.put(url, servletClassName);
-            System.out.println("HERE: " + url + " " + servletClassName);
         }
     }
 
@@ -141,11 +139,8 @@ public class Context {
     public WebappClassLoader getWebappClassLoader() { return webappClassLoader; }
 
     public String getServletClassName(String url){
-        Set<String> urls = url_servletClassName.keySet();
-        for (String s : urls){
-            System.out.println(s);
-        }
-        return url_servletClassName.get(url);
+        String uri = StrUtil.subAfter(url, path);
+        return url_servletClassName.get(uri);
     }
 
     public String getPath() {

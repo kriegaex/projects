@@ -65,7 +65,6 @@ public class Request extends BasicRequest {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
-        System.out.println("PATH: " + path);
         context = service.getEngine().getDefaultHost().getContext(path);
 
     }

@@ -37,7 +37,7 @@ public class Host {
         for (File file : files){
             String path = "/" + file.getName();
             String docBase;
-            System.out.println("PATH in Host: " + path);
+
             if (file.isDirectory()){
                 docBase = file.getAbsolutePath();
             }
@@ -62,5 +62,6 @@ public class Host {
 
     public String getName() { return name; }
 
-    public Context getContext(String path) { return contextMap.get(path); }
+    public Context getContext(String path) {
+        return contextMap.get(path); }
 }

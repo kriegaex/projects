@@ -27,14 +27,10 @@ public class InvokerServlet extends HttpServlet {
         String uri = request.getUri();
         Context context = request.getContext();
         String servletClassName = context.getServletClassName(uri);
-        System.out.println("servletClassName: " + servletClassName);
         try {
             Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
             // No need to check if servletObject is null, this is checked in ReflectUtil
             Object servletObject = ReflectUtil.getInstance(servletClass);
-            System.out.println("servletObject: " + servletObject);
-            System.out.println("servletClass: " + servletClass);
-            System.out.println("servletClass's classLoader:" + servletClass.getClassLoader());
 
             // The types of arguments of service() is ServletRequest and ServletResponse
             // They have to be casted to these two types to match corresponding invoke method

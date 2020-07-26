@@ -139,7 +139,11 @@ public class Context {
     public WebappClassLoader getWebappClassLoader() { return webappClassLoader; }
 
     public String getServletClassName(String url){
+        System.out.println("DOCBASE in CONTEXT: " + docBase);
+        System.out.println("PATH in COntext: " + path);
         String uri = StrUtil.subAfter(url, path);
+        if (!uri.startsWith("/")) { uri = "/" + uri; }
+        System.out.println(uri);
         return url_servletClassName.get(uri);
     }
 

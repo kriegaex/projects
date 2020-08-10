@@ -32,7 +32,7 @@ public class Host {
         // Adding the context of the root folder to the context map
         String rootPath = "/";
         String rootDocBase = Constant.rootFolder.getAbsolutePath();
-        contextMap.put(rootPath, new Context(rootPath, rootDocBase));
+        contextMap.put(rootPath, new Context(rootPath, rootDocBase, this, true));
         // Adding contexts of all directories under root folder to the context map
         for (File file : files){
             String path = "/" + file.getName();
@@ -44,7 +44,7 @@ public class Host {
             else{
                 docBase = file.getParentFile().getAbsolutePath();
             }
-            Context context = new Context(path, docBase);
+            Context context = new Context(path, docBase, this, true);
             contextMap.put(context.getPath(), context);
         }
     }
@@ -54,7 +54,7 @@ public class Host {
      * into context map
      */
     private void scanServerXml() {
-        List<Context> contextList = ServerXMLParsing.getContexts();
+        List<Context> contextList = ServerXMLParsing.getContexts(this);
         for (Context context : contextList){
             contextMap.put(context.getPath(), context);
         }

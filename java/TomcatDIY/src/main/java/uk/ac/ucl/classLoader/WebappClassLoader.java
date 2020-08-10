@@ -37,4 +37,8 @@ public class WebappClassLoader extends URLClassLoader {
         }
     }
 
+    public void stop(){
+
+    }
+
 }

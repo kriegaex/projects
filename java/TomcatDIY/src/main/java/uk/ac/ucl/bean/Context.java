@@ -5,15 +5,18 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import uk.ac.ucl.bean.conf.Host;
 import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
 import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.FileChangeMonitor;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.TimeUtil;
 import uk.ac.ucl.util.io.ContextXMLUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -29,14 +32,23 @@ public class Context {
     private String docBase;
     private File webXMLFile;
     private WebappClassLoader webappClassLoader;
+
+    private Host host;
+    private boolean reloadable;
+    private FileChangeMonitor fileChangeMonitor;
+
     private Map<String, String> url_servletClassName;
     private Map<String, String> url_servletName;
     private Map<String, String> servletClassName_servletName;
     private Map<String, String> servletName_servletClassName;
 
-    public Context(String path, String docBase){
+
+    public Context(String path, String docBase, Host host, boolean reloadable){
         this.path = path;
         this.docBase = docBase;
+
+        this.host = host;
+        this.reloadable = reloadable;
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         this.webappClassLoader = new WebappClassLoader(docBase, classLoader);
@@ -47,18 +59,26 @@ public class Context {
         this.url_servletName = new HashMap<>();
         this.servletClassName_servletName = new HashMap<>();
         this.servletName_servletClassName = new HashMap<>();
-        deploy();
-
+        try {
+            deploy();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void deploy() {
+    private void deploy() throws IOException {
         TimeUtil timeUtil = new TimeUtil();
         LogManager.getLogger().info(
                 "Deploying web application directory {}", this.docBase);
         init();
         LogManager.getLogger().info("Deployment of web application directory {}" +
                 " has finished at {} ms", this.docBase, timeUtil.interval());
+
+        if (reloadable){
+            fileChangeMonitor = new FileChangeMonitor(Paths.get(this.getDocBase() + "/"));
+            new Thread(fileChangeMonitor).start();
+        }
     }
 
     private void init() {
@@ -76,6 +96,15 @@ public class Context {
             e.printStackTrace();
         }
     }
+
+    public void stop(){
+        webappClassLoader.stop();
+        fileChangeMonitor.stop();
+    }
+
+//    public void reload(){
+//        host.reload(this);
+//    }
 
     private void parseServletMapping(Document document) {
         // servlet name and servlet class name
@@ -163,4 +192,11 @@ public class Context {
         this.docBase = docBase;
     }
 
+    public boolean isReloadable() {
+        return reloadable;
+    }
+
+    public void setReloadable(boolean reloadable) {
+        this.reloadable = reloadable;
+    }
 }

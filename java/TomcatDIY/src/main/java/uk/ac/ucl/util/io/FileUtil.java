@@ -2,6 +2,8 @@ package uk.ac.ucl.util.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,4 +46,5 @@ public class FileUtil {
     public static List<File> getFiles(File file) throws FileNotFoundException {
         return getFiles(file, null);
     }
+
 }

@@ -50,3 +50,36 @@ There are another two class loaders : Catalina class loader & Share class loader
 
 INTELLIJ : Edit Configurations --> Bootstrap --> VM options --> `-Xlog:class+load=info`
 
+
+
+
+
+## WatchService ##
+
+To implement this functionality, called *file change notification*, a program must be able to detect what is happening to the relevant directory on the file system. One way to do so is to poll the file system looking for changes, but this approach is inefficient. It does not scale to applications that have hundreds of open files or directories to monitor.
+
+The `java.nio.file` package provides a file change notification API, called the Watch Service API. 
+
+[official tutorial](https://docs.oracle.com/javase/tutorial/essential/io/notification.html)
+
+
+
+### Servlet Auto-Reloading in Tomcat ###
+
+Tomcat by default will automatically reload a servlet when it notices that the servlet's class file has been modified. This is certainly a great convenience when debugging servlets; however, bear in mind that in order to implement this functionality, Tomcat must periodically check the modification time on every servlet. This entails a lot of filesystem activity that is unnecessary when the servlets have been debugged and are not changing.
+
+To turn this feature off, you need only set the `reloadable` attribute in the web application's `Context` element (in either your *server.xml* or your context XML fragment file, wherever you've stored your `Context` element), and restart Tomcat. Once you've done this, you can still reload the servlet classes in a given `Context` by using the `Manager` application (detailed in the section "[The Manager Webapp](https://www.oreilly.com/library/view/tomcat-the-definitive/9780596101060/ch03s07.html)" in Chapter 3).
+
+
+
+### ISSUES ###
+
+- WatchService will only monitor the files under the registered directory. So files under subfolder cannot be located. All subfolders have to be registered. (https://stackoverflow.com/questions/16611426/monitor-subfolders-with-a-java-watch-service)
+- Keys have to be resetted after each used, reason: https://stackoverflow.com/questions/20180547/event-fired-only-once-when-watching-a-directory
+
+
+
+### Resources ###
+
+[TOP tutorial](https://www.baeldung.com/java-nio2-watchservice)
+

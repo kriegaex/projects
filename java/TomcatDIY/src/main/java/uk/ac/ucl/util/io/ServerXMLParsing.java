@@ -18,7 +18,7 @@ public class ServerXMLParsing {
      * Read context nodes
      * @return
      */
-    public static List<Context> getContexts(){
+    public static List<Context> getContexts(Host host){
         List<Context> list = new ArrayList<>();
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
@@ -26,7 +26,8 @@ public class ServerXMLParsing {
             for (Element element : elements){
                 String path = element.attr("path");
                 String docBase = element.attr("docBase");
-                Context context = new Context(path, docBase);
+                boolean reloadable = element.attr("reloadable").equals("true");
+                Context context = new Context(path, docBase, host, reloadable);
                 list.add(context);
             }
         } catch (IOException e) {

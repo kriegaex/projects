@@ -1,7 +1,7 @@
 package uk.ac.ucl.bean.conf;
 
 import org.apache.logging.log4j.LogManager;
-import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.io.ServerXMLParsing;
 

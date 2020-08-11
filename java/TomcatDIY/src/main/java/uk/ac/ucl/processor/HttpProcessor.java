@@ -3,7 +3,7 @@ package uk.ac.ucl.processor;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
-import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.context.Context;
 import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;
 import uk.ac.ucl.util.Constant;

@@ -1,10 +1,11 @@
 package uk.ac.ucl.bean.request;
 
-import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -78,6 +79,12 @@ public class Request extends BasicRequest {
     public String getUri() { return uri; }
 
     public Context getContext() { return context; }
+
+    public ServletContext getServletContext() { return context.getServletContext(); }
+
+    public String getRealPath(String path) {
+        return getServletContext().getRealPath(path);
+    }
 
 }
 

@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean;
+package uk.ac.ucl.context;
 
 import org.apache.logging.log4j.LogManager;
 import org.jsoup.Jsoup;
@@ -14,6 +14,7 @@ import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.TimeUtil;
 import uk.ac.ucl.util.io.ContextXMLUtil;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -32,6 +33,7 @@ public class Context {
     private String docBase;
     private File webXMLFile;
     private WebappClassLoader webappClassLoader;
+    private ServletContext servletContext;
 
     private Host host;
     private boolean reloadable;
@@ -49,6 +51,7 @@ public class Context {
 
         this.host = host;
         this.reloadable = reloadable;
+        this.servletContext = new ApplicationContext(this);
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         this.webappClassLoader = new WebappClassLoader(docBase, classLoader);
@@ -168,11 +171,8 @@ public class Context {
     public WebappClassLoader getWebappClassLoader() { return webappClassLoader; }
 
     public String getServletClassName(String url){
-        System.out.println("DOCBASE in CONTEXT: " + docBase);
-        System.out.println("PATH in COntext: " + path);
         String uri = StrUtil.subAfter(url, path);
         if (!uri.startsWith("/")) { uri = "/" + uri; }
-        System.out.println(uri);
         return url_servletClassName.get(uri);
     }
 
@@ -198,5 +198,9 @@ public class Context {
 
     public void setReloadable(boolean reloadable) {
         this.reloadable = reloadable;
+    }
+
+    public ServletContext getServletContext(){
+        return servletContext;
     }
 }

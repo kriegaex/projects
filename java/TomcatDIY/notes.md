@@ -1,7 +1,5 @@
 ## ClassLoader ##
 
-
-
 ### INRO ###
 
 The **Java ClassLoader** is a part of the [**Java Runtime Environment**](https://www.geeksforgeeks.org/differences-jdk-jre-jvm/) that dynamically loads Java classes into the [**Java Virtual Machine**](https://www.geeksforgeeks.org/jvm-works-jvm-architecture/). The Java run time system does not need to know about files and file systems because of classloaders.
@@ -83,3 +81,12 @@ To turn this feature off, you need only set the `reloadable` attribute in the we
 
 [TOP tutorial](https://www.baeldung.com/java-nio2-watchservice)
 
+
+
+
+
+# Servlet Context #
+
+### INTRO ###
+
+Definning a set of methods that a servlet uses to communicate with its servlet container, for example, to get the MIME type of a file, dispatch requests, or write to a log file.

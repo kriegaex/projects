@@ -1,7 +1,7 @@
 package uk.ac.ucl.util;
 
 import org.apache.logging.log4j.LogManager;
-import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.context.Context;
 
 import java.io.IOException;
 import java.nio.file.*;

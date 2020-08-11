@@ -1,6 +1,6 @@
 package uk.ac.ucl.module;
 
-import uk.ac.ucl.bean.Context;
+import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.util.Constant;

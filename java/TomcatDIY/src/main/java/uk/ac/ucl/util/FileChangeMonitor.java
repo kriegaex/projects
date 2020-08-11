@@ -1,15 +1,20 @@
 package uk.ac.ucl.util;
 
+import org.apache.logging.log4j.LogManager;
+import uk.ac.ucl.bean.Context;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileChangeMonitor implements Runnable {
-    boolean stop = false;
-    Path path;
+    private boolean stop = false;
+    private Path path;
+    private Context context;
 
-    public FileChangeMonitor(Path path) throws IOException {
+    public FileChangeMonitor(Path path, Context context) throws IOException {
         this.path = path;
+        this.context = context;
     }
 
     public synchronized void start() throws IOException {
@@ -18,12 +23,14 @@ public class FileChangeMonitor implements Runnable {
 
         while (true) {
             WatchKey key = null;
+            if (stop){ continue; }
             try {
                 key = monitor.take();
                 for (WatchEvent<?> event : key.pollEvents()){
                     String fileName = event.context().toString();
                     if (fileName.endsWith(".jar") || fileName.endsWith(".class") || fileName.endsWith(".xml")){
-                        System.out.println(fileName + " has been modified!");
+                        LogManager.getLogger().info(this + " has detected modification about {}", fileName);
+                        context.reload();
                     }
                 }
                 key.reset();

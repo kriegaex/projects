@@ -76,7 +76,7 @@ public class Context {
                 " has finished at {} ms", this.docBase, timeUtil.interval());
 
         if (reloadable){
-            fileChangeMonitor = new FileChangeMonitor(Paths.get(this.getDocBase() + "/"));
+            fileChangeMonitor = new FileChangeMonitor(Paths.get(this.getDocBase() + "/"), this);
             new Thread(fileChangeMonitor).start();
         }
     }
@@ -102,9 +102,9 @@ public class Context {
         fileChangeMonitor.stop();
     }
 
-//    public void reload(){
-//        host.reload(this);
-//    }
+    public void reload(){
+        host.reload(this);
+    }
 
     private void parseServletMapping(Document document) {
         // servlet name and servlet class name
@@ -193,7 +193,7 @@ public class Context {
     }
 
     public boolean isReloadable() {
-        return reloadable;
+            return reloadable;
     }
 
     public void setReloadable(boolean reloadable) {

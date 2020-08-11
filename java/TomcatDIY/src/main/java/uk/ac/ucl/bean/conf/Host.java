@@ -1,5 +1,6 @@
 package uk.ac.ucl.bean.conf;
 
+import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.bean.Context;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.io.ServerXMLParsing;
@@ -58,6 +59,24 @@ public class Host {
         for (Context context : contextList){
             contextMap.put(context.getPath(), context);
         }
+    }
+
+    /**
+     * Record important information, then delete the old context from contextMap
+     * Iniliasing a new context with old basic information, then add it to the contextMap
+     * @param context
+     */
+    public void reload(Context context) {
+        LogManager.getLogger().info("Reloading context : [{}] has started", context.getPath());
+
+        String path = context.getPath();
+        String docBase = context.getDocBase();
+        boolean reloadable = context.isReloadable();
+
+        contextMap.remove(path);
+
+        Context newContxt = new Context(path, docBase, this, reloadable);
+        contextMap.put(path, newContxt);
     }
 
     public String getName() { return name; }

@@ -90,3 +90,42 @@ To turn this feature off, you need only set the `reloadable` attribute in the we
 ### INTRO ###
 
 Definning a set of methods that a servlet uses to communicate with its servlet container, for example, to get the MIME type of a file, dispatch requests, or write to a log file.
+
+
+
+
+
+# Servlet Life-cycle #
+
+### How Tomcat works with servlets ###
+
+One of the key requirements worked into the Servlet specification is that they only are expected to handle certain parts of the total data transaction process.  For example, the servlet code itself will never listen for requests on a certain port, nor will it communicate directly with a client, nor is it responsible for managing its access to resources.  Rather, these things are managed by Tomcat, the servlet container.  
+
+This allows servlets to be re-used in a wide variety of environments, or for components to be developed asynchronously from one another - a connector can be re-factored for improved efficiency without any changes to the servlet code itself, as long as no major changes are made.
+
+### Servlet life cycles  ###
+
+As managed components, servlets have a life cycle, which begins when the managing container loads the servlet class, usually in response to a request, and ends when the container closes the servlet by calling the "destroy" method.  All the servlet's activity between these two points is considered part of its life cycle.
+
+The lifecycle of a typical servlet running on Tomcat might look something like this:
+
+1. Tomcat receives a request from a client through one of its connectors.
+2. Tomcat maps this request to the appropriate Engine for processing.  These Engines are contained within other elements, such as Hosts and Servers, which limit the scope of Tomcat's search for the correct Engine.
+3. Once the request has been mapped to the appropriate servlet, Tomcat checks to see if that servlet class has been loaded.  If it has not, Tomcat compiles the servlet into Java bytecode, which is executable by the JVM, and creates an instance of the servlet.
+4. Tomcat initializes the servlet by calling its init method.  The servlet includes code that is able to read Tomcat configuration files and act accordingly, as well as declare any resources it might need, so that Tomcat can create them in an orderly, managed fashion.
+5. Once the servlet has been initialized, Tomcat can call the servlet's service method to process the request, which will be returned as a response.
+6. During the servlet's lifecycle, Tomcat and the servlet can communicate through the use of listener classes, which monitor the servlet for a variety of state changes.  Tomcat can retrieve and store these state changes in a variety of ways, and allow other servlets access to them, allowing state to be maintained and accessed by various components of a given context across the span of a single or multiple user sessions.  An example of this functionality in action is an e-commerce application that remembers what the user has added to their cart and is able to pass this data to a checkout process.
+7. Tomcat calls the servlet's destroy method to smoothly remove the servlet.  This action is triggered either by a state change that is being listened for, or by an external command delivered to Tomcat to undeploy the servlet's Context or shut down the server.
+
+[SOURCE](https://www.mulesoft.com/tcat/tomcat-servlet)
+
+### DESTORY ###
+
+In java servlet, `destroy()` is not supposed to be called by the programmer. But, if it is invoked, it gets executed. The implicit question is, will the servlet get destroyed? No, it will not. `destroy()` method is not supposed to and will not destroy a java servlet.
+
+The meaning of `destroy()` in java servlet is, the content gets executed just before when the container decides to destroy the servlet. But if you invoke the `destroy()` method yourself, the content just gets executed and then the respective process continues. With respective to this question, the `destroy()` gets executed and then the servlet initialization gets completed.
+
+`destroy()` method is invoked first, then Servlet is removed from the container and then eventually garbage collected. `destroy()` method generally contains code to free any resources like JDBC connection that will not be garbage collected.
+
+[source](https://stackoverflow.com/questions/13437259/calling-servlets-destroy-method)
+

@@ -73,6 +73,7 @@ public class Host {
         String docBase = context.getDocBase();
         boolean reloadable = context.isReloadable();
 
+        context.stop();
         contextMap.remove(path);
 
         Context newContxt = new Context(path, docBase, this, reloadable);

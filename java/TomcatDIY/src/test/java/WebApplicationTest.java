@@ -30,6 +30,13 @@ public class WebApplicationTest {
     @Test
     public void testServlet() {
         String html = getContentString("/example/hello");
-        Assert.assertTrue(html.contains("Hello DIY Tomcat from HelloServlet@example"));
+        Assert.assertTrue(html.contains("Hello DIY Tomcat from"));
+    }
+
+    @Test
+    public void testServletSingelton() {
+        String html1 = getContentString("/example/hello");
+        String html2 = getContentString("/example/hello");
+        Assert.assertEquals(html1, html2);
     }
 }

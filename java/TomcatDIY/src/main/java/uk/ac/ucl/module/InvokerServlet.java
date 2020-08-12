@@ -6,6 +6,7 @@ import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.ReflectUtil;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +31,7 @@ public class InvokerServlet extends HttpServlet {
         try {
             Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
             // No need to check if servletObject is null, this is checked in ReflectUtil
-            Object servletObject = ReflectUtil.getInstance(servletClass);
+            Object servletObject = context.getServlet(servletClass);
 
             // The types of arguments of service() is ServletRequest and ServletResponse
             // They have to be casted to these two types to match corresponding invoke method
@@ -38,7 +39,7 @@ public class InvokerServlet extends HttpServlet {
                     "service", (ServletRequest) request, (ServletResponse) response);
 
             response.setStatus(Constant.code_200);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | ServletException e) {
             e.printStackTrace();
         }
     }

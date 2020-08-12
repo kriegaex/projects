@@ -40,6 +40,7 @@ public class Context {
     private WebappClassLoader webappClassLoader;
     private ServletContext servletContext;
     private Map<Class<?>, HttpServlet> servletPool;
+    private List<String> loadOnStartupServiceClassName;
 
     private Host host;
     private boolean reloadable;
@@ -60,6 +61,7 @@ public class Context {
         this.reloadable = reloadable;
         this.servletContext = new ApplicationContext(this);
         this.servletPool = new HashMap<>();
+        this.loadOnStartupServiceClassName = new ArrayList<>();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         this.webappClassLoader = new WebappClassLoader(docBase, classLoader);
@@ -105,6 +107,8 @@ public class Context {
             Document document = Jsoup.parse(webXMLFile, "utf-8");
             parseServletMapping(document);
             parseParaMapping(document);
+            parseLoadOnStartup(document);
+            loadOnStartup();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -167,6 +171,20 @@ public class Context {
         }
     }
 
+    private void parseLoadOnStartup(Document document) {
+        Elements elements = document.select("load-on-startup");
+        for (Element element : elements) {
+            int order = Integer.parseInt(element.text());
+            String loadClassName = element.parent().select("servlet-class").text();
+            if (loadOnStartupServiceClassName.size() > order) {
+                loadOnStartupServiceClassName.add(order, loadClassName);
+            }
+            else{
+                loadOnStartupServiceClassName.add(loadClassName);
+            }
+        }
+    }
+
     private void checkDuplicate(Document document, String pattern, String warning) throws WebConfigDuplicateException {
         Elements elements = document.select(pattern);
 
@@ -193,6 +211,19 @@ public class Context {
                     "Duplicate servlet-class");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void loadOnStartup() {
+        for (String className : loadOnStartupServiceClassName){
+            try {
+                // load servlet
+                Class<?> clazz = webappClassLoader.loadClass(className);
+                // init servlet
+                getServlet(clazz);
+            } catch (ClassNotFoundException | ServletException e) {
+                e.printStackTrace();
+            }
         }
     }
 

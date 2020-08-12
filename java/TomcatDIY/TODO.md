@@ -2,4 +2,5 @@
 - [x] HOT-RELOADING by WatchService (8.11.20)
 - [ ] What does ServletContext do?
 - [ ] Give warning about ununique context path and uri
+- [ ] order of `load-on-startup`
 

@@ -2,6 +2,7 @@ package uk.ac.ucl.util;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import uk.ac.ucl.util.core.WebUtil;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -18,16 +19,20 @@ import java.util.Set;
  */
 public class MiniBrowser {
 
-    public static byte[] getContentBytes(String url){
-        return getContentBytes(url, false);
+    public static byte[] getContentBytes(String url,
+                                         Map<String, String> params, boolean isPost){
+
+        return getContentBytes(url, false, params, isPost);
     }
 
-    public static String getContentString(String url) {
-        return getContentString(url,false);
+    public static String getContentString(String url,
+                                          Map<String, String> params, boolean isPost) {
+        return getContentString(url,false, params, isPost);
     }
 
-    public static String getContentString(String url, boolean gzip) {
-        byte[] result = getContentBytes(url, gzip);
+    public static String getContentString(String url, boolean gzip,
+                                          Map<String, String> params, boolean isPost) {
+        byte[] result = getContentBytes(url, gzip, params, isPost);
         if(null == result)
             return null;
         try {
@@ -37,8 +42,9 @@ public class MiniBrowser {
         }
     }
 
-    public static byte[] getContentBytes(String url, boolean gzip) {
-        byte[] response = getHttpBytes(url,gzip);
+    public static byte[] getContentBytes(String url,
+                           boolean gzip, Map<String, String> params, boolean isPost) {
+        byte[] response = getHttpBytes(url,gzip, params, isPost);
         byte[] doubleReturn = "\r\n\r\n".getBytes();
 
         int pos = -1;
@@ -59,17 +65,21 @@ public class MiniBrowser {
         return result;
     }
 
-    public static String getHttpString(String url,boolean gzip) {
-        byte[] bytes = getHttpBytes(url,gzip);
+    public static String getHttpString(String url,
+                    boolean gzip, Map<String, String> params, boolean isPost) {
+        byte[] bytes = getHttpBytes(url, gzip, params, isPost );
         return new String(bytes).trim();
     }
 
-    public static String getHttpString(String url) {
-        return getHttpString(url,false);
+    public static String getHttpString(String url,
+                                       Map<String, String> params, boolean isPost) {
+        return getHttpString(url, false, params, isPost);
     }
 
-    public static byte[] getHttpBytes(String url,boolean gzip) {
+    public static byte[] getHttpBytes(String url, boolean gzip,
+                       Map<String, String> params, boolean isPost) {
         byte[] result = null;
+        String method = isPost?"POST":"GET";
         try {
             URL u = new URL(url);
             Socket client = new Socket();
@@ -92,7 +102,12 @@ public class MiniBrowser {
             if(path.length()==0) {
                 path = "/";
             }
-            String firstLine = "GET " + path + " HTTP/1.1\r\n";
+            if (params.size() != 0 && !isPost){
+                String query = WebUtil.toUrlQuery(params);
+                path += "?" + query;
+            }
+
+            String firstLine = method + path + " HTTP/1.1\r\n";
 
             StringBuffer httpRequestString = new StringBuffer();
             httpRequestString.append(firstLine);

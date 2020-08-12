@@ -1,7 +1,9 @@
 package uk.ac.ucl.util.core;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.*;
+import java.util.Map;
 
 /**
  * Including methods used for web connection
@@ -12,7 +14,7 @@ public class WebUtil {
      * @param port
      * @return
      */
-    static public boolean isPortUsable(int port){
+    public static boolean isPortUsable(int port){
         try(ServerSocket ss = new ServerSocket(port);
         ) {
             // The reason to use setReuseAddress() is here:
@@ -25,7 +27,24 @@ public class WebUtil {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println(isPortUsable(8080));
+    public static String urlEncodeUtf8(String s){
+        try {
+            return URLEncoder.encode(s, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
+   public static String toUrlQuery(Map<String, String> params){
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (sb.length() > 0) { sb.append("&"); }
+            sb.append(String.format("%s=%s",
+                    urlEncodeUtf8(entry.getKey()),
+                    urlEncodeUtf8(entry.getValue())
+            ));
+        }
+        return sb.toString();
+   }
 }

@@ -5,6 +5,9 @@ import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.WebUtil;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class WebApplicationTest {
     private static int port = 18081;
     private static String ip = "127.0.0.1";
@@ -38,5 +41,25 @@ public class WebApplicationTest {
         String html1 = getContentString("/example/hello");
         String html2 = getContentString("/example/hello");
         Assert.assertEquals(html1, html2);
+    }
+
+    @Test
+    public void testPostParam() {
+        String uri = "/example/param";
+        String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "chaozy");
+        String html = MiniBrowser.getContentString(url, map, true);
+        Assert.assertEquals("Post name --> chaozy", html);
+    }
+
+    @Test
+    public void testGetParam() {
+        String uri = "/example/param";
+        String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
+        Map<String, String> map = new HashMap<>();
+        map.put("name", "chaozy");
+        String html = MiniBrowser.getContentString(url, map, false);
+        Assert.assertEquals("Get name --> chaozy", html);
     }
 }

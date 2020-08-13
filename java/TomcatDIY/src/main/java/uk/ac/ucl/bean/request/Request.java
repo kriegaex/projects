@@ -1,7 +1,7 @@
 package uk.ac.ucl.bean.request;
 
 import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
+
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
@@ -83,20 +83,19 @@ public class Request extends BasicRequest {
     private void parseParameters() throws DecoderException {
         if (this.getMethod().equals("GET")) {
             String url = StrUtil.subBetween(requestString, " ");
+
             if (url.contains("?")){
                 queryString = StrUtil.subAfter(url, "?");
             }
+
         }
         else if (this.getMethod().equals("POST")) {
-            queryString = StrUtil.subAfter(requestString, "");
-            System.out.println("THIS queryString from method POST --> " + queryString);
+            queryString = StrUtil.subAfter(requestString, "\r\n\r\n");
         }
-
-        if (queryString == null) {
+        if (queryString == null || queryString.length() == 0) {
             return ;
         }
-        queryString = new String(Hex.decodeHex(requestString));
-        System.out.println("queryString from request --> " + queryString);
+        // queryString = new String(Hex.decodeHex(queryString));
         String[] parameterValues = queryString.split("&");
         if (parameterValues != null) {
             for (String paramterValue : parameterValues) {
@@ -127,13 +126,15 @@ public class Request extends BasicRequest {
         // the server will not receive the terminate signal (-1)
         byte[] bytes = MiniBrowser.readBytes(inputStream, false);
         requestString = new String(bytes, StandardCharsets.UTF_8);
+
     }
 
     private void parseUri() {
         String temp;
+
         temp = StrUtil.subBetween(requestString, " ");
-        if (!temp.contains("?")) {
-            StrUtil.subBefore(temp, "?");
+        if (temp.contains("?")) {
+            temp = StrUtil.subBefore(temp, "?");
         }
         uri = temp;
     }
@@ -145,7 +146,6 @@ public class Request extends BasicRequest {
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
         context = service.getEngine().getDefaultHost().getContext(path);
-
     }
 
     @Override

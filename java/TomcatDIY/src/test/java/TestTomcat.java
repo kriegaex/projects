@@ -89,7 +89,7 @@ public class TestTomcat {
 
     private byte[] getContentBytes(String uri, boolean gzip) {
         String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
-        return MiniBrowser.getContentBytes(url,false);
+        return MiniBrowser.getContentBytes(url, false);
     }
 
     @Test

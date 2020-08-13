@@ -1,7 +1,6 @@
 package uk.ac.ucl.util;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 import uk.ac.ucl.util.core.WebUtil;
 
 import java.io.*;
@@ -19,19 +18,22 @@ import java.util.Set;
  */
 public class MiniBrowser {
 
-    public static byte[] getContentBytes(String url,
-                                         Map<String, String> params, boolean isPost){
+    public static byte[] getContentBytes(String url){
 
-        return getContentBytes(url, false, params, isPost);
+        return getContentBytes(url, false, null, false);
     }
 
-    public static String getContentString(String url,
-                                          Map<String, String> params, boolean isPost) {
-        return getContentString(url,false, params, isPost);
+    public static String getContentString(String url) {
+        return getContentString(url,false, null, false);
+    }
+
+    public static String getContentString(String url, Map<String,String> params, boolean isPost){
+        return getContentString(url, false, params, isPost);
     }
 
     public static String getContentString(String url, boolean gzip,
                                           Map<String, String> params, boolean isPost) {
+
         byte[] result = getContentBytes(url, gzip, params, isPost);
         if(null == result)
             return null;
@@ -42,9 +44,13 @@ public class MiniBrowser {
         }
     }
 
+    public static byte[] getContentBytes(String url, boolean gzip) {
+        return getContentBytes(url, gzip,null,true);
+    }
+
     public static byte[] getContentBytes(String url,
                            boolean gzip, Map<String, String> params, boolean isPost) {
-        byte[] response = getHttpBytes(url,gzip, params, isPost);
+        byte[] response = getHttpBytes(url, gzip, params, isPost);
         byte[] doubleReturn = "\r\n\r\n".getBytes();
 
         int pos = -1;
@@ -65,15 +71,18 @@ public class MiniBrowser {
         return result;
     }
 
-    public static String getHttpString(String url,
-                    boolean gzip, Map<String, String> params, boolean isPost) {
-        byte[] bytes = getHttpBytes(url, gzip, params, isPost );
+    public static String getHttpString(String url, Map<String, String> params, boolean isPost) {
+        byte[] bytes = getHttpBytes(url, false, params, isPost );
         return new String(bytes).trim();
     }
 
-    public static String getHttpString(String url,
-                                       Map<String, String> params, boolean isPost) {
-        return getHttpString(url, false, params, isPost);
+    public static String getHttpString(String url,boolean gzip, Map<String,String> params, boolean isGet) {
+        byte[]  bytes=getHttpBytes(url,gzip,params,isGet);
+        return new String(bytes).trim();
+    }
+
+    public static String getHttpString(String url) {
+        return getHttpString(url, false, null, false);
     }
 
     public static byte[] getHttpBytes(String url, boolean gzip,
@@ -102,21 +111,31 @@ public class MiniBrowser {
             if(path.length()==0) {
                 path = "/";
             }
-            if (params.size() != 0 && !isPost){
+            if (params != null && !isPost){
                 String query = WebUtil.toUrlQuery(params);
+                LogManager.getLogger().info(query);
                 path += "?" + query;
             }
 
-            String firstLine = method + path + " HTTP/1.1\r\n";
+            String firstLine = method + " " + path + " HTTP/1.1\r\n";
 
             StringBuffer httpRequestString = new StringBuffer();
             httpRequestString.append(firstLine);
             Set<String> headers = requestHeaders.keySet();
+
             for (String header : headers) {
                 String headerLine = header + ":" + requestHeaders.get(header)+"\r\n";
                 httpRequestString.append(headerLine);
             }
 
+            if(null != params && isPost){
+
+                String paramsString = WebUtil.toUrlQuery(params);
+                LogManager.getLogger().info(paramsString);
+                httpRequestString.append("\r\n");
+                httpRequestString.append(paramsString);
+            }
+            LogManager.getLogger().info(httpRequestString);
             PrintWriter pWriter = new PrintWriter(client.getOutputStream(), true);
             pWriter.println(httpRequestString);
             InputStream is = client.getInputStream();

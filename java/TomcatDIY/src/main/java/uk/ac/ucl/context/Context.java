@@ -244,11 +244,9 @@ public class Context {
             String className = clazz.getName();
             String servletName = servletClassName_servletName.get(className);
             Map<String, String> initParameters = servletClassName_initPara.get(className);
-            System.out.println(initParameters);
 
             ServletConfig servletConfig = new StandardServletConfig(servletContext,
                     initParameters, servletName);
-            System.out.println(servlet);
             servlet.init(servletConfig);
             servletPool.put(clazz, servlet);
 

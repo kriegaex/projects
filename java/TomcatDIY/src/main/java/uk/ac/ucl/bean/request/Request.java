@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -217,5 +218,93 @@ public class Request extends BasicRequest {
         return getServletContext().getRealPath(path);
     }
 
+    // Code below from : https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html
+    @Override
+    public String getLocalAddr() {
+        return socket.getLocalAddress().getHostAddress();
+    }
+
+    @Override
+    public String getLocalName() {
+        return socket.getLocalAddress().getHostName();
+    }
+
+    @Override
+    public int getLocalPort() {
+        return socket.getLocalPort();
+    }
+
+    @Override
+    public String getProtocol() {
+        return "HTTP:/1.1";
+    }
+
+    @Override
+    public String getRemoteAddr() {
+        InetSocketAddress address = (InetSocketAddress) socket.getRemoteSocketAddress();
+        return StrUtil.subAfter(address.getAddress().toString(), "/");
+    }
+
+    @Override
+    public String getRemoteHost() {
+        InetSocketAddress address = (InetSocketAddress) socket.getRemoteSocketAddress();
+        return address.getHostName();
+    }
+
+    @Override
+    public int getRemotePort() {
+        return socket.getPort();
+    }
+
+    @Override
+    public String getScheme() {
+        return "http";
+    }
+
+    @Override
+    public String getServerName() {
+        return getHeader("Host").trim();
+    }
+
+    @Override
+    public int getServerPort() {
+        return getLocalPort();
+    }
+
+    @Override
+    public String getContextPath() {
+        String path = this.context.getPath();
+        if (path.equals("/")){
+            return "";
+        }
+        return path;
+    }
+
+    @Override
+    public String getRequestURI() {
+        return uri;
+    }
+
+    @Override
+    public StringBuffer getRequestURL() {
+        StringBuffer url = new StringBuffer();
+        String scheme = this.getScheme();
+        int port = this.getServerPort();
+
+        url.append(scheme);
+        url.append(port);
+        url.append(this.getServerName());
+        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
+            url.append(':');
+            url.append(port);
+        }
+        url.append(getRequestURI());
+        return url;
+    }
+
+    @Override
+    public String getServletPath() {
+        return uri;
+    }
 }
 

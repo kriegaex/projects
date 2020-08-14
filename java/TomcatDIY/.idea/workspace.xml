@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +85,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Bootstrap">
+  <component name="RunManager" selected="JUnit.TestTomcat">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
@@ -146,10 +146,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Bootstrap" />
         <item itemvalue="JUnit.TestTomcat" />
-        <item itemvalue="JUnit.TestTomcat.testPNG" />
         <item itemvalue="JUnit.WebApplicationTest" />
+        <item itemvalue="Application.Bootstrap" />
+        <item itemvalue="JUnit.TestTomcat.testPNG" />
         <item itemvalue="JUnit.WebApplicationTest.testGetParam" />
       </list>
     </recent_temporary>
@@ -167,7 +167,7 @@
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
       <workItem from="1593959881867" duration="111483000" />
-      <workItem from="1597028072162" duration="36165000" />
+      <workItem from="1597028072162" duration="37378000" />
     </task>
     <servers />
   </component>

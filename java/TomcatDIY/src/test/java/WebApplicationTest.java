@@ -62,4 +62,11 @@ public class WebApplicationTest {
         String html = MiniBrowser.getContentString(url, map, false);
         Assert.assertEquals("Get name --> chaozy", html);
     }
+
+    @Test
+    public void testHeaderServlet() {
+        String uri = "/example/header";
+        String html = MiniBrowser.getContentString(uri);
+        Assert.assertEquals("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36", html);
+    }
 }

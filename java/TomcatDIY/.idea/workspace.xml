@@ -3,7 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/MiniBrowser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/MiniBrowser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestTomcat">
+  <component name="RunManager" selected="JUnit.WebApplicationTest">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
@@ -108,16 +112,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestTomcat.testPNG" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TomcatDIY" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestTomcat" />
-      <option name="METHOD_NAME" value="testPNG" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WebApplicationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
@@ -127,11 +121,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebApplicationTest.testGetParam" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebApplicationTest.testHeaderServlet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="WebApplicationTest" />
-      <option name="METHOD_NAME" value="testGetParam" />
+      <option name="METHOD_NAME" value="testHeaderServlet" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebApplicationTest.testsetCookie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TomcatDIY" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="WebApplicationTest" />
+      <option name="METHOD_NAME" value="testsetCookie" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -139,18 +143,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Bootstrap" />
-      <item itemvalue="JUnit.WebApplicationTest.testGetParam" />
       <item itemvalue="JUnit.WebApplicationTest" />
       <item itemvalue="JUnit.TestTomcat" />
-      <item itemvalue="JUnit.TestTomcat.testPNG" />
+      <item itemvalue="JUnit.WebApplicationTest.testsetCookie" />
+      <item itemvalue="JUnit.WebApplicationTest.testHeaderServlet" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="JUnit.WebApplicationTest" />
+        <item itemvalue="JUnit.WebApplicationTest.testHeaderServlet" />
+        <item itemvalue="JUnit.WebApplicationTest.testsetCookie" />
         <item itemvalue="Application.Bootstrap" />
-        <item itemvalue="JUnit.TestTomcat.testPNG" />
-        <item itemvalue="JUnit.WebApplicationTest.testGetParam" />
+        <item itemvalue="JUnit.TestTomcat" />
       </list>
     </recent_temporary>
   </component>
@@ -167,7 +171,7 @@
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
       <workItem from="1593959881867" duration="111483000" />
-      <workItem from="1597028072162" duration="37378000" />
+      <workItem from="1597028072162" duration="40588000" />
     </task>
     <servers />
   </component>

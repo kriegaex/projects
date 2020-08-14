@@ -29,6 +29,12 @@ public class WebApplicationTest {
         return content;
     }
 
+    private String getHttpString(String uri) {
+        String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
+        String http = MiniBrowser.getHttpString(url);
+        return http;
+    }
+
 
     @Test
     public void testServlet() {
@@ -66,7 +72,14 @@ public class WebApplicationTest {
     @Test
     public void testHeaderServlet() {
         String uri = "/example/header";
-        String html = MiniBrowser.getContentString(uri);
-        Assert.assertEquals("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36", html);
+        String html = getContentString(uri);
+        Assert.assertEquals("Chaozy's mini browser / java13", html);
+    }
+
+    @Test
+    public void testsetCookie() {
+        String html = getHttpString("/example/setCookie");
+        System.out.println(html);
+        Assert.assertTrue(html.contains("Set-Cookie: name=Chaozy;Expires="));
     }
 }

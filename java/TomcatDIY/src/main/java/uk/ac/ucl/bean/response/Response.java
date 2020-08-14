@@ -1,15 +1,16 @@
 package uk.ac.ucl.bean.response;
 
-import javax.servlet.ServletOutputStream;
+import org.apache.logging.log4j.LogManager;
+
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.Locale;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
+
 
 public class Response extends BasicResponse {
     private StringWriter stringWriter;
@@ -17,12 +18,14 @@ public class Response extends BasicResponse {
     private String contentType;
     private byte[] body;
     private int status;
+    private List<Cookie> cookies;
 
     public Response(){
         // default content-type
         this.contentType = "text/html";
         this.stringWriter = new StringWriter();
         this.printWriter = new PrintWriter(stringWriter);
+        this.cookies = new ArrayList<>();
         // When printWriter.print is used, it writes stuff into stringWriter
         // And outputStream will derive the stuff through getBody() then send it to the client
     }
@@ -39,8 +42,43 @@ public class Response extends BasicResponse {
 
     public void setContentType(String contentType){ this.contentType = contentType; }
 
-
     public String getContentType(){ return contentType; }
+
+    public String getCookieHeader() {
+        String pattern = "EEE, d MMM yyyy HH:mm:ss'GMT'";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        StringBuffer sb = new StringBuffer();
+
+        for (Cookie cookie : cookies) {
+            sb.append("\r\n");
+            sb.append("Set-Cookie: ");
+            sb.append(cookie.getName() + "=" + cookie.getValue() + ";");
+            // if cookie does not live forever
+            if (cookie.getMaxAge() != -1) {
+                sb.append("Expires=");
+                Date now = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(now);
+                cal.add(Calendar.SECOND, cookie.getMaxAge());
+                sb.append(sdf.format(cal.getTime()));
+                sb.append(";");
+            }
+            if (cookie.getPath() != null) {
+                sb.append("Path=" + cookie.getPath());
+            }
+        }
+        LogManager.getLogger().info("Cookie's Header: " + sb.toString());
+        return sb.toString();
+    }
+
+    @Override
+    public void addCookie(Cookie cookie) {
+        cookies.add(cookie);
+    }
+
+    public List<Cookie> getCookies() {
+        return this.cookies;
+    }
 
     @Override
     public PrintWriter getWriter() { return printWriter; }

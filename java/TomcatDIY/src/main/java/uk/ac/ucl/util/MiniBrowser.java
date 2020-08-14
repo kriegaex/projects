@@ -90,6 +90,7 @@ public class MiniBrowser {
         byte[] result = null;
         String method = isPost?"POST":"GET";
         try {
+            System.out.println("URL: " + url);
             URL u = new URL(url);
             Socket client = new Socket();
             int port = u.getPort();

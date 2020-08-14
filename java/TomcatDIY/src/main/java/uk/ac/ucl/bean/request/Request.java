@@ -2,6 +2,7 @@ package uk.ac.ucl.bean.request;
 
 import org.apache.commons.codec.DecoderException;
 
+import org.apache.logging.log4j.core.pattern.LineSeparatorPatternConverter;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
@@ -9,8 +10,10 @@ import uk.ac.ucl.util.core.ArrayUtil;
 import uk.ac.ucl.util.core.StrUtil;
 
 import javax.servlet.ServletContext;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -25,16 +28,20 @@ public class Request extends BasicRequest {
 
     private String queryString;
     private Map<String, String[]> paramMap;
+    private Map<String, String> headerMap;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
         this.service = service;
         this.paramMap = new HashMap<>();
+        this.headerMap = new HashMap<>();
+
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)) { return; }
         parseUri();
         parseContext();
         parseMethod();
+        parseHeaders(requestString);
 
         if (!"/".equals(context.getPath())) {
             uri.substring(context.getPath().length());
@@ -80,6 +87,52 @@ public class Request extends BasicRequest {
         return paramMap.get(s);
     }
 
+    @Override
+    public String getHeader(String s) {
+        if (s == null) {
+            return null;
+        }
+        return headerMap.get(s);
+    }
+
+    @Override
+    public Enumeration<String> getHeaderNames() {
+        Set<String> keys = headerMap.keySet();
+        return Collections.enumeration(keys);
+    }
+
+    @Override
+    public int getIntHeader(String s) {
+        String header = headerMap.get(s);
+        if (header == null){ return -1; }
+        try {
+            return Integer.parseInt(header);
+        }
+        catch (NumberFormatException e){
+            return 0;
+        }
+    }
+
+    private void parseHeaders(String requestString) throws IOException {
+        StringReader reader = new StringReader(requestString);
+        List<String> lines = new ArrayList<>();
+
+        BufferedReader br = new BufferedReader(reader);
+        String line = br.readLine();
+        while (line != null) {
+            lines.add(line);
+            line = br.readLine();
+        }
+        br.close();
+        reader.close();
+        for (int i = 1; i < lines.size(); i++) {
+            line = lines.get(i);
+            if (line.length() == 0) { break; }
+            String[] name_header = line.split(":");
+            headerMap.put(name_header[0], name_header[1]);
+        }
+
+    }
     private void parseParameters() throws DecoderException {
         if (this.getMethod().equals("GET")) {
             String url = StrUtil.subBetween(requestString, " ");

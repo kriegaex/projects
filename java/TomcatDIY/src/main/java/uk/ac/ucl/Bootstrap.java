@@ -28,7 +28,6 @@ public class Bootstrap {
         Object serverObject = constructor.newInstance();
         Method m = serverClass.getMethod("start");
         m.invoke(serverObject);
-        // System.out.println(serverClass.getClassLoader());
     }
 
 }

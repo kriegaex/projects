@@ -114,7 +114,6 @@ public class MiniBrowser {
             }
             if (params != null && !isPost){
                 String query = WebUtil.toUrlQuery(params);
-                LogManager.getLogger().info(query);
                 path += "?" + query;
             }
 
@@ -136,7 +135,6 @@ public class MiniBrowser {
                 httpRequestString.append("\r\n");
                 httpRequestString.append(paramsString);
             }
-            LogManager.getLogger().info(httpRequestString);
             PrintWriter pWriter = new PrintWriter(client.getOutputStream(), true);
             pWriter.println(httpRequestString);
             InputStream is = client.getInputStream();

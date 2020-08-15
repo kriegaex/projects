@@ -5,6 +5,10 @@ import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.WebUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,5 +85,18 @@ public class WebApplicationTest {
         String html = getHttpString("/example/setCookie");
         System.out.println(html);
         Assert.assertTrue(html.contains("Set-Cookie: name=Chaozy;Expires="));
+    }
+
+    @Test
+    public void testgetCookie() throws IOException {
+        String url = StrUtil.format("http://{}:{}{}", ip,port,"/example/getCookie");
+        URL u = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        conn.setRequestProperty("Cookie","name=Gareen(cookie)");
+        conn.connect();
+        InputStream is = conn.getInputStream();
+        String html = new String(MiniBrowser.readBytes(is, true));
+        System.out.println(html);
+        Assert.assertTrue(html.contains("name:Gareen(cookie)"));
     }
 }

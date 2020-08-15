@@ -8,7 +8,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 
@@ -79,6 +78,7 @@ public class Response extends BasicResponse {
     public List<Cookie> getCookies() {
         return this.cookies;
     }
+
 
     @Override
     public PrintWriter getWriter() { return printWriter; }

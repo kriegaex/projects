@@ -2,7 +2,6 @@ package uk.ac.ucl.bean.request;
 
 import org.apache.commons.codec.DecoderException;
 
-import org.apache.logging.log4j.core.pattern.LineSeparatorPatternConverter;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
@@ -10,6 +9,7 @@ import uk.ac.ucl.util.core.ArrayUtil;
 import uk.ac.ucl.util.core.StrUtil;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +30,7 @@ public class Request extends BasicRequest {
     private String queryString;
     private Map<String, String[]> paramMap;
     private Map<String, String> headerMap;
+    private Cookie[] cookies;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
@@ -43,6 +44,7 @@ public class Request extends BasicRequest {
         parseContext();
         parseMethod();
         parseHeaders(requestString);
+        parseCookies();
 
         if (!"/".equals(context.getPath())) {
             uri.substring(context.getPath().length());
@@ -72,10 +74,31 @@ public class Request extends BasicRequest {
         return null;
     }
 
+    private void parseCookies() {
+        List<Cookie> cookieList = new ArrayList<>();
+        String allCookie = headerMap.get("Cookie");
+        if (allCookie == null) { return; }
+        String[] pairs = allCookie.split(";");
+        for (String pair : pairs) {
+            String[] value = pair.split("=");
+            Cookie cookie = new Cookie(value[0].trim(), value[1].trim());
+            cookieList.add(cookie);
+        }
+        this.cookies = new Cookie[cookieList.size()];
+        for (int i = 0; i < cookieList.size(); i++) {
+            cookies[i] = cookieList.get(i);
+        }
+    }
+
     @Override
     public Enumeration<String> getParameterNames() {
         Set<String> keys = paramMap.keySet();
         return Collections.enumeration(keys);
+    }
+
+    @Override
+    public Cookie[] getCookies() {
+        return cookies;
     }
 
     @Override
@@ -199,6 +222,7 @@ public class Request extends BasicRequest {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
+        System.out.println("PATH ---> " + path);
         context = service.getEngine().getDefaultHost().getContext(path);
     }
 

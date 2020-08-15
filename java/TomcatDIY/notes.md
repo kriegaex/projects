@@ -129,3 +129,9 @@ The meaning of `destroy()` in java servlet is, the content gets executed just be
 
 [source](https://stackoverflow.com/questions/13437259/calling-servlets-destroy-method)
 
+
+
+# Cookie #
+
+
+

@@ -77,6 +77,7 @@ public class WebApplicationTest {
     public void testHeaderServlet() {
         String uri = "/example/header";
         String html = getContentString(uri);
+        // The request user-agent in MiniBrowser is "Chaozy's mini browser / java13"
         Assert.assertEquals("Chaozy's mini browser / java13", html);
     }
 
@@ -96,7 +97,25 @@ public class WebApplicationTest {
         conn.connect();
         InputStream is = conn.getInputStream();
         String html = new String(MiniBrowser.readBytes(is, true));
-        System.out.println(html);
         Assert.assertTrue(html.contains("name:Gareen(cookie)"));
     }
+
+    @Test
+    public void testSession() throws IOException {
+        String jsessionid = getContentString("/example/setSession");
+        if(jsessionid != null) {
+            jsessionid = jsessionid.trim();
+        }
+        String url = StrUtil.format("http://{}:{}{}", ip,
+                port,"/example/getSession");
+        URL u = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+        conn.setRequestProperty("Cookie","JSESSIONID=" + jsessionid);
+        conn.connect();
+        InputStream is = conn.getInputStream();
+        String html = new String(MiniBrowser.readBytes(is, true));
+        System.out.println(html);
+        Assert.assertTrue(html.contains("Chaozy(session)"));
+    }
+
 }

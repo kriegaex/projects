@@ -1,6 +1,5 @@
 package uk.ac.ucl.bean.response;
 
-import org.apache.logging.log4j.LogManager;
 
 import javax.servlet.http.Cookie;
 import java.io.PrintWriter;
@@ -66,7 +65,6 @@ public class Response extends BasicResponse {
                 sb.append("Path=" + cookie.getPath());
             }
         }
-        LogManager.getLogger().info("Cookie's Header: " + sb.toString());
         return sb.toString();
     }
 

@@ -6,10 +6,12 @@ import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;
+import uk.ac.ucl.session.SessionManager;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -21,6 +23,7 @@ public class HttpProcessor {
             String uri = request.getUri();
             // If the port is occupied, the returning uri could be null
             if (uri == null) { return; }
+            prepareSession(request, response);
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
             if (servletClassName != null) {
@@ -42,6 +45,12 @@ public class HttpProcessor {
             e.printStackTrace();
             handle500(socket, e);
         }
+    }
+
+    public void prepareSession(Request request, Response response) {
+        String jsessionID = request.getJsessionIDFromCookie();
+        HttpSession session = SessionManager.getSession(jsessionID, request, response);
+        request.setSession(session);
     }
 
     /**

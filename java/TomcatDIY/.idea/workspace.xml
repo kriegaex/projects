@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/SessionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/StandardSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/response/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -129,11 +131,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebApplicationTest.testgetCookie" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebApplicationTest.testSession" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="WebApplicationTest" />
-      <option name="METHOD_NAME" value="testgetCookie" />
+      <option name="METHOD_NAME" value="testSession" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,17 +144,17 @@
     <list>
       <item itemvalue="Application.Bootstrap" />
       <item itemvalue="JUnit.WebApplicationTest" />
-      <item itemvalue="JUnit.WebApplicationTest.testgetCookie" />
       <item itemvalue="JUnit.WebApplicationTest.testServlet" />
       <item itemvalue="JUnit.TestTomcat" />
+      <item itemvalue="JUnit.WebApplicationTest.testSession" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="Application.Bootstrap" />
+        <item itemvalue="JUnit.WebApplicationTest.testSession" />
         <item itemvalue="JUnit.WebApplicationTest.testServlet" />
-        <item itemvalue="JUnit.WebApplicationTest.testgetCookie" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +171,7 @@
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
       <workItem from="1593959881867" duration="111483000" />
-      <workItem from="1597028072162" duration="44316000" />
+      <workItem from="1597028072162" duration="56281000" />
     </task>
     <servers />
   </component>

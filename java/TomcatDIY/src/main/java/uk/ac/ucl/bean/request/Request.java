@@ -2,6 +2,7 @@ package uk.ac.ucl.bean.request;
 
 import org.apache.commons.codec.DecoderException;
 
+import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
@@ -10,6 +11,7 @@ import uk.ac.ucl.util.core.StrUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,7 @@ public class Request extends BasicRequest {
     private Map<String, String[]> paramMap;
     private Map<String, String> headerMap;
     private Cookie[] cookies;
+    private HttpSession session;
 
     public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
@@ -222,7 +225,6 @@ public class Request extends BasicRequest {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
-        System.out.println("PATH ---> " + path);
         context = service.getEngine().getDefaultHost().getContext(path);
     }
 
@@ -329,6 +331,27 @@ public class Request extends BasicRequest {
     @Override
     public String getServletPath() {
         return uri;
+    }
+
+
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
+    }
+
+    public String getJsessionIDFromCookie() {
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("JSESSIONID")){
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 }
 

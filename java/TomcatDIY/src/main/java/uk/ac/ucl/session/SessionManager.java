@@ -74,6 +74,11 @@ public class SessionManager {
         }
     }
 
+    /**
+     * This method returns with an ID with length of 4,
+     * consisted by both characters and digits.
+     * @return
+     */
     private static String generateSessionId() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
@@ -81,10 +86,10 @@ public class SessionManager {
             int isNumber = random.nextInt(2);
 
             if (isNumber == 0) {
-                sb.append(random.nextInt(26));
+                sb.append(random.nextInt(10));
             }
             else{
-                sb.append(random.nextInt(26) + 'a');
+                sb.append(Character.toChars(random.nextInt(26) + 'a'));
             }
         }
         return sb.toString();

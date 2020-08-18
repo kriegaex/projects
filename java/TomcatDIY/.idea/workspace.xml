@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/SessionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/StandardSession.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/ExprimentBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/Zipper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/server.xml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/server.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/conf/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/conf/Connector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/bean/request/Request.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/SessionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/session/SessionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/Constant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/MiniBrowser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/MiniBrowser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestTomcat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestTomcat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -103,6 +109,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExprimentBoard" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.ExprimentBoard" />
+      <module name="TomcatDIY" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ucl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestTomcat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
@@ -131,30 +150,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebApplicationTest.testSession" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TomcatDIY" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="WebApplicationTest" />
-      <option name="METHOD_NAME" value="testSession" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Bootstrap" />
+      <item itemvalue="Application.ExprimentBoard" />
       <item itemvalue="JUnit.WebApplicationTest" />
       <item itemvalue="JUnit.WebApplicationTest.testServlet" />
       <item itemvalue="JUnit.TestTomcat" />
-      <item itemvalue="JUnit.WebApplicationTest.testSession" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="Application.Bootstrap" />
-        <item itemvalue="JUnit.WebApplicationTest.testSession" />
         <item itemvalue="JUnit.WebApplicationTest.testServlet" />
+        <item itemvalue="Application.ExprimentBoard" />
       </list>
     </recent_temporary>
   </component>
@@ -171,7 +180,7 @@
       <workItem from="1593769460805" duration="2302000" />
       <workItem from="1593834525282" duration="26214000" />
       <workItem from="1593959881867" duration="111483000" />
-      <workItem from="1597028072162" duration="56281000" />
+      <workItem from="1597028072162" duration="64409000" />
     </task>
     <servers />
   </component>

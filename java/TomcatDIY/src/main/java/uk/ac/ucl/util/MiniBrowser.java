@@ -90,12 +90,11 @@ public class MiniBrowser {
         byte[] result = null;
         String method = isPost?"POST":"GET";
         try {
-            System.out.println("URL: " + url);
             URL u = new URL(url);
             Socket client = new Socket();
             int port = u.getPort();
             if(-1 == port)
-                port = 80;
+                port = 18080;
             InetSocketAddress inetSocketAddress = new InetSocketAddress(u.getHost(), port);
             client.connect(inetSocketAddress, 1000);
             Map<String,String> requestHeaders = new HashMap<>();

@@ -3,6 +3,7 @@ package uk.ac.ucl.bean.request;
 import org.apache.commons.codec.DecoderException;
 
 import org.apache.logging.log4j.LogManager;
+import uk.ac.ucl.bean.conf.Connector;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
@@ -27,7 +28,7 @@ public class Request extends BasicRequest {
     private String method;
     private Socket socket;
     private Context context;
-    private Service service;
+    private Connector connector;
 
     private String queryString;
     private Map<String, String[]> paramMap;
@@ -35,9 +36,9 @@ public class Request extends BasicRequest {
     private Cookie[] cookies;
     private HttpSession session;
 
-    public Request(Socket socket, Service service) throws IOException {
+    public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
-        this.service = service;
+        this.connector = connector;
         this.paramMap = new HashMap<>();
         this.headerMap = new HashMap<>();
 
@@ -48,6 +49,8 @@ public class Request extends BasicRequest {
         parseMethod();
         parseHeaders(requestString);
         parseCookies();
+
+        LogManager.getLogger().info("Request Header: " + requestString);
 
         if (!"/".equals(context.getPath())) {
             uri.substring(context.getPath().length());
@@ -225,6 +228,7 @@ public class Request extends BasicRequest {
 
         path = StrUtil.subBetween(uri, "/");
         path = "/" + path;
+        Service service = this.connector.getService();
         context = service.getEngine().getDefaultHost().getContext(path);
     }
 
@@ -352,6 +356,10 @@ public class Request extends BasicRequest {
             }
         }
         return null;
+    }
+
+    public Connector getConnector() {
+        return this.connector;
     }
 }
 

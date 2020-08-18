@@ -4,6 +4,7 @@ import org.junit.Test;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.WebUtil;
+import uk.ac.ucl.util.io.Zipper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +26,11 @@ public class WebApplicationTest {
         else {
             System.out.println("Tomcat has been established, unit testing starts");
         }
+    }
+
+    private byte[] getContentBytes(String uri, boolean gzip) {
+        String url = StrUtil.format("http://{}:{}{}", ip,port,uri);
+        return MiniBrowser.getContentBytes(url, gzip);
     }
 
     private String getContentString(String uri) {
@@ -116,6 +122,14 @@ public class WebApplicationTest {
         String html = new String(MiniBrowser.readBytes(is, true));
         System.out.println(html);
         Assert.assertTrue(html.contains("Chaozy(session)"));
+    }
+
+    @Test
+    public void testGzip() {
+        byte[] gzipContent = getContentBytes("/example/hello",true);
+        byte[] unGzipContent = Zipper.uncompress(gzipContent);
+        String html = new String(unGzipContent);
+        Assert.assertTrue(html.contains("Hello DIY Tomcat from "));
     }
 
 }

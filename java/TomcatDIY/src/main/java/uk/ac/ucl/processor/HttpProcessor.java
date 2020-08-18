@@ -1,6 +1,7 @@
 package uk.ac.ucl.processor;
 
 import org.apache.logging.log4j.LogManager;
+import uk.ac.ucl.bean.conf.Connector;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.context.Context;
@@ -9,6 +10,7 @@ import uk.ac.ucl.module.InvokerServlet;
 import uk.ac.ucl.session.SessionManager;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
+import uk.ac.ucl.util.io.Zipper;
 
 
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,7 @@ public class HttpProcessor {
             }
             int status = response.getStatus();
             if (status == Constant.code_200) {
-                handle200(socket, response);
+                handle200(socket, request, response);
             }
             else if (status == Constant.code_404) {
                 handle404(socket, uri);
@@ -54,19 +56,73 @@ public class HttpProcessor {
     }
 
     /**
+     * To check if this file is allowed to be compressed
+     * @param request
+     * @param body
+     * @param mimeType
+     * @return
+     */
+    private static boolean isCompresses(Request request, byte[] body, String mimeType) {
+        String encoding = request.getHeader("Accept-Encoding");
+        LogManager.getLogger().info("ENCODING:" + encoding);
+        if (encoding == null || !encoding.contains("gzip")) {
+            return false;
+        }
+
+        Connector connector = request.getConnector();
+        if (!connector.getCompression().equals("on")
+                || body.length <= connector.getCompressionMinSize()){
+            return false;
+        }
+
+        String bannedUserAgent = connector.getNoCompressionUserAgent();
+        String[] eachUserAgent = bannedUserAgent.split(";");
+        String userAgent = request.getHeader("User-Agent");
+        for (String agent : eachUserAgent) {
+            agent = agent.trim();
+            if (agent.equals(userAgent)){
+                return false;
+            }
+        }
+
+        String allowedMimeType = connector.getCompressionMimeType();
+
+        String[] eachMimeType = allowedMimeType.split(",");
+        for (String type : eachMimeType) {
+            type = type.trim();
+            if (type.equals(mimeType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * When the status code is 200, display the content of the web page
      * @param socket
      * @param response
      * @throws IOException
      */
-    private static void handle200(Socket socket, Response response) throws IOException {
+    private static void handle200(Socket socket, Request request, Response response) throws IOException {
         String contentType = response.getContentType();
-        String headText = Constant.response_head_200;
+        byte[] tmpBody = response.getBody();
+        boolean compress = isCompresses(request, tmpBody, contentType);
+        String headText;
+        byte[] body;
+        LogManager.getLogger().info(compress);
+        if (!compress) {
+            headText = Constant.response_head_200;
+            body = tmpBody;
+        }
+        else{
+            headText = Constant.response_head_200_compression;
+            body = Zipper.comrpess(tmpBody);
+        }
+
         String cookieHeader = response.getCookieHeader();
         headText = StrUtil.format(headText, contentType, cookieHeader);
 
         byte[] head = headText.getBytes();
-        byte[] body = response.getBody();
 
         byte[] responseByte = new byte[head.length + body.length];
         System.arraycopy(head, 0, responseByte, 0, head.length);

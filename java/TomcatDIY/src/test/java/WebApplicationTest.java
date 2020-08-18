@@ -132,4 +132,10 @@ public class WebApplicationTest {
         Assert.assertTrue(html.contains("Hello DIY Tomcat from "));
     }
 
+    @Test
+    public void testJsp() {
+        String html = getContentString("/example/");
+        Assert.assertEquals("hello jsp@example", html);
+    }
+
 }

@@ -7,6 +7,7 @@ import uk.ac.ucl.bean.response.Response;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;
+import uk.ac.ucl.module.JspServlet;
 import uk.ac.ucl.session.SessionManager;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
@@ -28,8 +29,12 @@ public class HttpProcessor {
             prepareSession(request, response);
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
+
             if (servletClassName != null) {
                 InvokerServlet.getInstance().service(request, response);
+            }
+            else if (uri.endsWith(".jsp")) {
+                JspServlet.getInstance().service(request, response);
             }
             else {
                 DefaultServlet.getInstance().service(request, response);
@@ -64,7 +69,6 @@ public class HttpProcessor {
      */
     private static boolean isCompresses(Request request, byte[] body, String mimeType) {
         String encoding = request.getHeader("Accept-Encoding");
-        LogManager.getLogger().info("ENCODING:" + encoding);
         if (encoding == null || !encoding.contains("gzip")) {
             return false;
         }
@@ -109,7 +113,6 @@ public class HttpProcessor {
         boolean compress = isCompresses(request, tmpBody, contentType);
         String headText;
         byte[] body;
-        LogManager.getLogger().info(compress);
         if (!compress) {
             headText = Constant.response_head_200;
             body = tmpBody;

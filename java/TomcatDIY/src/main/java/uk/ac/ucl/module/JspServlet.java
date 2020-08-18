@@ -1,11 +1,9 @@
 package uk.ac.ucl.module;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.FileUtils;
-import uk.ac.ucl.context.Context;
 import uk.ac.ucl.bean.request.Request;
 import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.WebXMLParsing;
@@ -17,13 +15,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-/**
- * DefaultServlet aims to handle static web resources
- */
-public class DefaultServlet extends HttpServlet {
-    private static DefaultServlet defaultServlet = new DefaultServlet();
+public class JspServlet extends HttpServlet {
+    private static JspServlet jspServlet = new JspServlet();
 
-    public static DefaultServlet getInstance() { return defaultServlet; }
+    public static JspServlet getInstance() { return jspServlet; }
 
     public void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Request request = (Request)req;
@@ -31,18 +26,9 @@ public class DefaultServlet extends HttpServlet {
 
         Context context = request.getContext();
         String uri = request.getUri();
-        if (uri.equals("/500.html")) {
-            throw new RuntimeException("this is a deliberately created exception");
-        } else {
             // If the folder directory is the root directory
-            if (StrUtil.subAfter(uri, "/", true).equals("")) {
+            if (uri.equals("/")) {
                 uri = WebXMLParsing.getWelcomeFileName(request.getContext());
-            }
-            // If the welcome file ends with jsp, the JspServlet will takeover the job
-
-            else if (uri.endsWith(".jsp")) {
-                JspServlet.getInstance().service(request, response);
-                return ;
             }
             String fileName = StrUtil.subAfter(uri, "/", true);
             File file = new File(context.getDocBase(), fileName);
@@ -67,5 +53,5 @@ public class DefaultServlet extends HttpServlet {
                 response.setStatus(Constant.code_404);
             }
         }
-    }
+
 }

@@ -8,6 +8,10 @@ import uk.ac.ucl.util.core.StrUtil;
 
 import java.io.File;
 
+/**
+ * JspUtil aims to translate JSP to .java and compile it.
+ * The main class here is jasper.JspC
+ */
 public class JspUtil {
     private static final String javaKeywords[] = { "abstract", "assert", "boolean", "break", "byte", "case", "catch",
             "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final",
@@ -25,12 +29,12 @@ public class JspUtil {
             subFolder = StrUtil.subAfter(path, "/", false);
 
         String workPath = new File(Constant.workFolder, subFolder).getAbsolutePath() + File.separator;
-
+        System.out.println(workPath);
         String[] args = new String[] { "-webapp", context.getDocBase().toLowerCase(), "-d", workPath.toLowerCase(), "-compile"};
 
         JspC jspc = new JspC();
         jspc.setArgs(args);
-        jspc.execute();
+        jspc.execute(file);
     }
 
 //    public static final String makeJavaIdentifier(String identifier) {
@@ -114,7 +118,7 @@ public class JspUtil {
 //
 //        String jsServletClassPath = StrUtil.subAfter(servletPath, tempPath, false);
 //        String jspServletClassName = jsServletClassPath.replaceAll(".", File.separator);
-//        return jspServletClassName;
+//        return jspServletClassNaqme;
 //    }
 //
     public static void main(String[] args) {

@@ -135,3 +135,13 @@ The meaning of `destroy()` in java servlet is, the content gets executed just be
 
 
 
+ 
+
+
+
+# JSP #
+
+### How does jsp works ###
+
+Guide here : https://stackoverflow.com/questions/10607415/how-does-jsp-work
+

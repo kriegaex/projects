@@ -1,7 +1,5 @@
 package uk.ac.ucl.util.io;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -101,7 +99,6 @@ public class ServerXMLParsing {
             for (Element element : elements) {
                 int port = Integer.parseInt(element.attr("port"));
                 String compression = element.attr("compression");
-                LogManager.getLogger().info("Compression is here !! " + compression);
                 int compressionMinSize;
                 if (element.attr("compressionMinSize").equals("")){
                     compressionMinSize = 0;

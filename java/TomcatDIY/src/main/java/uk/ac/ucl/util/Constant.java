@@ -32,6 +32,8 @@ public class Constant {
     public final static File contextXML =
             new File(confFolder, "context.xml");
 
+    public final static File workFolder = new File(System.getProperty("usr.dir"), "work");
+
     // TODO: Unix system uses "/" as line separator in directory while Windows uses "\"
     // TODO: https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
     // TODO: Use System.properties to find out which line separator should be used

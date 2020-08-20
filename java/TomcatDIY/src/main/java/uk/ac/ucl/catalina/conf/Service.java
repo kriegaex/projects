@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean.conf;
+package uk.ac.ucl.catalina.conf;
 
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.util.core.TimeUtil;

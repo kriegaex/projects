@@ -22,7 +22,7 @@ public class Bootstrap {
         // TODO : EXPLAIN this line of code
         Thread.currentThread().setContextClassLoader(commonClassLoader);
 
-        String serverClassName = "uk.ac.ucl.bean.conf.Server";
+        String serverClassName = "uk.ac.ucl.catalina.conf.Server";
         Class<?> serverClass = commonClassLoader.loadClass(serverClassName);
         Constructor<?> constructor = serverClass.getConstructor();
         Object serverObject = constructor.newInstance();

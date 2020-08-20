@@ -1,11 +1,11 @@
-package uk.ac.ucl.bean.request;
+package uk.ac.ucl.catalina.request;
 
 import org.apache.commons.codec.DecoderException;
 
 import org.apache.logging.log4j.LogManager;
-import uk.ac.ucl.bean.conf.Connector;
+import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.context.Context;
-import uk.ac.ucl.bean.conf.Service;
+import uk.ac.ucl.catalina.conf.Service;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.ArrayUtil;
 import uk.ac.ucl.util.core.StrUtil;

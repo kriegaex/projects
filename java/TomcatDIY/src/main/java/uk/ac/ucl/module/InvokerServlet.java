@@ -1,8 +1,9 @@
 package uk.ac.ucl.module;
 
+import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.context.Context;
-import uk.ac.ucl.bean.request.Request;
-import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.catalina.request.Request;
+import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.ReflectUtil;
 
@@ -28,6 +29,7 @@ public class InvokerServlet extends HttpServlet {
         String uri = request.getUri();
         Context context = request.getContext();
         String servletClassName = context.getServletClassName(uri);
+        LogManager.getLogger().info(servletClassName);
         try {
             Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
             // No need to check if servletObject is null, this is checked in ReflectUtil

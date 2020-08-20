@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean.conf;
+package uk.ac.ucl.catalina.conf;
 
 import uk.ac.ucl.util.io.ServerXMLParsing;
 

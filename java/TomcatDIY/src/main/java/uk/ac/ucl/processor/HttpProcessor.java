@@ -1,9 +1,9 @@
 package uk.ac.ucl.processor;
 
 import org.apache.logging.log4j.LogManager;
-import uk.ac.ucl.bean.conf.Connector;
-import uk.ac.ucl.bean.request.Request;
-import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.catalina.conf.Connector;
+import uk.ac.ucl.catalina.request.Request;
+import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;

@@ -30,7 +30,29 @@ JSP class loader is responsible to load classes from java files which are transl
 
 
 
-There are another two class loaders : Catalina class loader & Share class loader, which should load classes and jars from `%tomcat_home%/catalina/` & `%tomcat_home%/share`. Both them haven't be implemented.
+There are another two class loaders : Catalina class loader & Share class loader, which should load classes and jars from `%tomcat_home%/catalina/` & `%tomcat_home%/share`. Both them haven't be implemented in my Tomcat.
+
+
+
+#### Tomcat has a speical WebappClassLaoder  ####
+
+The web application class loader diverges from the default Java delegation model (in accordance with the recommendations in the Servlet Specification, version 2.4, section 9.7.2 Web Application Classloader). When a request to load a class from the web application's *WebappX* class loader is processed, this class loader will look in the local repositories **first**, instead of delegating before looking. There are exceptions. Classes which are part of the JRE base classes cannot be overridden. For some classes (such as the XML parser components in J2SE 1.4+), the Java endorsed feature can be used up to Java 8. Lastly, the web application class loader will always delegate first for JavaEE API classes for the specifications implemented by Tomcat (Servlet, JSP, EL, WebSocket). All other class loaders in Tomcat follow the usual delegation pattern.
+
+Therefore, from the perspective of a web application, class or resource loading looks in the following repositories, in this order:
+
+- Bootstrap classes of your JVM
+- */WEB-INF/classes* of your web application
+- */WEB-INF/lib/\*.jar* of your web application
+- System class loader classes (described above)
+- Common class loader classes (described above)
+
+If the web application class loader is [configured](https://tomcat.apache.org/tomcat-8.0-doc/config/loader.html) with `<Loader delegate="true"/>` then the order becomes:
+
+- Bootstrap classes of your JVM
+- System class loader classes (described above)
+- Common class loader classes (described above)
+- */WEB-INF/classes* of your web application
+- */WEB-INF/lib/\*.jar* of your web application
 
 
 
@@ -140,6 +162,35 @@ The meaning of `destroy()` in java servlet is, the content gets executed just be
 
 
 # JSP #
+
+### Jasper
+
+Jasper is Tomcat's JSP Engine. Jasper [parses](https://en.wikipedia.org/wiki/Parsing) [JSP](https://en.wikipedia.org/wiki/JavaServer_Pages) files to compile them into Java code as servlets (that can be handled by Catalina). At runtime, Jasper detects changes to JSP files and recompiles them.(from wiki)
+
+#### Goals ####
+
+- Recompile JSP when included page changes** - Jasper 2 can now detect when a page included at compile time from a JSP has changed and then recompile the parent JSP.
+- The servlet which implements Jasper is configured using init parameters in your global `$CATALINA_BASE/conf/web.xml`.
+
+[Read here for more explanantion ](https://tomcat.apache.org/tomcat-7.0-doc/jasper-howto.html#Introduction)
+
+#### Logic of Compliation ####
+
+1) jsp exists?  no --> return 404 error; yes --> continue
+
+2) corresponding .class has created? no --> compile jsp; yes --> continue
+
+3) jsp has been changed (the time stamp is newer then that of .class) ? no --?> compile jsp; yes --> load class file
+
+#### JspClassLoader ####
+
+JspClassLoader is based on WebAppClassLoader
+
+Each JSP has its own JspClassLoader, once the JSP is modified, a new JspClassLoader is given to this JSP.
+
+JspClassLoader is responsible for loading the class file compiled from JSP.
+
+
 
 ### How does jsp works ###
 

@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean.response;
+package uk.ac.ucl.catalina.response;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;

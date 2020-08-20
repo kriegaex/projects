@@ -1,4 +1,4 @@
-package uk.ac.ucl.bean.request;
+package uk.ac.ucl.catalina.request;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

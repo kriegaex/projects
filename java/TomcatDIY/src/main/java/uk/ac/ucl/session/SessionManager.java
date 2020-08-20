@@ -3,8 +3,8 @@ package uk.ac.ucl.session;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import uk.ac.ucl.bean.request.Request;
-import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.catalina.request.Request;
+import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.util.Constant;
 
 import javax.servlet.ServletContext;

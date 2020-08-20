@@ -1,11 +1,9 @@
 package uk.ac.ucl.module;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.FileUtils;
 import uk.ac.ucl.context.Context;
-import uk.ac.ucl.bean.request.Request;
-import uk.ac.ucl.bean.response.Response;
+import uk.ac.ucl.catalina.request.Request;
+import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.WebXMLParsing;

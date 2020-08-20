@@ -1,11 +1,13 @@
 package uk.ac.ucl.context;
 
+import org.apache.jasper.JspC;
+import org.apache.jasper.compiler.JspRuntimeContext;
 import org.apache.logging.log4j.LogManager;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import uk.ac.ucl.bean.conf.Host;
+import uk.ac.ucl.catalina.conf.Host;
 import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
 import uk.ac.ucl.servlet.StandardServletConfig;
@@ -93,6 +95,9 @@ public class Context {
             fileChangeMonitor = new FileChangeMonitor(Paths.get(this.getDocBase() + "/"), this);
             new Thread(fileChangeMonitor).start();
         }
+
+        JspC jspc = new JspC();
+        new JspRuntimeContext(servletContext, jspc);
     }
 
     private void init() {
@@ -288,4 +293,6 @@ public class Context {
     public ServletContext getServletContext(){
         return servletContext;
     }
+
+
 }

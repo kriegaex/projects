@@ -79,8 +79,12 @@ public class JspServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
-
-                response.setStatus(Constant.code_200);
+                if (response.getRedirectPath() == null) {
+                    response.setStatus(Constant.code_200);
+                }
+                else{
+                    response.setStatus(Constant.code_302);
+                }
             } else {
                 response.setStatus(Constant.code_404);
             }

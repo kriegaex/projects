@@ -2,6 +2,7 @@ package uk.ac.ucl.catalina.response;
 
 
 import javax.servlet.http.Cookie;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +18,7 @@ public class Response extends BasicResponse {
     private byte[] body;
     private int status;
     private List<Cookie> cookies;
+    private String redirectPath;
 
     public Response(){
         // default content-type
@@ -47,7 +49,7 @@ public class Response extends BasicResponse {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.ENGLISH);
         StringBuffer sb = new StringBuffer();
 
-        for (Cookie cookie : cookies) {
+        for (Cookie cookie : this.cookies) {
             sb.append("\r\n");
             sb.append("Set-Cookie: ");
             sb.append(cookie.getName() + "=" + cookie.getValue() + ";");
@@ -70,7 +72,7 @@ public class Response extends BasicResponse {
 
     @Override
     public void addCookie(Cookie cookie) {
-        cookies.add(cookie);
+        this.cookies.add(cookie);
     }
 
     public List<Cookie> getCookies() {
@@ -79,12 +81,20 @@ public class Response extends BasicResponse {
 
 
     @Override
-    public PrintWriter getWriter() { return printWriter; }
+    public PrintWriter getWriter() { return this.printWriter; }
 
     @Override
-    public int getStatus() { return status; }
+    public int getStatus() { return this.status; }
 
     @Override
     public void setStatus(int status) { this.status = status; }
 
+    public String getRedirectPath() {
+        return this.redirectPath;
+    }
+
+    @Override
+    public void sendRedirect(String s) throws IOException {
+        this.redirectPath = s;
+    }
 }

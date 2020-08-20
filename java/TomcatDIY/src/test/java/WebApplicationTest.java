@@ -138,4 +138,12 @@ public class WebApplicationTest {
         Assert.assertEquals("hello jsp@example", html);
     }
 
+    @Test
+    public void testClientJump() {
+        String http_servlet = getHttpString("/example/clientJump");
+        Assert.assertTrue(http_servlet.contains("HTTP/1.1 302"));
+        String http_jsp = getHttpString("/example/clientJump.jsp");
+        Assert.assertTrue(http_servlet.contains("HTTP/1.1 302"));
+    }
+
 }

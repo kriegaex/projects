@@ -39,8 +39,12 @@ public class InvokerServlet extends HttpServlet {
             // They have to be casted to these two types to match corresponding invoke method
             ReflectUtil.invoke(servletObject,
                     "service", (ServletRequest) request, (ServletResponse) response);
-
-            response.setStatus(Constant.code_200);
+            if (response.getRedirectPath() == null) {
+                response.setStatus(Constant.code_200);
+            }
+            else{
+                response.setStatus(Constant.code_302);
+            }
         } catch (ClassNotFoundException | ServletException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,7 @@ public class Constant {
     public final static int code_404 = 404;
     public final static int code_200 = 200;
     public final static int code_500 = 500;
+    public final static int code_302 = 302;
 
     public final static String response_head_200 =
             "HTTP/1.1 200 OK\r\n" +
@@ -16,6 +17,9 @@ public class Constant {
                     "Content-Type: {}{} \r\n" +
                     "Content-Encoding:gzip" +
                     "\r\n\r\n";
+
+    public final static String response_head_302 =
+            "HTTP/1.1 302 Found\r\nLocation: {}\r\n\r\n";
 
     public final static File rootFolder =
             new File(System.getProperty("user.dir"), "src/main/webapp");

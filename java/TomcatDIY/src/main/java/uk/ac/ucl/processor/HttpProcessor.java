@@ -1,5 +1,6 @@
 package uk.ac.ucl.processor;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.catalina.request.Request;
@@ -42,6 +43,9 @@ public class HttpProcessor {
             int status = response.getStatus();
             if (status == Constant.code_200) {
                 handle200(socket, request, response);
+            }
+            else if (status == Constant.code_302) {
+                handle302(socket, response);
             }
             else if (status == Constant.code_404) {
                 handle404(socket, uri);
@@ -171,6 +175,20 @@ public class HttpProcessor {
             outputStream.close();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void handle302(Socket socket, Response response) {
+        try {
+            OutputStream os = socket.getOutputStream();
+            String redirectPath = response.getRedirectPath();
+            String head = Constant.response_head_302;
+            String header = StrUtil.format(head, redirectPath);
+            byte[] responseContent = header.getBytes("utf-8");
+            os.write(responseContent);
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

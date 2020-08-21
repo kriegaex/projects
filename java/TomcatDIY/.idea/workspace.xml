@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/ApplicationRequestDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.jar" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/InvokerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/module/InvokerServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/StrUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/StrUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +83,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WebApplicationTest">
+  <component name="RunManager" selected="JUnit.TestTomcat">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
@@ -151,8 +144,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="JUnit.TestTomcat" />
+        <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="Application.Bootstrap" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
         <item itemvalue="JUnit.WebApplicationTest.testGzip" />
@@ -174,7 +167,7 @@
       <workItem from="1593959881867" duration="111483000" />
       <workItem from="1597028072162" duration="71251000" />
       <workItem from="1597820821817" duration="491000" />
-      <workItem from="1597821487738" duration="20899000" />
+      <workItem from="1597821487738" duration="23199000" />
     </task>
     <servers />
   </component>
@@ -204,16 +197,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java</url>
           <line>238</line>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java</url>
-          <line>188</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java</url>
-          <line>183</line>
-          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

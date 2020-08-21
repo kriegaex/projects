@@ -38,12 +38,14 @@ public class Request extends BasicRequest {
     private Map<String, String> headerMap;
     private Cookie[] cookies;
     private HttpSession session;
+    private Map<String, Object> attributesMap;
 
     public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
         this.connector = connector;
         this.paramMap = new HashMap<>();
         this.headerMap = new HashMap<>();
+        this.attributesMap = new HashMap<>();
 
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)) { return; }
@@ -375,6 +377,27 @@ public class Request extends BasicRequest {
     @Override
     public RequestDispatcher getRequestDispatcher(String uri) {
         return new ApplicationRequestDispatcher(uri);
+    }
+
+    @Override
+    public void removeAttribute(String name) {
+        attributesMap.remove(name);
+    }
+
+    @Override
+    public void setAttribute(String name, Object value) {
+        attributesMap.put(name, value);
+    }
+
+    @Override
+    public Enumeration<String> getAttributeNames() {
+        Set<String> keys = attributesMap.keySet();
+        return Collections.enumeration(keys);
+    }
+
+    @Override
+    public Object getAttribute(String name) {
+        return attributesMap.get(name);
     }
 }
 

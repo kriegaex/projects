@@ -149,7 +149,12 @@ public class WebApplicationTest {
     @Test
     public void testServerJump(){
         String http_servlet = getHttpString("/example/serverJump");
-        Assert.assertTrue(http_servlet.contains("Hello DIY Tomcat from HelloServlet"));
+        Assert.assertTrue(http_servlet.contains("Hello from HelloServlet"));
     }
 
+    @Test
+    public void testServerJumpWithAttributes() {
+        String http = getHttpString("/example/serverJump");
+        Assert.assertTrue(http.contains("name is chaozy"));
+    }
 }

@@ -64,7 +64,7 @@ public class StrUtil {
         if (indexAfter != INDEX_NOT_FOUND){
             return str.substring(indexAfter + after.length());
         }
-        return "";
+        return str;
     }
 
     /**

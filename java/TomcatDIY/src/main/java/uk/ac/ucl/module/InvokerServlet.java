@@ -29,7 +29,7 @@ public class InvokerServlet extends HttpServlet {
         String uri = request.getUri();
         Context context = request.getContext();
         String servletClassName = context.getServletClassName(uri);
-        LogManager.getLogger().info(servletClassName);
+
         try {
             Class servletClass = context.getWebappClassLoader().loadClass(servletClassName);
             // No need to check if servletObject is null, this is checked in ReflectUtil

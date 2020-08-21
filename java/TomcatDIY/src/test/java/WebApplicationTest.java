@@ -146,4 +146,10 @@ public class WebApplicationTest {
         Assert.assertTrue(http_servlet.contains("HTTP/1.1 302"));
     }
 
+    @Test
+    public void testServerJump(){
+        String http_servlet = getHttpString("/example/serverJump");
+        Assert.assertTrue(http_servlet.contains("Hello DIY Tomcat from HelloServlet"));
+    }
+
 }

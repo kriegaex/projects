@@ -1,6 +1,5 @@
 package uk.ac.ucl.processor;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.catalina.request.Request;
@@ -30,7 +29,6 @@ public class HttpProcessor {
             prepareSession(request, response);
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
-
             if (servletClassName != null) {
                 InvokerServlet.getInstance().service(request, response);
             }
@@ -39,6 +37,10 @@ public class HttpProcessor {
             }
             else {
                 DefaultServlet.getInstance().service(request, response);
+            }
+            // If the request is forwarded, the processor stops processing it.
+            if (request.isForwarded()) {
+                return;
             }
             int status = response.getStatus();
             if (status == Constant.code_200) {

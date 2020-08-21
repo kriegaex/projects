@@ -6,10 +6,12 @@ import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.catalina.conf.Service;
+import uk.ac.ucl.processor.ApplicationRequestDispatcher;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.ArrayUtil;
 import uk.ac.ucl.util.core.StrUtil;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
@@ -29,6 +31,7 @@ public class Request extends BasicRequest {
     private Socket socket;
     private Context context;
     private Connector connector;
+    private boolean forwarded;
 
     private String queryString;
     private Map<String, String[]> paramMap;
@@ -53,16 +56,14 @@ public class Request extends BasicRequest {
         LogManager.getLogger().info("Request Header: " + requestString);
 
         if (!"/".equals(context.getPath())) {
-            uri.substring(context.getPath().length());
-            if (uri.equals("")) {
-                uri = "/";
+            this.uri.substring(context.getPath().length());
+            if (this.uri.equals("")) {
+                this.uri = "/";
             }
         }
-        try {
-            parseParameters();
-        } catch (DecoderException e) {
-            e.printStackTrace();
-        }
+
+        parseParameters();
+
     }
 
     /**
@@ -73,7 +74,7 @@ public class Request extends BasicRequest {
      */
     @Override
     public String getParameter(String s) {
-        String[] para = paramMap.get(s);
+        String[] para = this.paramMap.get(s);
         if (para != null && para.length != 0) {
             return para[0];
         }
@@ -82,7 +83,7 @@ public class Request extends BasicRequest {
 
     private void parseCookies() {
         List<Cookie> cookieList = new ArrayList<>();
-        String allCookie = headerMap.get("Cookie");
+        String allCookie = this.headerMap.get("Cookie");
         if (allCookie == null) { return; }
         String[] pairs = allCookie.split(";");
         for (String pair : pairs) {
@@ -98,23 +99,23 @@ public class Request extends BasicRequest {
 
     @Override
     public Enumeration<String> getParameterNames() {
-        Set<String> keys = paramMap.keySet();
+        Set<String> keys = this.paramMap.keySet();
         return Collections.enumeration(keys);
     }
 
     @Override
     public Cookie[] getCookies() {
-        return cookies;
+        return this.cookies;
     }
 
     @Override
     public Map<String, String[]> getParameterMap() {
-        return paramMap;
+        return this.paramMap;
     }
 
     @Override
     public String[] getParameterValues(String s) {
-        return paramMap.get(s);
+        return this.paramMap.get(s);
     }
 
     @Override
@@ -122,18 +123,18 @@ public class Request extends BasicRequest {
         if (s == null) {
             return null;
         }
-        return headerMap.get(s);
+        return this.headerMap.get(s);
     }
 
     @Override
     public Enumeration<String> getHeaderNames() {
-        Set<String> keys = headerMap.keySet();
+        Set<String> keys = this.headerMap.keySet();
         return Collections.enumeration(keys);
     }
 
     @Override
     public int getIntHeader(String s) {
-        String header = headerMap.get(s);
+        String header = this.headerMap.get(s);
         if (header == null){ return -1; }
         try {
             return Integer.parseInt(header);
@@ -159,11 +160,11 @@ public class Request extends BasicRequest {
             line = lines.get(i);
             if (line.length() == 0) { break; }
             String[] name_header = line.split(":");
-            headerMap.put(name_header[0], name_header[1]);
+            this.headerMap.put(name_header[0], name_header[1]);
         }
 
     }
-    private void parseParameters() throws DecoderException {
+    private void parseParameters(){
         if (this.getMethod().equals("GET")) {
             String url = StrUtil.subBetween(requestString, " ");
 
@@ -175,10 +176,11 @@ public class Request extends BasicRequest {
         else if (this.getMethod().equals("POST")) {
             queryString = StrUtil.subAfter(requestString, "\r\n\r\n");
         }
-        if (queryString == null || queryString.length() == 0) {
+        // if queryString does not have parameters, break this method
+        if (queryString == null || queryString.equals(requestString)) {
             return ;
         }
-        // queryString = new String(Hex.decodeHex(queryString));
+        System.out.println(queryString);
         String[] parameterValues = queryString.split("&");
         if (parameterValues != null) {
             for (String paramterValue : parameterValues) {
@@ -360,6 +362,19 @@ public class Request extends BasicRequest {
 
     public Connector getConnector() {
         return this.connector;
+    }
+
+    public void setUri(String uri) { this.uri = uri; }
+
+    public Socket getSocket() { return this.socket; }
+
+    public boolean isForwarded() { return forwarded; }
+
+    public void setForwarded(boolean forwarded) { this.forwarded = forwarded; }
+
+    @Override
+    public RequestDispatcher getRequestDispatcher(String uri) {
+        return new ApplicationRequestDispatcher(uri);
     }
 }
 

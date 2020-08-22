@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import uk.ac.ucl.catalina.conf.Host;
 import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
+import uk.ac.ucl.filter.StandardFilterConfig;
 import uk.ac.ucl.servlet.StandardServletConfig;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.FileChangeMonitor;
@@ -18,9 +19,7 @@ import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.core.TimeUtil;
 import uk.ac.ucl.util.io.ContextXMLUtil;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +53,14 @@ public class Context {
     private Map<String, String> servletName_servletClassName;
     private Map<String, Map<String, String>> servletClassName_initPara;
 
+    private Map<String, List<String>> url_filterClassName;
+    private Map<String, List<String>> url_filterNames;
+    private Map<String, String> filterName_filterClassName;
+    private Map<String, String> className_filterName;
+    private Map<String, Map<String, String>> filterClassName_initParams;
+
+    private Map<String, Filter> filterPool;
+
 
     public Context(String path, String docBase, Host host, boolean reloadable){
         this.path = path;
@@ -75,6 +82,14 @@ public class Context {
         this.servletClassName_servletName = new HashMap<>();
         this.servletName_servletClassName = new HashMap<>();
         this.servletClassName_initPara = new HashMap<>();
+
+        this.url_filterClassName = new HashMap<>();
+        this.url_filterNames = new HashMap<>();
+        this.filterName_filterClassName = new HashMap<>();
+        this.className_filterName = new HashMap<>();
+        this.filterClassName_initParams = new HashMap<>();
+        this.filterPool = new HashMap<>();
+
         try {
             deploy();
         } catch (IOException e) {
@@ -112,6 +127,9 @@ public class Context {
             Document document = Jsoup.parse(webXMLFile, "utf-8");
             parseServletMapping(document);
             parseParaMapping(document);
+            parseFilterMapping(document);
+            parseFilterParaMapping(document);
+            initFilter();
             parseLoadOnStartup(document);
             loadOnStartup();
         } catch (IOException e) {
@@ -159,6 +177,81 @@ public class Context {
         }
     }
 
+    private void parseFilterMapping(Document document) {
+        // URL_name
+        Elements urlElements = document.select("filter-mapping url-pattern");
+        for (Element urlElement : urlElements) {
+            String urlPattern = urlElement.text();
+            String filterName = urlElement.parent().select("filter-name").first().text();
+
+            List<String> filterNames = url_filterNames.computeIfAbsent(urlPattern, k -> new ArrayList<>());
+            filterNames.add(filterName);
+        }
+
+        // className_filterName
+        Elements filterNameElements = document.select("filter filter-name");
+        for (Element filterNameElement : filterNameElements) {
+            String filterName = filterNameElement.text();
+            String filterClass = filterNameElement.parent().select("filter-class").first().text();
+            filterName_filterClassName.put(filterName, filterClass);
+            className_filterName.put(filterClass, filterName);
+        }
+
+        // url_filterClassName
+        Set<String> urls = url_filterNames.keySet();
+        for (String url : urls) {
+            List<String> filterNames = url_filterNames.computeIfAbsent(url, k -> new ArrayList<>());
+            for (String filterName : filterNames) {
+                String filterClassName = filterName_filterClassName.get(filterName);
+                List<String> filterClassNames = url_filterClassName.computeIfAbsent(url, k -> new ArrayList<>());
+                filterClassNames.add(filterClassName);
+            }
+        }
+    }
+
+    /**
+     * Load fliter from their class names, and put into filterPool
+     */
+    private void initFilter() {
+        Set<String> classNames = className_filterName.keySet();
+        for (String className : classNames) {
+            try {
+                Class clazz = this.getWebappClassLoader().loadClass(className);
+                Map<String, String> initParams = filterClassName_initParams.get(className);
+                String filterName = className_filterName.get(className);
+                FilterConfig filterConfig = new StandardFilterConfig(servletContext,
+                        initParams, filterName);
+                Filter filter = filterPool.get(clazz);
+                if (filter == null) {
+                    filter = (Filter) ReflectUtil.getInstance(clazz);
+                    filter.init(filterConfig);
+                    filterPool.put(className, filter);
+                }
+            } catch (ClassNotFoundException | ServletException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    private void parseFilterParaMapping(Document document) {
+        Elements classNames = document.select("filter-class");
+        for (Element className : classNames) {
+            String filterClassName = className.text();
+            Elements initParams = className.parents().select("init-param");
+            if (initParams.isEmpty()) { continue; }
+
+            Map<String, String> name_value = new HashMap<>();
+            for (Element initParam : initParams) {
+                String name = initParam.select("param-name").text();
+                String value = initParam.select("param-value").text();
+                name_value.put(name, value);
+            }
+            filterClassName_initParams.put(filterClassName, name_value);
+        }
+    }
+
+
     private void parseParaMapping(Document document) {
         Elements servletClassName = document.select("servlet-class");
         for (Element element : servletClassName) {
@@ -189,6 +282,8 @@ public class Context {
             }
         }
     }
+
+
 
     private void checkDuplicate(Document document, String pattern, String warning) throws WebConfigDuplicateException {
         Elements elements = document.select(pattern);

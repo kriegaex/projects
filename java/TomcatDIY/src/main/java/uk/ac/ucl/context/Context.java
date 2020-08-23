@@ -27,14 +27,14 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * path means the path to access in url
- * docBase means its absolute path in the project
  *
  * Each web app has its own WebappClassLoader
  *
  * Also, url, servlet name and servlet class name map to each other
  */
 public class Context {
+    // path means the path to access in url
+    // docBase means its absolute path in the project
     private String path;
     private String docBase;
     private File webXMLFile;
@@ -269,6 +269,53 @@ public class Context {
         }
     }
 
+    /**
+     * Check if uri matches the fitler's matching pattern.
+     * Three matching rules are implemented:
+     * full matching and two kinds of wild card matchings
+     * @param pattern
+     * @param uri
+     * @return
+     */
+    private boolean match(String pattern, String uri) {
+        if (pattern.equals(uri)){
+            return true;
+        }
+        if (pattern.equals("/*")) {
+            return true;
+        }
+        if (pattern.startsWith("/*.")) {
+            String ext = StrUtil.subAfter(pattern, ".", true);
+            String uriExt = StrUtil.subAfter(uri, ".", true);
+            return ext.equals(uriExt);
+        }
+        return false;
+    }
+
+    public List<Filter> getMatchedFilters(String uri) {
+        List<Filter> filters = new ArrayList<>();
+        Set<String> patterns = url_filterClassName.keySet();
+        Set<String> matchedPatterns = new HashSet<>();
+
+        for (String pattern : patterns) {
+            if (match(pattern, uri)) {
+                matchedPatterns.add(pattern);
+            }
+        }
+
+        Set<String> matchedFilterClassNames = new HashSet<>();
+        for (String matchedPattern : matchedPatterns) {
+            List<String> matchedClassNames = url_filterClassName.get(matchedPattern);
+            matchedFilterClassNames.addAll(matchedClassNames);
+        }
+
+        for (String className : matchedFilterClassNames) {
+            Filter filter = filterPool.get(className);
+            filters.add(filter);
+        }
+        return filters;
+    }
+
     private void parseLoadOnStartup(Document document) {
         Elements elements = document.select("load-on-startup");
         for (Element element : elements) {
@@ -282,8 +329,6 @@ public class Context {
             }
         }
     }
-
-
 
     private void checkDuplicate(Document document, String pattern, String warning) throws WebConfigDuplicateException {
         Elements elements = document.select(pattern);

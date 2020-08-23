@@ -5,6 +5,7 @@ import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.context.Context;
+import uk.ac.ucl.filter.ApplicationFilterChain;
 import uk.ac.ucl.module.DefaultServlet;
 import uk.ac.ucl.module.InvokerServlet;
 import uk.ac.ucl.module.JspServlet;
@@ -14,11 +15,15 @@ import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.Zipper;
 
 
+import javax.servlet.Filter;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import java.net.Socket;
+import java.util.List;
 
 public class HttpProcessor {
     public void execute(Socket socket, Request request, Response response) {
@@ -29,15 +34,22 @@ public class HttpProcessor {
             prepareSession(request, response);
             Context context = request.getContext();
             String servletClassName = context.getServletClassName(uri);
+            HttpServlet workingServlet;
             if (servletClassName != null) {
-                InvokerServlet.getInstance().service(request, response);
+                workingServlet = InvokerServlet.getInstance();
             }
             else if (uri.endsWith(".jsp")) {
-                JspServlet.getInstance().service(request, response);
+                workingServlet = JspServlet.getInstance();
             }
             else {
-                DefaultServlet.getInstance().service(request, response);
+                workingServlet = DefaultServlet.getInstance();
             }
+            List<Filter> filters =
+                    request.getContext().getMatchedFilters(request.getRequestURI());
+            ApplicationFilterChain filterChain
+                    = new ApplicationFilterChain(filters, workingServlet);
+            filterChain.doFilter(request, response);
+
             // If the request is forwarded, the processor stops processing it.
             if (request.isForwarded()) {
                 return;

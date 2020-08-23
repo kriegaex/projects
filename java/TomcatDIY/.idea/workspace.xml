@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/filter/StandardFilterConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/filter/ApplicationFilterChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ArrayUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -146,8 +151,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Bootstrap" />
-        <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="JUnit.WebApplicationTest" />
+        <item itemvalue="JUnit.TestTomcat" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
         <item itemvalue="JUnit.WebApplicationTest.testGzip" />
       </list>
@@ -168,7 +173,7 @@
       <workItem from="1593959881867" duration="111483000" />
       <workItem from="1597028072162" duration="71251000" />
       <workItem from="1597820821817" duration="491000" />
-      <workItem from="1597821487738" duration="30353000" />
+      <workItem from="1597821487738" duration="34858000" />
     </task>
     <servers />
   </component>
@@ -190,16 +195,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java</url>
-          <line>333</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

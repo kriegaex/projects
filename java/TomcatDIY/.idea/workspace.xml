@@ -89,7 +89,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Bootstrap">
+  <component name="RunManager" selected="JUnit.WebApplicationTest">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
@@ -150,9 +150,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Bootstrap" />
         <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="JUnit.TestTomcat" />
+        <item itemvalue="Application.Bootstrap" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
         <item itemvalue="JUnit.WebApplicationTest.testGzip" />
       </list>

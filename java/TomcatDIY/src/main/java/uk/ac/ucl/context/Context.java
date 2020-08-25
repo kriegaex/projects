@@ -60,6 +60,7 @@ public class Context {
     private Map<String, Map<String, String>> filterClassName_initParams;
 
     private Map<String, Filter> filterPool;
+    private List<ServletContextListener> contextListeners;
 
 
     public Context(String path, String docBase, Host host, boolean reloadable){
@@ -90,6 +91,8 @@ public class Context {
         this.filterClassName_initParams = new HashMap<>();
         this.filterPool = new HashMap<>();
 
+        this.contextListeners = new ArrayList<>();
+
         try {
             deploy();
         } catch (IOException e) {
@@ -102,6 +105,7 @@ public class Context {
         TimeUtil timeUtil = new TimeUtil();
         LogManager.getLogger().info(
                 "Deploying web application directory {}", this.docBase);
+        loadListeners();
         init();
         LogManager.getLogger().info("Deployment of web application directory {}" +
                 " has finished at {} ms", this.docBase, timeUtil.interval());
@@ -132,6 +136,8 @@ public class Context {
             initFilter();
             parseLoadOnStartup(document);
             loadOnStartup();
+
+            fireEvent("init");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,6 +147,8 @@ public class Context {
         webappClassLoader.stop();
         fileChangeMonitor.stop();
         destroyServlet();
+
+        fireEvent("destroy");
     }
 
     public void reload(){
@@ -372,6 +380,33 @@ public class Context {
         }
     }
 
+    private void loadListeners() {
+        if (!webXMLFile.exists()) { return; }
+        try {
+            Document document = Jsoup.parse(webXMLFile, "utf-8");
+            Elements elements = document.select("listener listener-class");
+            for (Element element : elements) {
+                String listenerClassName = element.text();
+                Class<?> listenerClass = this.getWebappClassLoader().loadClass(listenerClassName);
+                ServletContextListener contextListener = (ServletContextListener) ReflectUtil.getInstance(listenerClass);
+                addListener(contextListener);
+
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fireEvent(String type) {
+        ServletContextEvent event = new ServletContextEvent(servletContext);
+        for (ServletContextListener servletContextListener : contextListeners) {
+            if("init".equals(type))
+                servletContextListener.contextInitialized(event);
+            if("destroy".equals(type))
+                servletContextListener.contextDestroyed(event);
+        }
+    }
+
     public WebappClassLoader getWebappClassLoader() { return webappClassLoader; }
 
     public String getServletClassName(String url){
@@ -434,5 +469,7 @@ public class Context {
         return servletContext;
     }
 
-
+    public void addListener(ServletContextListener contextListener) {
+        this.contextListeners.add(contextListener);
+    }
 }

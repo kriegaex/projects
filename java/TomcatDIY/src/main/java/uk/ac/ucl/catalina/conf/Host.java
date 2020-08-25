@@ -6,6 +6,7 @@ import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.ServerXMLParsing;
+import uk.ac.ucl.util.monitor.WarFileMonitor;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,9 @@ public class Host {
         scanContextRootFolder();
         scanServerXml();
         scanWarInWebApp();
+
+        WarFileMonitor monitor = new WarFileMonitor(this);
+        new Thread(monitor).start();
     }
 
     /**
@@ -118,13 +122,12 @@ public class Host {
 
         try {
             //FileUtils.copyFile(warFile, tempWarFile);
-            Path warPath = Files.copy(warFile.toPath(), tempWarFile.toPath());
+            Files.copy(warFile.toPath(), tempWarFile.toPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // uncompress
-        //String command = "jar xvf " + tempWarFile.getAbsolutePath() + " -d " + contextFile.getAbsolutePath();
         String command = "unzip " + tempWarFile.getAbsolutePath() + " -d " + contextFile.getAbsolutePath();
 
         try {
@@ -134,7 +137,7 @@ public class Host {
 
             e.printStackTrace();
         }
-        // tempWarFile.delete();
+        tempWarFile.delete();
         this.load(contextFile);
     }
 

@@ -159,8 +159,14 @@ public class WebApplicationTest {
     }
 
     @Test
-    public void testWarFileDeployment() {
+    public void testWarFileStaticDeployment() {
         String http = getHttpString("/example0/hello");
+        Assert.assertTrue(http.contains("Hello DIY Tomcat from HelloServlet from : "));
+    }
+
+    @Test
+    public void testWarFileDynamicDeployment() {
+        String http = getHttpString("/example1/hello");
         Assert.assertTrue(http.contains("Hello DIY Tomcat from HelloServlet from : "));
     }
 }

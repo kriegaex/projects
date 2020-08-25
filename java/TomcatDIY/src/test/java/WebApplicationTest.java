@@ -157,4 +157,10 @@ public class WebApplicationTest {
         String http = getHttpString("/example/serverJump");
         Assert.assertTrue(http.contains("name is chaozy"));
     }
+
+    @Test
+    public void testWarFileDeployment() {
+        String http = getHttpString("/example0/hello");
+        Assert.assertTrue(http.contains("Hello DIY Tomcat from HelloServlet from : "));
+    }
 }

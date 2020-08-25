@@ -2,13 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/filter/ApplicationFilterChain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/etf.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/META-INF/example.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/filter/PfmFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/filter/URLFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/ClientJumpServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/CookieServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/GetCookieServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/GetSessionServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/HeaderServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/HelloServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/ParamServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/ServerJumpServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/classes/uk/ac/example/servlet/SetSessionServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/WEB-INF/web.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/a.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/clientJump.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/example0.war" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/hello.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/example0/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/context/Context.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/processor/HttpProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ArrayUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/core/ArrayUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.class" beforeDir="false" afterPath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/example/org/apache/jsp/hello_jsp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes_4_test/cn/how2j/diytomcat/test/HOW2J.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes_4_test/cn/how2j/diytomcat/test/HOW2J.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jar_4_test/test.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Host.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Host.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/.etf.pdf.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/example0.war" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/example0.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/WebApplicationTest.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +112,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WebApplicationTest">
+  <component name="RunManager" selected="JUnit.TestTomcat">
     <configuration name="Bootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uk.ac.ucl.Bootstrap" />
       <module name="TomcatDIY" />
@@ -131,11 +154,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebApplicationTest.testGzip" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebApplicationTest.testWarFileDeployment" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="TomcatDIY" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="WebApplicationTest" />
-      <option name="METHOD_NAME" value="testGzip" />
+      <option name="METHOD_NAME" value="testWarFileDeployment" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -144,17 +167,17 @@
     <list>
       <item itemvalue="Application.Bootstrap" />
       <item itemvalue="JUnit.TestTomcat" />
-      <item itemvalue="JUnit.WebApplicationTest.testGzip" />
       <item itemvalue="JUnit.TestTomcat.testPNG" />
       <item itemvalue="JUnit.WebApplicationTest" />
+      <item itemvalue="JUnit.WebApplicationTest.testWarFileDeployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WebApplicationTest" />
         <item itemvalue="JUnit.TestTomcat" />
+        <item itemvalue="JUnit.WebApplicationTest" />
+        <item itemvalue="JUnit.WebApplicationTest.testWarFileDeployment" />
         <item itemvalue="Application.Bootstrap" />
         <item itemvalue="JUnit.TestTomcat.testPNG" />
-        <item itemvalue="JUnit.WebApplicationTest.testGzip" />
       </list>
     </recent_temporary>
   </component>
@@ -174,6 +197,7 @@
       <workItem from="1597028072162" duration="71251000" />
       <workItem from="1597820821817" duration="491000" />
       <workItem from="1597821487738" duration="34858000" />
+      <workItem from="1598175404437" duration="1879000" />
     </task>
     <servers />
   </component>

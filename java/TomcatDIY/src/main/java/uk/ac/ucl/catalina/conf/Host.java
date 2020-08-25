@@ -1,14 +1,20 @@
 package uk.ac.ucl.catalina.conf;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.ServerXMLParsing;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarFile;
 
 public class Host {
     private String name;
@@ -22,6 +28,7 @@ public class Host {
 
         scanContextRootFolder();
         scanServerXml();
+        scanWarInWebApp();
     }
 
     /**
@@ -82,6 +89,61 @@ public class Host {
 
     public String getName() { return name; }
 
-    public Context getContext(String path) {
-        return contextMap.get(path); }
+    public Context getContext(String path) { return contextMap.get(path); }
+
+    public void load(File folder) {
+        String path = "/" + folder.getName();
+        String docBase = folder.getAbsolutePath();
+        Context context = new Context(path, docBase, this, false);
+        contextMap.put(path, context);
+    }
+
+    public void loadWar(File warFile) {
+        String fileName = warFile.getName();
+        String folderName = StrUtil.subBefore(fileName, ".");
+
+        // Check if the context has been established before
+        Context context = getContext("/" + folderName);
+        if (context != null) { return; }
+
+        // Check if the warFile has been deployed
+        File folder = new File(Constant.rootFolder, folderName);
+        if (folder.exists()) { return; }
+
+        // Move the war to target dir, as command jar will uncompress the file in local dir
+        File tempWarFile = new File(folder, fileName);
+
+        File contextFile = tempWarFile.getParentFile();
+        contextFile.mkdir();
+
+        try {
+            //FileUtils.copyFile(warFile, tempWarFile);
+            Path warPath = Files.copy(warFile.toPath(), tempWarFile.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // uncompress
+        //String command = "jar xvf " + tempWarFile.getAbsolutePath() + " -d " + contextFile.getAbsolutePath();
+        String command = "unzip " + tempWarFile.getAbsolutePath() + " -d " + contextFile.getAbsolutePath();
+
+        try {
+            Process process = Runtime.getRuntime().exec(command);
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+
+            e.printStackTrace();
+        }
+        // tempWarFile.delete();
+        this.load(contextFile);
+    }
+
+    private void scanWarInWebApp() {
+        File folder = new File(Constant.rootFolder.getAbsolutePath());
+        File[] files = folder.listFiles();
+        for (File file : files ) {
+           if (!file.getName().endsWith(".war")) { continue; }
+           loadWar(file);
+        }
+    }
 }

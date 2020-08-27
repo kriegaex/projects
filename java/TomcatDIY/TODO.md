@@ -3,8 +3,8 @@
 - [ ] What does ServletContext do?
 - [ ] Give warning about ununique context path and uri
 - [x] order of `load-on-startup` (8.12.20)
-- [ ] Handle online movie
-- [ ] Downloading of files
+- [ ] Being able to download files from the server.
 - [ ] Unix system uses "/" as line separator in directory while Windows uses "\": https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html.   Use System.properties to find out which line separator should be used in order to increse portability
 - [ ] Hot re-deployment of war file(the monitor only allerts when war file is created)
 - [ ] Implement Session Listener and Reqeust listener, same to Context listener
+- [ ] Implement Digister to handle xml file

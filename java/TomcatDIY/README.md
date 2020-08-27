@@ -6,9 +6,9 @@ DIYTomcat is a self-learning, educative java project that establishes a http ser
 
 Most of the knowledge comes from [the official website of Apache Tomcat](http://tomcat.apache.org/). It clearly explains the structure of the Tomcat, which provides the undelying principle and other useful informations. 
 
-The chinese book [Tomcat架构解析](https://book.douban.com/subject/27034717/) provided me much more details about the implementation of Tomcat, such as the classloading of the web application, handling servlet and jsp by DefaultServlet and JspServlet respectively.  Actually, this project starts with the overall structure given in this book:
+The chinese book [Tomcat架构解析](https://book.douban.com/subject/27034717/) provided me much more details about the implementation of Tomcat, such as the classloading of the web application, handling servlet and jsp by DefaultServlet and JspServlet respectively.  Actually, this project starts with the overall framwork given in this book:
 
-![Screenshot 2020-08-27 at 14.50.21](/Users/chaozy/Desktop/Screenshot 2020-08-27 at 14.50.21.png)
+![FRMEWORK](https://github.com/chaozy/projects/blob/master/java/TomcatDIY/FRAMWORK.png)
 
 Besides these two materials, there are a lot of other online resources that help me finish this project, espcially stackoverflow😊
 

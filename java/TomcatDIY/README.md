@@ -37,7 +37,7 @@ The project follows the launching structure of Apache Tomcat. Executing the `sta
 
 ### FLAWS😢
 
-There are some advanecd techniques in Apache Tomcat that I either failed to complete them or simplified the function. Here are a few examples:
+There are some advanecd techniques in Apache Tomcat that I either failed to complete them or simplified the function. Here are a few examples (not all of them):
 
 1. Apache Tomcat uses `digester`component to handle `.xml` files, while I use `jsoup`to simply parse `.xml` into a document get what I want. 
 2. Apache Tomcat provides different logging files to store different kinds of information, with configurations in different layers, for example the `${catalina.base}/conf/logging.properties` is responsible for the global logging. 

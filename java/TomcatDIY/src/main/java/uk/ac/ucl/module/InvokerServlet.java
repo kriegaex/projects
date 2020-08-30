@@ -1,6 +1,6 @@
 package uk.ac.ucl.module;
 
-import org.apache.logging.log4j.LogManager;
+
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;

@@ -1,7 +1,5 @@
 package uk.ac.ucl.filter;
 
-import uk.ac.ucl.util.core.ArrayUtil;
-
 import javax.servlet.*;
 import java.io.IOException;
 import java.util.List;

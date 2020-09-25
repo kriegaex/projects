@@ -16,7 +16,6 @@ import uk.ac.ucl.util.io.Zipper;
 
 
 import javax.servlet.Filter;
-import javax.servlet.Servlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

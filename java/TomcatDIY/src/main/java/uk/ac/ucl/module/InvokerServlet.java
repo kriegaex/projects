@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InvokerServlet extends HttpServlet {
     private static InvokerServlet instance = new InvokerServlet();
 
-    public static InvokerServlet getInstance() {return instance; }
+    public static InvokerServlet getInstance() { return instance; }
 
     public void service(HttpServletRequest httpServletRequest,
                         HttpServletResponse httpServletResponse) {

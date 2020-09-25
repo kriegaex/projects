@@ -1,7 +1,5 @@
 package uk.ac.ucl.catalina.request;
 
-import org.apache.commons.codec.DecoderException;
-
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.context.Context;

@@ -107,11 +107,6 @@ public class Request extends BasicRequest {
     }
 
     @Override
-    public Cookie[] getCookies() {
-        return this.cookies;
-    }
-
-    @Override
     public Map<String, String[]> getParameterMap() {
         return this.paramMap;
     }
@@ -237,11 +232,6 @@ public class Request extends BasicRequest {
         context = service.getEngine().getDefaultHost().getContext(path);
     }
 
-    @Override
-    public String getMethod() {
-        return method; }
-
-
     public ServletContext getServletContext() { return context.getServletContext(); }
 
     public String getRealPath(String path) {
@@ -335,10 +325,6 @@ public class Request extends BasicRequest {
     @Override
     public String getServletPath() {
         return uri;
-    }
-
-    public void setSession(HttpSession session) {
-        this.session = session;
     }
 
     public String getJsessionIDFromCookie() {

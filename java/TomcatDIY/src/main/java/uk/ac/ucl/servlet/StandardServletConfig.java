@@ -1,12 +1,15 @@
 package uk.ac.ucl.servlet;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
-
+@Getter @Setter
 public class StandardServletConfig implements ServletConfig {
     private ServletContext servletContext;
     private Map<String, String> initParameters;
@@ -17,17 +20,6 @@ public class StandardServletConfig implements ServletConfig {
         this.servletContext = servletContext;
         this.servletName = servletName;
     }
-
-    @Override
-    public String getServletName() {
-        return servletName;
-    }
-
-    @Override
-    public ServletContext getServletContext() {
-        return servletContext;
-    }
-
     @Override
     public String getInitParameter(String s) {
         return initParameters.get(s);

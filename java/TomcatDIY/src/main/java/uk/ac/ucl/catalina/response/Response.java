@@ -41,12 +41,6 @@ public class Response extends BasicResponse {
         return body;
     }
 
-    public void setBody(byte[] body) { this.body = body; }
-
-    public void setContentType(String contentType){ this.contentType = contentType; }
-
-    public String getContentType(){ return contentType; }
-
     public String getCookieHeader() {
         String pattern = "EEE, d MMM yyyy HH:mm:ss'GMT'";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.ENGLISH);
@@ -80,12 +74,6 @@ public class Response extends BasicResponse {
 
     @Override
     public PrintWriter getWriter() { return this.printWriter; }
-
-    @Override
-    public int getStatus() { return this.status; }
-
-    @Override
-    public void setStatus(int status) { this.status = status; }
 
     @Override
     public void sendRedirect(String s) throws IOException {

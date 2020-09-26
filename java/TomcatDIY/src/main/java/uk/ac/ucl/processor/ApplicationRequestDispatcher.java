@@ -22,12 +22,20 @@ public class ApplicationRequestDispatcher implements RequestDispatcher {
         }
     }
 
+    /**
+     * Forwards a request from a servlet to
+     * another resource (servlet, JSP file, or HTML file) on the server.
+     * @param servletRequest
+     * @param servletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void forward(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
         Request request = (Request) servletRequest;
         Response response = (Response) servletResponse;
 
-        //  Change the request's target uri, the run the excute again to redirect to the
+        //  Change the request's target uri, the run the executation again to redirect to the
         // target uri inside the server
         request.setUri(uri);
         HttpProcessor processor = new HttpProcessor();
@@ -35,8 +43,15 @@ public class ApplicationRequestDispatcher implements RequestDispatcher {
         request.setForwarded(true);
     }
 
+    /**
+     * Includes the content of a resource (servlet, JSP page, HTML file) in the response.
+     * @param servletRequest
+     * @param servletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void include(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-        // TODO Auto-generated method stub
+
     }
 }

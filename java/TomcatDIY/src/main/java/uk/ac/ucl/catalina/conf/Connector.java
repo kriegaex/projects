@@ -21,14 +21,6 @@ public class Connector implements Runnable {
     private String compressionMimeType;
     private String noCompressionUserAgent;
 
-    public Connector(Service service) {
-        this.service = service;
-    }
-
-    public void setPort(int port) { this.port = port; }
-
-    public Service getService() { return service; }
-
     /**
      * In order to create tomcat-style log
      */

@@ -1,17 +1,21 @@
 package uk.ac.ucl.session;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionContext;
 import java.util.*;
 
+@Getter@Setter
 public class StandardSession implements HttpSession {
     private Map<String, Object> attributeMap;
     private String id;
     private long creationTime;
-    private long lastAccessTime;
+    private long lastAccessedTime;
     private ServletContext servletContext;
-    private int maxTimeInterval;
+    private int maxInactiveInterval;
 
     public StandardSession(String sid, ServletContext servletContext) {
         this.id = sid;
@@ -25,45 +29,11 @@ public class StandardSession implements HttpSession {
         return super.equals(obj);
     }
 
-    @Override
-    public long getCreationTime() {
-        return this.creationTime;
-    }
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public long getLastAccessedTime() {
-        return this.lastAccessTime;
-    }
-
-    public void setLastAccessTime(long newLastAccss) {
-        this.lastAccessTime = newLastAccss;
-    }
-
-    @Override
-    public ServletContext getServletContext() {
-        return this.servletContext;
-    }
-
-    @Override
-    public void setMaxInactiveInterval(int i) {
-        this.maxTimeInterval = i;
-    }
-
-    @Override
-    public int getMaxInactiveInterval() {
-        return this.maxTimeInterval;
-    }
 
     @Override
     public HttpSessionContext getSessionContext() {
         return null;
     }
-
 
     @Override
     public Object getAttribute(String s) {
@@ -113,6 +83,6 @@ public class StandardSession implements HttpSession {
 
     @Override
     public boolean isNew() {
-        return creationTime == lastAccessTime;
+        return creationTime == lastAccessedTime;
     }
 }

@@ -1,5 +1,7 @@
 package uk.ac.ucl.catalina.request;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.context.Context;
@@ -22,6 +24,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@Getter @Setter
 public class Request extends BasicRequest {
     private String requestString;
     private String uri;
@@ -238,11 +241,6 @@ public class Request extends BasicRequest {
     public String getMethod() {
         return method; }
 
-    public String getRequestString() { return requestString; }
-
-    public String getUri() { return uri; }
-
-    public Context getContext() { return context; }
 
     public ServletContext getServletContext() { return context.getServletContext(); }
 
@@ -339,11 +337,6 @@ public class Request extends BasicRequest {
         return uri;
     }
 
-
-    public HttpSession getSession() {
-        return session;
-    }
-
     public void setSession(HttpSession session) {
         this.session = session;
     }
@@ -360,17 +353,7 @@ public class Request extends BasicRequest {
         return null;
     }
 
-    public Connector getConnector() {
-        return this.connector;
-    }
-
-    public void setUri(String uri) { this.uri = uri; }
-
-    public Socket getSocket() { return this.socket; }
-
     public boolean isForwarded() { return forwarded; }
-
-    public void setForwarded(boolean forwarded) { this.forwarded = forwarded; }
 
     @Override
     public RequestDispatcher getRequestDispatcher(String uri) {

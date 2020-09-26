@@ -1,6 +1,9 @@
 package uk.ac.ucl.catalina.response;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+@Getter @Setter
 public class Response extends BasicResponse {
     private StringWriter stringWriter;
     private PrintWriter printWriter;
@@ -75,11 +78,6 @@ public class Response extends BasicResponse {
         this.cookies.add(cookie);
     }
 
-    public List<Cookie> getCookies() {
-        return this.cookies;
-    }
-
-
     @Override
     public PrintWriter getWriter() { return this.printWriter; }
 
@@ -88,10 +86,6 @@ public class Response extends BasicResponse {
 
     @Override
     public void setStatus(int status) { this.status = status; }
-
-    public String getRedirectPath() {
-        return this.redirectPath;
-    }
 
     @Override
     public void sendRedirect(String s) throws IOException {

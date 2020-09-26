@@ -1,6 +1,7 @@
 package uk.ac.ucl.catalina.conf;
 
-import org.apache.commons.io.FileUtils;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
@@ -11,12 +12,11 @@ import uk.ac.ucl.util.monitor.WarFileMonitor;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.JarFile;
 
+@Getter @Setter
 public class Host {
     private String name;
     private Map<String, Context> contextMap;
@@ -90,8 +90,6 @@ public class Host {
         Context newContxt = new Context(path, docBase, this, reloadable);
         contextMap.put(path, newContxt);
     }
-
-    public String getName() { return name; }
 
     public Context getContext(String path) { return contextMap.get(path); }
 

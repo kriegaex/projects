@@ -1,5 +1,7 @@
 package uk.ac.ucl.context;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.jasper.JspC;
 import org.apache.jasper.compiler.JspRuntimeContext;
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +34,7 @@ import java.util.*;
  *
  * Also, url, servlet name and servlet class name map to each other
  */
+@Getter @Setter
 public class Context {
     // path means the path to access in url
     // docBase means its absolute path in the project
@@ -434,39 +437,14 @@ public class Context {
         return servlet;
     }
 
+    /**
+     * Indicating the last stage in servlet life cycle: destroy
+     */
     private void destroyServlet() {
         Collection<HttpServlet> servlets = servletPool.values();
         for (HttpServlet servlet : servlets) {
             servlet.destroy();
         }
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getDocBase() {
-        return docBase;
-    }
-
-    public void setDocBase(String docBase) {
-        this.docBase = docBase;
-    }
-
-    public boolean isReloadable() {
-            return reloadable;
-    }
-
-    public void setReloadable(boolean reloadable) {
-        this.reloadable = reloadable;
-    }
-
-    public ServletContext getServletContext(){
-        return servletContext;
     }
 
     public void addListener(ServletContextListener contextListener) {

@@ -1,5 +1,7 @@
 package uk.ac.ucl.catalina.conf;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
@@ -10,6 +12,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+@Setter @Getter
 public class Connector implements Runnable {
     private int port;
     private Service service;
@@ -76,38 +79,5 @@ public class Connector implements Runnable {
             LogManager.getLogger().error(e);
             e.printStackTrace();
         }
-    }
-
-    public String getCompression() {
-        return compression;
-    }
-
-    public void setCompression(String compression) {
-        System.out.println();
-        this.compression = compression;
-    }
-
-    public int getCompressionMinSize() {
-        return compressionMinSize;
-    }
-
-    public void setCompressionMinSize(int compressionMinSize) {
-        this.compressionMinSize = compressionMinSize;
-    }
-
-    public String getCompressionMimeType() {
-        return compressionMimeType;
-    }
-
-    public void setCompressionMimeType(String compressionMimeType) {
-        this.compressionMimeType = compressionMimeType;
-    }
-
-    public String getNoCompressionUserAgent() {
-        return noCompressionUserAgent;
-    }
-
-    public void setNoCompressionUserAgent(String noCompressionUserAgent) {
-        this.noCompressionUserAgent = noCompressionUserAgent;
     }
 }

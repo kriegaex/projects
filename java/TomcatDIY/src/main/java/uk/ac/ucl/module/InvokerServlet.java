@@ -1,6 +1,8 @@
 package uk.ac.ucl.module;
 
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
@@ -17,10 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * InvokerServlet provides service to servlet mapping
  */
+@Component
+@Scope("singleton") // The default scope is singleton, here is just to indicate it
 public class InvokerServlet extends HttpServlet {
-    private static InvokerServlet instance = new InvokerServlet();
-
-    public static InvokerServlet getInstance() { return instance; }
 
     public void service(HttpServletRequest httpServletRequest,
                         HttpServletResponse httpServletResponse) {

@@ -9,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 import uk.ac.ucl.catalina.conf.Host;
 import uk.ac.ucl.classLoader.WebappClassLoader;
 import uk.ac.ucl.exception.WebConfigDuplicateException;
@@ -34,6 +36,8 @@ import java.util.*;
  *
  * Also, url, servlet name and servlet class name map to each other
  */
+@Repository
+@Scope("prototype")
 @Getter @Setter
 public class Context {
     // path means the path to access in url
@@ -72,7 +76,7 @@ public class Context {
 
         this.host = host;
         this.reloadable = reloadable;
-        this.servletContext = new ApplicationContext(this);
+        this.servletContext = new BaseContext(this);
         this.servletPool = new HashMap<>();
         this.loadOnStartupServiceClassName = new ArrayList<>();
 

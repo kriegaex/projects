@@ -3,15 +3,20 @@ package uk.ac.ucl.catalina.conf;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.processor.HttpProcessor;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.core.ThreadUtil;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+@Component
+@Scope("prototype")
 @Setter @Getter
 public class Connector implements Runnable {
     private int port;
@@ -36,31 +41,27 @@ public class Connector implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println(port);
             ServerSocket ss = new ServerSocket(port);
             // Start waiting for requests
             while (true) {
-                // Listens for a connection to be made to this socket and accepts it.
+                // Listening for a connection to be made to this socket and accepts it.
                 Socket socket = ss.accept();
                 // Receiving requests in multi-threads
-                Runnable task = new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            // Read message from browser
-                            Request request = new Request(socket, Connector.this);
-                            Response response = new Response();
-                            HttpProcessor processor = new HttpProcessor();
-                            processor.execute(socket, request, response);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        finally {
-                            if (!socket.isClosed()) {
-                                try {
-                                    socket.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                Runnable task = () -> {
+                    try {
+                        // Read message from browser
+                        Request request = ApplicationContextHolder.getBean(
+                                "request", socket, Connector.this);
+                        Response response = ApplicationContextHolder.getBean("response");
+                        HttpProcessor processor = ApplicationContextHolder.getBean("httpProcessor");
+                        processor.execute(socket, request, response);
+                    } finally {
+                        if (!socket.isClosed()) {
+                            try {
+                                socket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

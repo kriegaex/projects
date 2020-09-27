@@ -3,6 +3,8 @@ package uk.ac.ucl.module;
 import org.apache.juli.logging.Log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.util.FileUtils;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.classLoader.JspClassLoader;
@@ -25,11 +27,9 @@ import java.nio.file.Files;
  * JspServlet is responsible for handling the request from client for JSP.
  * Its mechanism is similiar to InvokerServlet
  */
+@Component
+@Scope("singleton")
 public class JspServlet extends HttpServlet {
-    private static JspServlet jspServlet = new JspServlet();
-
-    public static JspServlet getInstance() { return jspServlet; }
-
     public void service(HttpServletRequest req, HttpServletResponse resp) {
         Request request = (Request)req;
         Response response = (Response)resp;

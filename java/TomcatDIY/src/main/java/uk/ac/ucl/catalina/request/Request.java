@@ -3,10 +3,15 @@ package uk.ac.ucl.catalina.request;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.catalina.conf.Service;
 import uk.ac.ucl.processor.ApplicationRequestDispatcher;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.MiniBrowser;
 import uk.ac.ucl.util.core.ArrayUtil;
 import uk.ac.ucl.util.core.StrUtil;
@@ -24,6 +29,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@Component
+@Scope("prototype")
 @Getter @Setter
 public class Request extends BasicRequest {
     private String requestString;
@@ -41,6 +48,8 @@ public class Request extends BasicRequest {
     private HttpSession session;
     private Map<String, Object> attributesMap;
 
+    private final Logger logger = LogManager.getLogger();
+
     public Request(Socket socket, Connector connector) throws IOException {
         this.socket = socket;
         this.connector = connector;
@@ -56,7 +65,7 @@ public class Request extends BasicRequest {
         parseHeaders(requestString);
         parseCookies();
 
-        LogManager.getLogger().info("Request Header: " + requestString);
+        logger.info("Request Header: " + requestString);
 
         if (!"/".equals(context.getPath())) {
             this.uri.substring(context.getPath().length());
@@ -160,8 +169,11 @@ public class Request extends BasicRequest {
             String[] name_header = line.split(":");
             this.headerMap.put(name_header[0], name_header[1]);
         }
-
     }
+
+    /**
+     * Take parameters out of the uri
+     */
     private void parseParameters(){
         if (this.getMethod().equals("GET")) {
             String url = StrUtil.subBetween(requestString, " ");
@@ -178,7 +190,7 @@ public class Request extends BasicRequest {
         if (queryString == null || queryString.equals(requestString)) {
             return ;
         }
-        System.out.println(queryString);
+
         String[] parameterValues = queryString.split("&");
         if (parameterValues != null) {
             for (String paramterValue : parameterValues) {
@@ -232,7 +244,9 @@ public class Request extends BasicRequest {
         context = service.getEngine().getDefaultHost().getContext(path);
     }
 
-    public ServletContext getServletContext() { return context.getServletContext(); }
+    public ServletContext getServletContext() {
+        return context.getServletContext();
+    }
 
     public String getRealPath(String path) {
         return getServletContext().getRealPath(path);
@@ -343,7 +357,7 @@ public class Request extends BasicRequest {
 
     @Override
     public RequestDispatcher getRequestDispatcher(String uri) {
-        return new ApplicationRequestDispatcher(uri);
+        return ApplicationContextHolder.getBean("applicationRequestDispatcher", uri);
     }
 
     @Override

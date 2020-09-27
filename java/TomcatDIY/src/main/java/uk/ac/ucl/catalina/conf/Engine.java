@@ -1,17 +1,17 @@
 package uk.ac.ucl.catalina.conf;
 
+import org.springframework.stereotype.Component;
 import uk.ac.ucl.util.io.ServerXMLParsing;
 
 import java.util.List;
 
+@Component
 public class Engine {
     private String defaultHost;
     private List<Host> hosts;
-    private Service service;
 
-    public Engine(Service service){
+    public Engine(){
         this.defaultHost = ServerXMLParsing.getEngineDefaultHostName();
-        this.service = service;
         this.hosts = ServerXMLParsing.getHosts(this);
     }
 

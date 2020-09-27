@@ -44,5 +44,6 @@ There are some advanecd techniques in Apache Tomcat that I either failed to comp
 
 1. Apache Tomcat uses `digester`component to handle `.xml` files, while I use `jsoup`to simply parse `.xml` into a document get what I want. 
 2. Apache Tomcat utilizes the design pattern chain of responsibilty in each layer of container(Engine, Host, Context, Wrapper). It implements `Valve` and `Pipeline` in these four layers, which means user can develop request handling in each layer. It is very flexible. While I skipped this part and handle the request directly.
-3. Apache Tomcat provides a lot of config files to config the server, for example the `${catalina.base}/conf/logging.properties` is responsible for the global logging, `${catalina.base}/conf/catalina.policy`for the sercurity policy. 
+3. Apache Tomcat provides a lot of config files to config the server, for example the `${catalina.base}/conf/logging.properties` is responsible for the global logging, `${catalina.base}/conf/catalina.policy`for the sercurity policy.
+4. Apache Tomcat provides both `bio` and `nio` connectors to be chosen depends on the case, while only `bio` connector is used in this project 
 

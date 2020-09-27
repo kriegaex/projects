@@ -10,6 +10,10 @@ import java.util.EventListener;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Defines a set of methods that a servlet uses to communicate with its servlet container,
+ * for example, to get the MIME type of a file, dispatch requests, or write to a log file.
+ */
 public class BaseServletContext implements ServletContext {
     @Override
     public String getContextPath() {

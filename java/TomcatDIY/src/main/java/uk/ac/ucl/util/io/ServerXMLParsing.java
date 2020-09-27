@@ -6,14 +6,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.catalina.conf.*;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.XMLTags;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServerXMLParsing {
-
     /**
      * Read context nodes
      * @return
@@ -22,7 +23,7 @@ public class ServerXMLParsing {
         List<Context> list = new ArrayList<>();
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Elements elements = document.select("Context");
+            Elements elements = document.select(XMLTags.CONTEXT_TAG);
             for (Element element : elements){
                 String path = element.attr("path");
                 String docBase = element.attr("docBase");
@@ -44,7 +45,7 @@ public class ServerXMLParsing {
         String hostName = null;
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Element host = document.select("Engine").first();
+            Element host = document.select(XMLTags.ENGINE_TAG).first();
             hostName = host.attr("defaultHost");
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +61,7 @@ public class ServerXMLParsing {
         String serviceName = null;
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Element host = document.select("Service").first();
+            Element host = document.select(XMLTags.SERVICE_TAG).first();
             serviceName = host.attr("name");
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,9 +78,10 @@ public class ServerXMLParsing {
         List<Host> hosts = new ArrayList<>();
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Elements elements = document.select("Host");
+            Elements elements = document.select(XMLTags.HOST_TAG);
             for (Element element : elements){
-                Host host = new Host(element.attr("name"), engine);
+                Host host = ApplicationContextHolder.getBean(
+                        "host", element.attr("name"), engine);
                 hosts.add(host);
             }
         } catch (IOException e) {
@@ -95,7 +97,7 @@ public class ServerXMLParsing {
         List<Connector> connectors = new ArrayList<>();
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
-            Elements elements = document.select("Connector");
+            Elements elements = document.select(XMLTags.CONNECTOR_TAG);
             for (Element element : elements) {
                 int port = Integer.parseInt(element.attr("port"));
                 String compression = element.attr("compression");
@@ -111,7 +113,7 @@ public class ServerXMLParsing {
                 String noCompressionUserAgent = element.attr("noCompressionUserAgent");
                 String compressionMimeType = element.attr("compressionMimeType");
 
-                Connector connector = new Connector(service);
+                Connector connector = ApplicationContextHolder.getBean("connector");
                 connector.setCompression(compression);
                 connector.setCompressionMimeType(compressionMimeType);
                 connector.setNoCompressionUserAgent(noCompressionUserAgent);

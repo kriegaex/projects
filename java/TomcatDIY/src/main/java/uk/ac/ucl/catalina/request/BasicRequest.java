@@ -1,5 +1,8 @@
 package uk.ac.ucl.catalina.request;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.BufferedReader;
@@ -15,6 +18,7 @@ import java.util.Map;
  * BaseRequest implements HttpServletRequest
  * Request class will extend this class to reduce abundant code
  */
+
 public class BasicRequest implements HttpServletRequest {
     @Override
     public String getAuthType() {

@@ -1,12 +1,12 @@
 package uk.ac.ucl.util.monitor;
 
-import org.apache.logging.log4j.LogManager;
 import uk.ac.ucl.catalina.conf.Host;
 import uk.ac.ucl.util.Constant;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+
 
 public class WarFileMonitor implements Runnable {
     private static final String WAR_INDICATOR = ".war";

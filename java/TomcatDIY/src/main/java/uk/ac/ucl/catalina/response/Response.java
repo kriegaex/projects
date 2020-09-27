@@ -3,6 +3,8 @@ package uk.ac.ucl.catalina.response;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.Cookie;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Repository
+@Scope("prototype")
 @Getter @Setter
 public class Response extends BasicResponse {
     private StringWriter stringWriter;

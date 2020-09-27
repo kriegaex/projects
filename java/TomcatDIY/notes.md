@@ -115,8 +115,6 @@ Definning a set of methods that a servlet uses to communicate with its servlet c
 
 
 
-
-
 # Servlet Life-cycle #
 
 ### How Tomcat works with servlets ###
@@ -153,7 +151,7 @@ The meaning of `destroy()` in java servlet is, the content gets executed just be
 
 
 
-# Cookie #
+# Cookie
 
 
 
@@ -161,13 +159,13 @@ The meaning of `destroy()` in java servlet is, the content gets executed just be
 
 
 
-# JSP #
+# JSP
 
 ### Jasper
 
 Jasper is Tomcat's JSP Engine. Jasper [parses](https://en.wikipedia.org/wiki/Parsing) [JSP](https://en.wikipedia.org/wiki/JavaServer_Pages) files to compile them into Java code as servlets (that can be handled by Catalina). At runtime, Jasper detects changes to JSP files and recompiles them.(from wiki)
 
-#### Goals ####
+#### Goals
 
 - Recompile JSP when included page changes** - Jasper 2 can now detect when a page included at compile time from a JSP has changed and then recompile the parent JSP.
 - The servlet which implements Jasper is configured using init parameters in your global `$CATALINA_BASE/conf/web.xml`.
@@ -194,5 +192,52 @@ JspClassLoader is responsible for loading the class file compiled from JSP.
 
 ### How does jsp works ###
 
-Guide here : https://stackoverflow.com/questions/10607415/how-does-jsp-work
+More Guidance is here : https://stackoverflow.com/questions/10607415/how-does-jsp-work
 
+
+
+## Catalina
+
+### Connector
+
+Tomcat has a couple of connectors to choose from, includes `bio` and `nio`.
+
+
+
+#### Blocking I/O (bio)
+
+It uses a thread pool where each thread receives a request, handles it, responds, and is returned to the pool. During blocking operations (e.g. reading from database or calling an external API) the thread is blocked.
+
+#### Non-blocking I/O (nio) (Default connector)
+
+It uses the java NIO library and multiplexes between requests. It has two thread pools – one holds the the poller threads, which handle all incoming requests and push these requests to be handled by worker threads, held in another pool. Both pool sizes are configurable.
+
+
+
+#### bio VS nio
+
+If you mostly have regular request-response usage, then it doesn’t matter, and even BIO might be a better choice. If you have long-living connections, then NIO is the better choice, because it can server more concurrent users without the need to dedicate a blocked thread to each.
+
+
+
+# 301 and 302 redirect
+
+## What is 301 and Why use it?
+
+A 301 redirect sends the message to search engines that a website or page has been moved **permanently**.
+
+Many people use this type of redirect when they purchase domains that they want being sent to their primary domain (misspellings of a brand, variations of your brand, or relevant domains with high “Domain Authority”).
+
+When you use a 301, Google removes the old page from their index and most value (link equity) from that page is transferred to the new one.
+
+That being said, it’s important to note that anytime you move a page from one URL to another, it will take search engines some time to notice the change and see any potential impact/change in rankings.
+
+## What is 302 and Why use it?
+
+A 302 redirect lets search engines know that a website or page has been moved **temporarily**.
+
+You would use this type of redirect if you want to send users to a new site or page for a short period of time, such as when you’re redesigning or updating your website. You only use a 302 if you’re planning on eventually bringing the old page back.
+
+When used correctly, **a 302 redirect will not hurt your SEO efforts**.
+
+When you choose this type of redirect, the original page remains indexed in Google and no value (link equity) is transferred to the new URL because Google knows this is just temporary. Thus you’ll retain any rankings, traffic value, and authority that page might have.

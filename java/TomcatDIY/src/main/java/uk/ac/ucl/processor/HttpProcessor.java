@@ -1,19 +1,18 @@
 package uk.ac.ucl.processor;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
 import uk.ac.ucl.catalina.conf.Connector;
 import uk.ac.ucl.catalina.request.Request;
 import uk.ac.ucl.catalina.response.Response;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.filter.ApplicationFilterChain;
-import uk.ac.ucl.module.DefaultServlet;
-import uk.ac.ucl.module.InvokerServlet;
-import uk.ac.ucl.module.JspServlet;
 import uk.ac.ucl.session.SessionManager;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.Zipper;
-
 
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 
+@Repository
 public class HttpProcessor {
+    private final Logger logger = LogManager.getLogger();
     public void execute(Socket socket, Request request, Response response) {
         try {
             String uri = request.getUri();
@@ -35,18 +36,19 @@ public class HttpProcessor {
             String servletClassName = context.getServletClassName(uri);
             HttpServlet workingServlet;
             if (servletClassName != null) {
-                workingServlet = InvokerServlet.getInstance();
+                workingServlet = ApplicationContextHolder.getBean("invokerServlet");
             }
             else if (uri.endsWith(".jsp")) {
-                workingServlet = JspServlet.getInstance();
+                workingServlet = ApplicationContextHolder.getBean("jspServlet");
             }
             else {
-                workingServlet = DefaultServlet.getInstance();
+                workingServlet = ApplicationContextHolder.getBean("defaultServlet");
             }
             List<Filter> filters =
                     request.getContext().getMatchedFilters(request.getRequestURI());
             ApplicationFilterChain filterChain
-                    = new ApplicationFilterChain(filters, workingServlet);
+                    = ApplicationContextHolder.getBean(
+                            "applicationFilterChain", filters, workingServlet);
             filterChain.doFilter(request, response);
 
             // If the request is forwarded, the processor stops processing it.
@@ -65,7 +67,7 @@ public class HttpProcessor {
                 return;
             }
         } catch (Exception e) {
-            LogManager.getLogger().error(e);
+            logger.error(e);
             e.printStackTrace();
             handle500(socket, e);
         }
@@ -119,7 +121,7 @@ public class HttpProcessor {
     }
 
     /**
-     * When the status code is 200, display the content of the web page
+     * When the status code is 200, display the content of the resource
      * @param socket
      * @param response
      * @throws IOException
@@ -163,9 +165,11 @@ public class HttpProcessor {
             e.printStackTrace();
         }
     }
-
+    /**
+     * When server-side error occurs
+     */
     private void handle500(Socket s, Exception e){
-        StackTraceElement traceElement[] = e.getStackTrace();
+        StackTraceElement[] traceElement = e.getStackTrace();
         StringBuffer buffer = new StringBuffer();
         buffer.append(e.toString());
         buffer.append("\r\n");
@@ -177,10 +181,10 @@ public class HttpProcessor {
         // If there is over 20 messages, only displays the previous 20 lines
         String msg = e.getMessage();
         if (msg != null && msg.length() > 20){
-            msg.substring(0, 19);
+            msg = msg.substring(0, 19);
         }
         String text = StrUtil.format(Constant.textFormat_500,
-                e.toString(), buffer.toString());
+                msg, buffer.toString());
         text = Constant.response_head_500 + text;
         try {
             OutputStream outputStream = s.getOutputStream();
@@ -191,6 +195,11 @@ public class HttpProcessor {
         }
     }
 
+    /**
+     * Both 301 redirect and 302 redirect is handled by the same method
+     * @param socket
+     * @param response
+     */
     private void handle302(Socket socket, Response response) {
         try {
             OutputStream os = socket.getOutputStream();

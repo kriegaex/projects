@@ -3,19 +3,24 @@ package uk.ac.ucl.catalina.conf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.core.TimeUtil;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Component
 public class Server {
     private Logger logger = LogManager.getLogger();
 
     public Service service;
 
     public Server(){
-        this.service = new Service(this);
     }
 
     public void start(){
@@ -26,6 +31,9 @@ public class Server {
     }
 
     private void init() {
+        // Initialise ApplicationContext
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        service = ApplicationContextHolder.getBean("service");
         service.start();
     }
 

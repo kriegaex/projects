@@ -3,7 +3,10 @@ package uk.ac.ucl.catalina.conf;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import uk.ac.ucl.context.Context;
+import uk.ac.ucl.util.ApplicationContextHolder;
 import uk.ac.ucl.util.Constant;
 import uk.ac.ucl.util.core.StrUtil;
 import uk.ac.ucl.util.io.ServerXMLParsing;
@@ -16,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
+@Scope("prototype")
 @Getter @Setter
 public class Host {
     private String name;
@@ -31,7 +36,7 @@ public class Host {
         scanServerXml();
         scanWarInWebApp();
 
-        WarFileMonitor monitor = new WarFileMonitor(this);
+        WarFileMonitor monitor = ApplicationContextHolder.getBean("warFileMonitor", this);
         new Thread(monitor).start();
     }
 
@@ -44,7 +49,8 @@ public class Host {
         // Adding the context of the root folder to the context map
         String rootPath = "/";
         String rootDocBase = Constant.rootFolder.getAbsolutePath();
-        contextMap.put(rootPath, new Context(rootPath, rootDocBase, this, true));
+        contextMap.put(rootPath,
+                ApplicationContextHolder.getBean("context", rootPath, rootDocBase, this, true));
         // Adding contexts of all directories under root folder to the context map
         for (File file : files){
             String path = "/" + file.getName();
@@ -56,7 +62,9 @@ public class Host {
             else{
                 docBase = file.getParentFile().getAbsolutePath();
             }
-            Context context = new Context(path, docBase, this, true);
+            Context context =
+                    ApplicationContextHolder.getBean("context", path, docBase, this, true);
+
             contextMap.put(context.getPath(), context);
         }
     }
@@ -87,7 +95,7 @@ public class Host {
         context.stop();
         contextMap.remove(path);
 
-        Context newContxt = new Context(path, docBase, this, reloadable);
+        Context newContxt = ApplicationContextHolder.getBean("context", path, docBase, this, reloadable);
         contextMap.put(path, newContxt);
     }
 
@@ -96,7 +104,7 @@ public class Host {
     public void load(File folder) {
         String path = "/" + folder.getName();
         String docBase = folder.getAbsolutePath();
-        Context context = new Context(path, docBase, this, false);
+        Context context = ApplicationContextHolder.getBean("context", path, docBase, this, false); ;
         contextMap.put(path, context);
     }
 

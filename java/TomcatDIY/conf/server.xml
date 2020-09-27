@@ -11,11 +11,11 @@
         <Connector port="18082"/>
         <Engine defaultHost="localhost">
             <Host name="localhost">
-                <Context path="/a/index.html"
-                         docBase="/Users/chaozy/Desktop/CS/projects/java/TomcatDIY/src/main/webapp/a/" />
-                <Context path="/example"
-                         docBase="/Users/chaozy/Desktop/example/web"
-                         reloadable="true"/>
+            <Context path="/a/index.html"
+                     docBase="/Users/chaozy/Desktop/CS/projects/java/TomcatDIY/src/main/webapp/a/" />
+            <Context path="/example"
+                     docBase="/Users/chaozy/Desktop/example/web"
+                     reloadable="true"/>
             </Host>
         </Engine>
     </Service>

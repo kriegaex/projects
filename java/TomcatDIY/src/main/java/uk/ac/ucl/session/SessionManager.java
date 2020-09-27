@@ -118,7 +118,7 @@ public class SessionManager {
         if (ss == null) {
             return newSession(request, response);
         }
-        ss.setLastAccessTime(System.currentTimeMillis());
+        ss.setLastAccessedTime(System.currentTimeMillis());
         createCookieBySession(ss, request, response);
         return ss;
     }

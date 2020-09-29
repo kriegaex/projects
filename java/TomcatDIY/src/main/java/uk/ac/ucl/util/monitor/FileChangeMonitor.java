@@ -1,6 +1,7 @@
 package uk.ac.ucl.util.monitor;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import uk.ac.ucl.context.Context;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ public class FileChangeMonitor implements Runnable {
     private boolean stop = false;
     private Path path;
     private Context context;
+    private Logger logger = LogManager.getLogger();
 
     public FileChangeMonitor(Path path, Context context) throws IOException {
         this.path = path;
@@ -29,7 +31,7 @@ public class FileChangeMonitor implements Runnable {
                 for (WatchEvent<?> event : key.pollEvents()){
                     String fileName = event.context().toString();
                     if (fileName.endsWith(".jar") || fileName.endsWith(".class") || fileName.endsWith(".xml")){
-                        LogManager.getLogger().info(this + " has detected modification about {}", fileName);
+                        logger.info(this + " has detected modification about {}", fileName);
                         context.reload();
                     }
                 }

@@ -29,8 +29,8 @@ public class Bootstrap {
         // The Context class loader is the class loader that the thread will use to find classes
         Thread.currentThread().setContextClassLoader(commonClassLoader);
 
-        String serverClassName = initialClassName;
-        Class<?> serverClass = commonClassLoader.loadClass(serverClassName);
+        Class<?> serverClass = commonClassLoader.loadClass(initialClassName);
+        System.out.println(serverClass.getClassLoader());
         Constructor<?> constructor = serverClass.getConstructor();
         Object serverObject = constructor.newInstance();
         Method m = serverClass.getMethod(initialMethodName);

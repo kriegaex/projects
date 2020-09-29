@@ -25,9 +25,9 @@ public class ServerXMLParsing {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
             Elements elements = document.select(XMLTags.CONTEXT_TAG);
             for (Element element : elements){
-                String path = element.attr("path");
-                String docBase = element.attr("docBase");
-                boolean reloadable = element.attr("reloadable").equals("true");
+                String path = element.attr(XMLTags.PATH);
+                String docBase = element.attr(XMLTags.DOC_BASE);
+                boolean reloadable = element.attr(XMLTags.RELOADABLE).equals("true");
                 Context context = new Context(path, docBase, host, reloadable);
                 list.add(context);
             }
@@ -46,7 +46,7 @@ public class ServerXMLParsing {
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
             Element host = document.select(XMLTags.ENGINE_TAG).first();
-            hostName = host.attr("defaultHost");
+            hostName = host.attr(XMLTags.DEFAULT_HOST);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class ServerXMLParsing {
         try {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
             Element host = document.select(XMLTags.SERVICE_TAG).first();
-            serviceName = host.attr("name");
+            serviceName = host.attr(XMLTags.SERVICE_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class ServerXMLParsing {
             Elements elements = document.select(XMLTags.HOST_TAG);
             for (Element element : elements){
                 Host host = ApplicationContextHolder.getBean(
-                        "host", element.attr("name"), engine);
+                        "host", element.attr(XMLTags.HOST_NAME), engine);
                 hosts.add(host);
             }
         } catch (IOException e) {
@@ -99,19 +99,19 @@ public class ServerXMLParsing {
             Document document = Jsoup.parse(Constant.confServerXML, "utf-8");
             Elements elements = document.select(XMLTags.CONNECTOR_TAG);
             for (Element element : elements) {
-                int port = Integer.parseInt(element.attr("port"));
-                String compression = element.attr("compression");
+                int port = Integer.parseInt(element.attr(XMLTags.PORT));
+                String compression = element.attr(XMLTags.COMPRESSION);
                 int compressionMinSize;
-                if (element.attr("compressionMinSize").equals("")){
+                if (element.attr(XMLTags.COMPRESSION_MIN_SIZE).equals("")){
                     compressionMinSize = 0;
                 }
                 else{
                     compressionMinSize =
-                            Integer.parseInt(element.attr("compressionMinSize"));
+                            Integer.parseInt(element.attr(XMLTags.COMPRESSION_MIN_SIZE));
                 }
 
-                String noCompressionUserAgent = element.attr("noCompressionUserAgent");
-                String compressionMimeType = element.attr("compressionMimeType");
+                String noCompressionUserAgent = element.attr(XMLTags.UNACCEPTED_AGENT);
+                String compressionMimeType = element.attr(XMLTags.COMPRESSION_MIME_TYPE);
 
                 Connector connector = ApplicationContextHolder.getBean("connector");
                 connector.setCompression(compression);

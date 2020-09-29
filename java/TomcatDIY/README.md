@@ -2,6 +2,10 @@
 
 DIYTomcat is a self-learning, educative java project that establishes a simple http server. It follows the basic design of the Apache Tomcat and implements parts of its components, such as the servlet container Catalina, JSP translator and compiler Jasper. It was definitely a personal project that I used to learn the structure of a web server, the principles of http protocol and the techniques in java programming. 
 
+**UPDATE**
+
+I have reconstructed the project with Spring in order to builder stronger code. Both `IOC` and `AOP`  are applied into the work. The structure still remains a little bit of unclear, since it is my first complicated project. I will keep developing it in the future.
+
 ## Learning Material
 
 Most of the knowledge comes from [the official website of Apache Tomcat](http://tomcat.apache.org/). It clearly explains the structure of the Tomcat, which provides the undelying principle and other useful informations. 

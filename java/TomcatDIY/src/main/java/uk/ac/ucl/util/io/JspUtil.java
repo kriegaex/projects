@@ -9,6 +9,7 @@ import uk.ac.ucl.util.core.StrUtil;
 import java.io.File;
 
 /**
+ * This class is derived from the source code of Apache Tomcat.
  * JspUtil aims to translate JSP to .java and compile it.
  * The main class here is jasper.JspC
  */
@@ -96,7 +97,6 @@ public class JspUtil {
     public static String getServletPath(String uri, String subFolder) {
         String tempPath = "org/apache/jsp/" + StrUtil.subAfter(uri, "/", true);
         File temp = new File(Constant.workFolder, subFolder);
-//        File tempFile = FileUtil.file(Constant.workFolder, subFolder, tempPath);
         File tempFile = new File(temp, tempPath);
         String fileNameOnly = tempFile.getName();
         String classFileName = JspUtil.makeJavaIdentifier(fileNameOnly);

@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import uk.ac.ucl.context.Context;
 import uk.ac.ucl.util.Constant;
+import uk.ac.ucl.util.XMLTags;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +24,10 @@ public class WebXMLParsing {
     private static synchronized void initMimeType(){
         try {
             Document document = Jsoup.parse(Constant.webXMLFile, "utf-8");
-            Elements elements = document.select("mime-mapping");
+            Elements elements = document.select(XMLTags.MIME_MAPPING);
             for (Element element : elements){
-                String extension = element.select("extension ").first().text();
-                String mimeType = element.select("mime-type").first().text();
+                String extension = element.select(XMLTags.EXTENSION).first().text();
+                String mimeType = element.select(XMLTags.MIME_TYPE).first().text();
                 mimeTypeMapping.put(extension, mimeType);
             }
         } catch (IOException e) {
@@ -40,7 +41,7 @@ public class WebXMLParsing {
 
         if (mimeType == null){
             // return default type if no corresponding configuration
-            return "text/html";
+            return XMLTags.DEFAULT_MIME_TYPE;
         }
         return mimeType;
     }
@@ -48,7 +49,7 @@ public class WebXMLParsing {
     public static String getWelcomeFileName(Context context) {
         try {
             Document document = Jsoup.parse(Constant.webXMLFile, "utf-8");
-            Elements elements = document.select("welcome-file");
+            Elements elements = document.select(XMLTags.WELCOME_FILE);
             for (Element element : elements){
                 File file = new File(context.getDocBase(), element.text());
                 if (file.exists()){
@@ -58,7 +59,7 @@ public class WebXMLParsing {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "index.html";
+        return XMLTags.DEFAULT_WELCOME_FILE;
     }
 
 }

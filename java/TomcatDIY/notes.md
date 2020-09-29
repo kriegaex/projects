@@ -220,9 +220,15 @@ If you mostly have regular request-response usage, then it doesn’t matter, and
 
 
 
-# 301 and 302 redirect
+# Redirect
 
-## What is 301 and Why use it?
+
+
+
+
+## 301 and 302 client-side redirect
+
+### What is 301 and Why use it?
 
 A 301 redirect sends the message to search engines that a website or page has been moved **permanently**.
 
@@ -232,7 +238,7 @@ When you use a 301, Google removes the old page from their index and most value 
 
 That being said, it’s important to note that anytime you move a page from one URL to another, it will take search engines some time to notice the change and see any potential impact/change in rankings.
 
-## What is 302 and Why use it?
+### What is 302 and Why use it?
 
 A 302 redirect lets search engines know that a website or page has been moved **temporarily**.
 

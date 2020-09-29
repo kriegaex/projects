@@ -29,8 +29,9 @@ public class Connector implements Runnable {
     /**
      * In order to create tomcat-style log
      */
-    public void init() {
-        LogManager.getLogger().info("Initializing ProtocolHandler [http-bio-{}]", port);
+    public void init(int port) {
+        System.out.println(this.getClass().getClassLoader());
+        //LogManager.getLogger().info("Initializing ProtocolHandler [http-bio-{}]", port);
     }
 
     public void start() {

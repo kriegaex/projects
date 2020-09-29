@@ -28,19 +28,21 @@ public class Service {
         this.connectors = ServerXMLParsing.getConnectors(this);
     }
 
-    public void start() { init(); }
+    public void start() {
+        init();
+        // Each connector will start to listen for connection signals
+        for (Connector connector : connectors) {
+            connector.start();
+        }
+    }
 
     public void init() {
         TimeUtil timeUtil = new TimeUtil();
         for (Connector connector : connectors) {
             connector.setService(this);
-            connector.init();
+            connector.init(connector.getPort());
         }
         LogManager.getLogger().info("Initialization processed in {} ms",
                 timeUtil.interval());
-        // Each connector will start to listen for connection signals
-        for (Connector connector : connectors) {
-            connector.start();
-        }
     }
 }

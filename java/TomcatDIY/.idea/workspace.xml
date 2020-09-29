@@ -4,21 +4,7 @@
     <list default="true" id="dbd6459f-f558-4367-9905-9907bec87d54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../Python/projectEuler/.sd-3layers.jpg.icloud" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.jar" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/Bootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Connector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Connector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/conf/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/catalina/request/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/AOP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/AOP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/XMLTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/XMLTags.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ContextXMLUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ContextXMLUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/JspUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/JspUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/ServerXMLParsing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/WebXMLParsing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/io/WebXMLParsing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/monitor/FileChangeMonitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uk/ac/ucl/util/monitor/FileChangeMonitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/beans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/beans.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -194,7 +180,7 @@
       <workItem from="1601006136489" duration="5124000" />
       <workItem from="1601026681225" duration="26962000" />
       <workItem from="1601201970500" duration="34000" />
-      <workItem from="1601202040340" duration="18368000" />
+      <workItem from="1601202040340" duration="18888000" />
     </task>
     <servers />
   </component>
